@@ -1,93 +1,52 @@
-import React, {Component} from 'react';
-import axios from 'axios';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route
+  } from "react-router-dom";
 
-function Card (props) {
-  return( 
-    <div className="card card-body mb-3">
-      <img style={{width: "100%"}} src={`http://localhost:5000/image/${props.fileName}`} alt="dog"/>
-      <form 
-        method="POST" 
-        action={`http://localhost:5000/files/${props.fileId}?_method=DELETE`}  // wysyłamy tutaj metodą POST, ale tak na prawdę w query paramsach przesyłam _method=DELETE, które w back-endzie zostanie odebrane przez methodoverwrite
-      >
-        <button className="btn btn-danger btn-block mt-4">Delete</button>
-      </form>
-    </div>
-  )
-};
+import { Navigation } from 'components';
+import GlobalStyles from './index.css';
 
-class App extends Component {
-  state={
-    selectedFile: null,
-    files: [],
-  }
-  
-  componentDidMount(){
-    axios.get('http://localhost:5000/')
-    .then(res => {
-      if(res.data.length > 0){
-        const files = Array.from(res.data);        
-        this.setState({
-          files,
-        })
-      }
-    });
-  };
+import theme from 'utils/theme';
 
-	fileSelectedHandles = (event) => {
-      this.setState({
-        selectedFile: event.target.files[0],
-      })
-  };
-  
-  fileUploadHandler = () => {
-    const fd = new FormData();
-    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    axios.post('http://localhost:5000/upload', fd)
-      .then(res => {
-        console.log(res);
-      });
-  };
-
-	render() {
-		return (
-			<div className="container">
-				<div className="row">
-					<div className="col-md-6 m-auto">
-						<h1 className="text-center display-4  my-4">Here are your favourite images!</h1>
-						<form action="http://localhost:5000/upload" method="POST" encType="multipart/form-data">
-							<div className="custom-file mb-3">
-								<input
-									onChange={this.fileSelectedHandles}
-									type="file"
-									name="file"
-									id="file"
-									className="custom-file-input"
-								/>
-								<label htmlFor="file" className="custom-file-label">
-									Choose File
-								</label>
-							</div>
-							<input
-								type="submit"
-                value="Submit"
-                onSubmit={this.fileUploadHandler}
-								className="btn btn-primary btn-block"
-							/>
-						</form>
-            <hr/>
-              {this.state.files.length !== 0 ? this.state.files.map((file) => 
-                <Card 
-                  key={file._id} 
-                  fileId={file._id}
-                  fileName={file.filename} 
-                />
-              ) : <div>No images!</div>}
-					</div>
-				</div>
-			</div>
-		);
-	}
+function App() {
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalStyles/>
+			<Router>
+				<Navigation items={[
+					{ content: 'Edit profile', to: '/user/edit-profile' },
+					{ content: 'Recipes list', to: '/' },
+					{ content: 'Add recipe', to: '/add-recipe' },
+					{ content: 'Favourites', to: '/favourites' },
+					{ content: 'Shopping list', to: '/shoppinglist' },
+					{ content: 'Settings', to: '/settings' },
+				]}/>
+				<Switch>
+					<Route exact path="/">
+						Homepage
+					</Route>
+					<Route path="/user/edit-profile">
+						Edit profile
+					</Route>
+					<Route path="/add-recipe">
+						Add recipe
+					</Route>
+					<Route path="/favourites">
+						Favourites
+					</Route>
+					<Route path="/shoppinglist">
+						Shopping list
+					</Route>
+					<Route path="/settings">
+						Settings
+					</Route>
+				</Switch>
+			</Router>
+		</ThemeProvider>
+	);
 }
 
 export default App;
