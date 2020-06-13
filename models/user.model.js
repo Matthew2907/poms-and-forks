@@ -21,7 +21,7 @@ const userSchema = new Schema({
 		type: Number,
 		require: true
 	},
-	userAvatarImage: {		//TODO: Zamienić na prawdiłowe dodawanie grafiki do MongoDB
+	userAvatarImage: {		// nazwa grafiki, back-end szuka po nazwie 
 		type: String,
 		required: true,
 		unique: true,

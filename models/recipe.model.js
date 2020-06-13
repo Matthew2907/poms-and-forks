@@ -18,8 +18,8 @@ const recipeSchema = new Schema({		// schemat modelu user ma tylko pole username
 		recipeCarbohydrate: { type: Number, require: true},
 		recipeIngredients: {type: Array, require: true},
 		recipeDescriptionInSteps: {type: Array, require: true},
+		recipeImageNames: {type: Array, require: true},	// tablica stringów z nazwami obrazków. Back-end szuka po nazwie zdjęć w bazie MongoDB na roucie http://localhost:5000/image/nazwaZdjecia
 		date: { type: Date, require: true, default: Date.now},
-		userAvatarImage: { type: String, require: true }, //TODO: Zamienić na prawdiłowe dodawanie grafiki do MongoDB
 	},
 {
 	timestamps: true,  // kiedy został stworzony oraz kiedy został zmodyfikowany

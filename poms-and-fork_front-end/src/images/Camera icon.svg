@@ -1,0 +1,10 @@
+<svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Camera icon">
+<path id="Rectangle 29" d="M0.25 2.25H13.75V9.75H0.25V2.25Z" fill="white" stroke="black" stroke-width="0.5"/>
+<path id="Rectangle 30" d="M4.40451 2.25L5.15451 0.75H9.84549L10.5955 2.25H4.40451Z" fill="white" stroke="black" stroke-width="0.5"/>
+<path id="Vector 18" d="M2 2H3" stroke="black" stroke-width="0.5"/>
+<circle id="Ellipse 13" cx="7.5" cy="5.5" r="2.25" fill="white" stroke="black" stroke-width="0.5"/>
+<circle id="Ellipse 14" cx="13.5" cy="2.5" r="2.25" fill="white" stroke="black" stroke-width="0.5"/>
+<path id="Vector 19" d="M13.5 1.5V2.5M13.5 1V2.5M13.5 2.5V4V3.5V2.5ZM13.5 2.5H12H15" stroke="black" stroke-width="0.5"/>
+</g>
+</svg>

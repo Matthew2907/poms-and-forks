@@ -29,9 +29,9 @@ router.route('/add').post((req,res) => {
 	const recipeCarbohydrate = Number(req.body.recipeCarbohydrate);
 	const recipeIngredients = Array.from(req.body.recipeIngredients);
 	const recipeDescriptionInSteps = Array.from(req.body.recipeDescriptionInSteps);
+	const recipeImageNames = Array.from(req.body.recipeImageNames);
 	const date = Date.parse(req.body.date);	
-	const recipeImagesIds = Array.from(req.body.recipeImagesIds);
-
+	
 	const newRecipe = new Recipe({
 		recipeUserId,
 		recipeTitle,
@@ -48,8 +48,8 @@ router.route('/add').post((req,res) => {
 		recipeCarbohydrate,
 		recipeIngredients,
 		recipeDescriptionInSteps,
+		recipeImageNames,
 		date,
-		recipeImagesIds,
 	});
 
 	newRecipe.save()
@@ -81,8 +81,8 @@ router.route('/update/:id').post((req, res) => {
 			recipe.recipeCarbohydrate = Number(req.body.recipeCarbohydrate);
 			recipe.recipeIngredients = Array.from(req.body.recipeIngredients);
 			recipe.recipeDescriptionInSteps = Array.from(req.body.recipeDescriptionInSteps);
+			recipe.recipeImageNames = Array.from(req.body.recipeImageNames);
 			recipe.date = Date.parse(req.body.date);
-			recipe.recipeImagesIds = Array.from(req.body.recipeImagesIds);
 		
 			recipe.save()
 				.then(() => res.json('Recipe updated!'))

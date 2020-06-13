@@ -22,13 +22,16 @@ app.use(express.json());  // tu jest zwarty bodyParser
 
 //nowe linijki z Uploading file - dzięki tej paczce wszystko co przyjdzie w quesry paramsach pod kluczem _method=... będzie nadpisane jako typ metody HTTP
 app.use(methodOverride('_method')); // chcemy używać query stringa który stworzy nasz formularz na froncie w celu wykonania DELETE REQUEST
-//nowe linijki z Uploading file
-
+//nowe linijki z Uploading filemongoose.set('useUnifiedTopology', true)
 const uri = process.env.ATLAS_URI;		// tutaj przechowywane sa nasze dane 
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
+
+mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true})
+	.then(() => console.log('DB Connected!'))
+	.catch(err => {
+		console.log(err);
+});
+
 const connection = mongoose.connection;
-
-
 //nowe linijki z Uploading file
 let gfs;  // Inicjalizacja gridfs
 //nowe linijki z Uploading file
@@ -46,6 +49,7 @@ connection.once('open', () => {
 // Create storage engine
 const storage = new GridFsStorage({
 	url: uri,
+	options: { useUnifiedTopology: true, useNewUrlParser: true },		// rozwiązuje problem z DeprecationWarning
 	file: (req, file) => {
 		return new Promise((resolve, reject) => {
 			crypto.randomBytes(16, (err, buf) => {

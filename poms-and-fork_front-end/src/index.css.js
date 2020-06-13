@@ -7,15 +7,19 @@ export default createGlobalStyle`
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: Montserrat, Arial, sans-serif;
+	}
+	
+	body {
+		background-color: ${({theme}) => theme.colors.gray.light}
 	}
 
 	ul {
 		list-style: none;
-		margin: 0;
-		padding: 0;
-		li + li {
-			margin-left: ${({theme}) => theme.spacing.xs}px;
-		}
+	}
+
+	p {
+		font-weight: bold;
+		font-size: 12px;
 	}
 `;

@@ -1,0 +1,10 @@
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Settings icon">
+<rect id="Rectangle 32" x="11.5" y="5.5" width="2" height="14" rx="0.5" fill="black" stroke="black"/>
+<rect id="Rectangle 33" x="5.5" y="13.5" width="2" height="14" rx="0.5" transform="rotate(-90 5.5 13.5)" fill="black" stroke="black"/>
+<rect id="Rectangle 34" x="6.74531" y="8.15955" width="2" height="14.2608" rx="0.5" transform="rotate(-45 6.74531 8.15955)" fill="black" stroke="black"/>
+<path id="Rectangle 35" d="M17.4242 7.01086L18.1313 7.71796C18.3266 7.91322 18.3266 8.22981 18.1313 8.42507L8.55137 18.005C8.35611 18.2003 8.03953 18.2003 7.84426 18.005L7.13716 17.2979C6.9419 17.1027 6.9419 16.7861 7.13716 16.5908L16.7171 7.01086C16.9124 6.81559 17.229 6.81559 17.4242 7.01086Z" fill="black" stroke="black"/>
+<circle id="Ellipse 17" cx="12.5" cy="12.5" r="5" fill="black"/>
+<circle id="Ellipse 18" cx="12.5" cy="12.5" r="2" fill="#C4C4C4"/>
+</g>
+</svg>

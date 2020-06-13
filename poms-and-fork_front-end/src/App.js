@@ -1,52 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route
-  } from "react-router-dom";
 
-import { Navigation } from 'components';
+import { Homepage, AddRecipePage, SingleRecipePage } from 'pages';
+import { Navigation, Wrapper, LoadingIndicator } from 'components';
 import GlobalStyles from './index.css';
-
 import theme from 'utils/theme';
+import { fetchUsers, fetchRecipes, fetchImages } from 'data/actions/data.actions';
 
-function App() {
+function App({ fetchUsers, fetchRecipes, fetchImages }) {
+	
+	useEffect(() => {
+		fetchUsers();
+		fetchRecipes();
+		fetchImages();
+	}, [fetchUsers, fetchRecipes, fetchImages])
+	
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles/>
-			<Router>
-				<Navigation items={[
-					{ content: 'Edit profile', to: '/user/edit-profile' },
-					{ content: 'Recipes list', to: '/' },
-					{ content: 'Add recipe', to: '/add-recipe' },
-					{ content: 'Favourites', to: '/favourites' },
-					{ content: 'Shopping list', to: '/shoppinglist' },
-					{ content: 'Settings', to: '/settings' },
-				]}/>
-				<Switch>
-					<Route exact path="/">
-						Homepage
-					</Route>
-					<Route path="/user/edit-profile">
-						Edit profile
-					</Route>
-					<Route path="/add-recipe">
-						Add recipe
-					</Route>
-					<Route path="/favourites">
-						Favourites
-					</Route>
-					<Route path="/shoppinglist">
-						Shopping list
-					</Route>
-					<Route path="/settings">
-						Settings
-					</Route>
-				</Switch>
+			<Router>		
+				<Navigation/>
+				<Wrapper>
+					<Switch>
+						<Route exact path="/" component={Homepage}/>
+						<Route path="/recipe/:id" component={SingleRecipePage}/>	
+						<Route path="/user/edit-profile" component={AddRecipePage}/>
+						<Route path="/add-recipe" component={AddRecipePage}/>
+						<Route path="/favourites" component={AddRecipePage}/>
+						<Route path="/shoppinglist" component={AddRecipePage}/>
+						<Route path="/settings" component={AddRecipePage}/>
+					</Switch>
+				</Wrapper>
 			</Router>
 		</ThemeProvider>
 	);
 }
 
-export default App;
+const ConnectedApp = connect(null, {
+	fetchUsers,
+	fetchRecipes,
+	fetchImages,
+})(App)
+
+function RootApp() {
+	return (
+		<React.Suspense fallback={<LoadingIndicator/>}>
+			<ConnectedApp />		
+	  </React.Suspense> 
+	)
+}
+
+export default RootApp;
