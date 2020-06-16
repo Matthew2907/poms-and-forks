@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Topbar from './Topbar';
-import Content from './Content';
+import { Topbar, Content } from './components';
 import { hideNavigation } from 'data/actions/app.actions';
 
 function AddRecipePage({hideNavigation}){

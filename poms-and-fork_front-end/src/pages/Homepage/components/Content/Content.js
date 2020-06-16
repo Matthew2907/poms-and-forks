@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import {
 	ContentCantainer,
@@ -12,8 +12,15 @@ import {
 	ImageContainer,
 	RecipeTitle,
 } from './RecipeList.css';
+import { fetchRecipes } from 'data/actions/data.actions';
 
-function Content({recipes}) {
+function Content({fetchRecipes, recipes}) {
+	
+	useEffect(() => {
+		fetchRecipes();
+	}, [fetchRecipes])
+	
+	
 	const newRecipesArr = [...recipes];	// tablica obiektów
 	const index = Math.floor(Math.random() * recipes.length);
 	const deletedRecipe = newRecipesArr.splice(index, 1);
@@ -52,4 +59,8 @@ const mapStateToProps = (state) => ({
 	recipes: state.data.recipes,
 });
 
-export default connect(mapStateToProps)(Content);
+const mapDispatchToProps = dispatch => ({
+	fetchRecipes: () => dispatch(fetchRecipes()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

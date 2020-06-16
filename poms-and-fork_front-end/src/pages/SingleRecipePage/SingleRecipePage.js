@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 
-import Topbar from './Topbar';
-import Bottombar from './Bottombar';
-import Content from './Content'; 
+import { Topbar, Content, Bottombar } from './components'; 
+import { LoadingIndicator } from 'components';
 import { hideNavigation } from 'data/actions/app.actions';
 import { fetchRecipe } from 'data/actions/recipe.actions';
 
-function SingleRecipePage({match, recipe, hideNavigation, fetchRecipe}){
+function SingleRecipePage({match, recipe, recipeState, hideNavigation, fetchRecipe }){
 	useEffect(() => {
 		hideNavigation();
 		fetchRecipe(match.params.id);
 	}, [hideNavigation, fetchRecipe, match.params.id])
 	
+	const isLoaded = useMemo(
+		() => !!recipeState && Object.keys(recipeState).length === 0
+		,[recipeState]
+	); 
+
 	return(
 		<React.Fragment>
 			<Topbar title={recipe.recipeTitle}></Topbar>
-			<Content recipe={recipe}/>
+			{isLoaded ? <Content recipe={recipe}/> : <LoadingIndicator/>}
 			<Bottombar/>
 		</React.Fragment>
 	)
@@ -24,6 +28,7 @@ function SingleRecipePage({match, recipe, hideNavigation, fetchRecipe}){
 
 const mapStateToProps = (state) => ({
 	recipe: state.recipe.recipe,
+	recipeState: state.recipe.loadingState,
   });
 
 const mapDispatchToProps = dispatch => ({

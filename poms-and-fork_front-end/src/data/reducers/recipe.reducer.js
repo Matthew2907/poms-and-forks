@@ -1,5 +1,4 @@
 import {
-	RECIPE_GET,
 	RECIPE_GET_REQUEST,
 	RECIPE_GET_SUCCESS,
 	RECIPE_GET_FAILURE,
@@ -7,7 +6,7 @@ import {
 } from 'data/constants';
 
 const initialState = {
-	loadingState: {},
+	loadingState: null,
 	recipe: {},	
 }
 

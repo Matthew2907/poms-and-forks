@@ -1,6 +1,5 @@
 import React from 'react';
-import Topbar from './Topbar';
-import Content from './Content';
+import { Topbar, Content } from './components';
 
 function Homepage(){
 	return(

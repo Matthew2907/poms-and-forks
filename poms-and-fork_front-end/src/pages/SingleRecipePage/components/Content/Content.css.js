@@ -174,6 +174,7 @@ export const RecipeInfoRecipeAndReviews = styled.section`
 
 export const RecipeAndReviewsActiveBar = styled.div`
 	flex-basis: 100%;
+	margin-top: 5px;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 	
 	>div {

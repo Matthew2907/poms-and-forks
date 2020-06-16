@@ -1,71 +1,28 @@
-import {
-	USERS_GET_REQUEST,
-	USERS_GET_SUCCESS,
-	USERS_GET_FAILURE,
-	RECIPES_GET_REQUEST,
-	RECIPES_GET_SUCCESS,
-	RECIPES_GET_FAILURE,
-	IMAGES_GET_REQUEST,
-	IMAGES_GET_SUCCESS,
-	IMAGES_GET_FAILURE,
-} from 'data/constants';
+import { USERS_GET, RECIPES_GET, IMAGES_GET } from 'data/constants';
 import API from 'data/fetch';
 
-// FIXME: DRY - Stwórz jedną funkcję ogólną i wypełnij ją argumentami dla przypadków pobrania users, recipes oraz images
-
-export const fetchUsers = () => async (dispatch) => {
-	dispatch({
-		type: USERS_GET_REQUEST
-	})
+export const fetchUsers = () => {
+	const promise =  API.data.fetchUsers();	// chcemy zwrócić promise nie rezultat
 	
-	try{
-		const response = await API.budget.fetchUsers();	
-		const data = await response.json();	
-		dispatch({
-			type: USERS_GET_SUCCESS,
-			payload: data,
-		})
-	} catch (error) {
-		dispatch({
-			type: USERS_GET_FAILURE,
-		})
-	}
+	return({
+		promise,   // podkuczem promis będzie znajdował się promis wykonanego requestu do API
+		type: USERS_GET,
+	})
 }
 
-export const fetchRecipes = () => async (dispatch) => {
-	dispatch({
-		type: RECIPES_GET_REQUEST
-	})
+export const fetchRecipes = () => {
+	const promise = API.data.fetchRecipes();	
 	
-	try{
-		const response = await API.budget.fetchRecipes();	
-		const data = await response.json();	
-		dispatch({
-			type: RECIPES_GET_SUCCESS,
-			payload: data,
-		})
-	} catch (error) {
-		dispatch({
-			type: RECIPES_GET_FAILURE,
-		})
-	}
+	return({
+		promise,  
+		type: RECIPES_GET,
+	})
 }
 
-export const fetchImages = () => async (dispatch) => {
-	dispatch({
-		type: IMAGES_GET_REQUEST
+export const fetchImages = () => {
+	const promise = API.data.fetchImages();	
+	return({
+		promise,  
+		type: IMAGES_GET,
 	})
-	
-	try{
-		const response = await API.budget.fetchImages();	
-		const data = await response.json();	
-		dispatch({
-			type: IMAGES_GET_SUCCESS,
-			payload: data,
-		})
-	} catch (error) {
-		dispatch({
-			type: IMAGES_GET_FAILURE,
-		})
-	}
 }

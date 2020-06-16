@@ -7,15 +7,14 @@ import { Homepage, AddRecipePage, SingleRecipePage } from 'pages';
 import { Navigation, Wrapper, LoadingIndicator } from 'components';
 import GlobalStyles from './index.css';
 import theme from 'utils/theme';
-import { fetchUsers, fetchRecipes, fetchImages } from 'data/actions/data.actions';
+import { fetchUsers, fetchImages } from 'data/actions/data.actions';
 
-function App({ fetchUsers, fetchRecipes, fetchImages }) {
+function App({ fetchUsers, fetchImages }) {
 	
 	useEffect(() => {
 		fetchUsers();
-		fetchRecipes();
 		fetchImages();
-	}, [fetchUsers, fetchRecipes, fetchImages])
+	}, [fetchUsers, fetchImages])
 	
 	return (
 		<ThemeProvider theme={theme}>
@@ -40,7 +39,6 @@ function App({ fetchUsers, fetchRecipes, fetchImages }) {
 
 const ConnectedApp = connect(null, {
 	fetchUsers,
-	fetchRecipes,
 	fetchImages,
 })(App)
 
