@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-
+import bgc from 'images/pattern-3371709_1920.jpg';
 //można wykorzystać normalizer styled-normalize, ale tutaj korzystam z standardowej normalizacji
+import { device } from 'utils';
 
 export default createGlobalStyle`
 	* {
@@ -10,8 +11,12 @@ export default createGlobalStyle`
 		font-family: Montserrat, Arial, sans-serif;
 	}
 	
+	#root {
+		overflow:hidden;
+	}
+
 	body {
-		background-color: ${({theme}) => theme.colors.gray.light}
+		background-image: url(${bgc});
 	}
 
 	ul {
@@ -21,5 +26,9 @@ export default createGlobalStyle`
 	p {
 		font-weight: bold;
 		font-size: 12px;
+
+		@media ${device.mobileS} { 
+			font-size: 14px;
+		}
 	}
 `;

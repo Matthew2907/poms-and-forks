@@ -1,15 +1,33 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+
+import { device } from 'utils';
 
 export const Container = styled.nav`
+	width: 50%;
+	height: 90vh;
 	position: fixed;
 	left: 0;
 	top: 10%;
-	width: 50%;
-	height: 90vh;
 	background: rgba(0, 0, 0, 0.6);
 	transition: 0.3s;
 	z-index: 1;
+	
+	@media ${device.mobileM} and (orientation: landscape) { 
+		top: 14%;
+		width: 32%;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		top: 6%;
+		width: 40%;
+		height: 94vh;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		top: 9%;
+		width: 28%;
+		height: 91vh;
+	}
 `;
 
 export const List = styled.ul`
@@ -19,56 +37,15 @@ export const List = styled.ul`
 	height: 100%;
 	margin-top: 15%;
 
+	@media ${device.mobileM} and (orientation: landscape) { 
+		margin-top: 4%;
+	}
+
 	li {
 		flex-basis: 12%;
-	}
-`;
 
-export const StyledLink = styled(Link)`
-	display: flex;
-	align-items: center;
-	flex-basis: 25%;
-	height: 100%;
-	text-decoration: none;
-	
-	p {
-		display: flex;
-		flex-basis: 75%;
-		padding-left: 6%;
-		color: rgb(255, 255, 255);
-		font-size: 12px;
-		font-weight: bold;
+		@media ${device.mobileM} and (orientation: landscape) { 
+			flex-basis: 14%;
+		}
 	}
-`;
-
-export const RootButton = styled.button`
-	position: absolute;
-	top: 50%;
-	left: 4%;
-	width: 10%;
-	background-color: rgb(196, 196, 196);
-	border: 0.5px solid #000000;
-	border-radius: 15%;
-	transform: translateY(-50%);
-
-	&::after {
-		content: "";
-		display: block;
-		padding-bottom: 100%;
-	}
-	img {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 80%;
-		height: auto;
-		transform: translate(-50%,-50%);
-	}
-`;
-
-export const SideBarButton = styled(RootButton)`
-	margin-left: 12px;
-	width: 20%;
-	position: static;
-	transform: translate(0,0);
 `;

@@ -18,12 +18,18 @@ router.route('/add').post((req,res) => {
 	const userLastName = req.body.userLastName; 
 	const userAvatarImageName = req.body.userAvatarImageName; 
 	const userChefLevel = Number(req.body.userChefLevel); 
+	const recipesAmount = Number(req.body.recipesAmount); 
+	const mainCookSkill = req.body.mainCookSkill; 
+	const id = req.body.id; 
 
 	const newUser = new User({
 		userName,
 		userLastName,
 		userAvatarImageName,
 		userChefLevel,
+		recipesAmount,
+		mainCookSkill,
+		id,
 	}); 
 
 	newUser.save()  
@@ -45,6 +51,9 @@ router.route('/update/:id').post((req, res) => {
 			user.userLastName = req.body.userLastName; 
 			user.userAvatarImageName = req.body.userAvatarImageName; 
 			user.userChefLevel = Number(req.body.userChefLevel); 
+			user.recipesAmount = Number(req.body.recipesAmount); 
+			user.mainCookSkill = req.body.mainCookSkill; 
+			user.id = req.body.id; 
 		
 			user.save()
 				.then(() => res.json('User updated!'))

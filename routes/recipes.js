@@ -7,18 +7,30 @@ router.route('/').get((req,res) => {
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
-router.route('/:id').get((req,res) => {
+// http://localhost:5000/recipes/searchByTitle?title=Sernik+wiede%C5%84ski
+//  MongoDB has a $regex operator which allows a regular expression to be submitted as a query. 
+router.route('/searchByTitle').get((req,res) => {
+	Recipe.find({recipeTitle: { "$regex": req.query.title, "$options": "i" }})
+	.then(recipe => {
+		console.log(req.query);
+		return res.json(recipe);
+	})
+	.catch(err => res.status(400).json('Error:' + err));
+});
+
+// http://localhost:5000/recipes/searchById/5eecd9bbab408449988da7ad
+router.route('/searchById/:id').get((req,res) => {
 	Recipe.findById(req.params.id)
 	.then(recipe => res.json(recipe))
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
 router.route('/add').post((req,res) => {
-	const recipeUserId = req.body.recipeUserId;
+	const recipesUser = Object.create(req.body.recipesUser);
 	const recipeTitle = req.body.recipeTitle;
 	const recipeDescriptionShort = req.body.recipeDescriptionShort;
 	const recipeCategory = req.body.recipeCategory;
-	const recipeTags = req.body.recipeTags;
+	const recipeTags = Array.from(req.body.recipeTags);
 	const recipeServings = Number(req.body.recipeServings);
 	const recipePreparationTime = Number(req.body.recipePreparationTime);
 	const recipeChefLevel = Number(req.body.recipeChefLevel);
@@ -33,7 +45,7 @@ router.route('/add').post((req,res) => {
 	const date = Date.parse(req.body.date);	
 	
 	const newRecipe = new Recipe({
-		recipeUserId,
+		recipesUser,
 		recipeTitle,
 		recipeDescriptionShort,
 		recipeCategory,
@@ -66,11 +78,11 @@ router.route('/:id').delete((req,res) => {
 router.route('/update/:id').post((req, res) => {
 	Recipe.findById(req.params.id)
 		.then(recipe => {
-			recipe.recipeUserId = req.body.recipeUserId;
+			recipe.recipeUserId = Object.create(req.body.recipesUser);
 			recipe.recipeTitle = req.body.recipeTitle;
 			recipe.recipeDescriptionShort = req.body.recipeDescriptionShort;
 			recipe.recipeCategory = req.body.recipeCategory;
-			recipe.recipeTags = req.body.recipeTags;
+			recipe.recipeTags = Array.from(req.body.recipeTags);
 			recipe.recipeServings = Number(req.body.recipeServings);
 			recipe.recipePreparationTime = Number(req.body.recipePreparationTime);
 			recipe.recipeChefLevel = Number(req.body.recipeChefLevel);

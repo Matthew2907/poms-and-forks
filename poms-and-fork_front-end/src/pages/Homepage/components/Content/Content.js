@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
+
 import {
 	ContentCantainer,
 	MainRecipeContainer,
@@ -46,9 +47,6 @@ function Content({fetchRecipes, recipes}) {
 				<MainRecipeTitle>{mainRecipe.recipeTitle}</MainRecipeTitle>
 			</MainRecipeContainer>)}
 			<RecipeListContainer>
-				{recipesList}
-				{recipesList}
-				{recipesList}
 				{recipesList}
 			</RecipeListContainer>
 		</ContentCantainer>

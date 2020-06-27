@@ -1,4 +1,8 @@
-import { RECIPE_GET } from 'data/constants';
+import { 
+	RECIPE_GET,
+	SEARCHED_RECIPE_GET,
+	SEARCHED_RECIPE_RESET
+} from 'data/constants';
 import API from 'data/fetch';
 
 export const fetchRecipe = (id) => {	
@@ -9,3 +13,18 @@ export const fetchRecipe = (id) => {
 		type: RECIPE_GET,
 	})
 }
+
+export const fetchRecipeByTitle = (title) => {	
+	const promise = API.recipe.fetchRecipeByTitle(title);
+	
+	return({
+		promise,   
+		type: SEARCHED_RECIPE_GET,
+	})
+}
+
+export const resetSearchedRecipeByTitle = () => {
+	return {
+	  type: SEARCHED_RECIPE_RESET,
+	};
+  };

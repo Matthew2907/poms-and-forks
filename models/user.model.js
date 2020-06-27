@@ -21,7 +21,22 @@ const userSchema = new Schema({
 		type: Number,
 		require: true
 	},
-	userAvatarImage: {		// nazwa grafiki, back-end szuka po nazwie 
+	userAvatarImage: {		
+		type: String,
+		required: true,
+		unique: true,
+		trim: true,
+		minlength: 3
+	},
+	recipesAmount: {		
+		type: Number,
+		required: true,
+	},
+	mainCookSkill: {		
+		type: String,
+		required: true,
+	},
+	id: {		// nazwa grafiki, back-end szuka po nazwie 
 		type: String,
 		required: true,
 		unique: true,

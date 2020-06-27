@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
-import { Topbar, Content } from './components';
+import { Topbar, AddRecipeForm } from './components';
 import { hideNavigation } from 'data/actions/app.actions';
 
-function AddRecipePage({hideNavigation}){
+function AddRecipePage({user, hideNavigation}){
+
+	const saveButtonRef = useRef(null);
+	const [recipeInfo, setRecipeInfo] = useState({}); 
 
 	useEffect(() => {
 		hideNavigation();
@@ -12,14 +15,19 @@ function AddRecipePage({hideNavigation}){
 
 	return(
 		<React.Fragment>
-			<Topbar/>
-			<Content/>
+			<Topbar saveButtonRef={saveButtonRef} recipeInfo={recipeInfo}/>
+			<AddRecipeForm saveButtonRef={saveButtonRef} user={user} setRecipeInfo={setRecipeInfo}/>
 		</React.Fragment>
 	)
 }
+
+// Get first user from users collection. Temporary solution.
+const mapStateToProps = (state) => ({
+	user: state.data.users[0],
+});
 
 const mapDispatchToProps = dispatch => ({
 	hideNavigation: () => dispatch(hideNavigation()),
 });
 
-export default connect(null, mapDispatchToProps)(AddRecipePage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddRecipePage);

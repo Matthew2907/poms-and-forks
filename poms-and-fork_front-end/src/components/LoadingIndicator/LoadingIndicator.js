@@ -12,9 +12,12 @@ const rotate = keyframes`
 
 const Root = styled.div`
 	display: inline-block;
-	position: relative;
+	position: absolute;
+	top: 30%;
+	left: 50%;
 	width: 80px;
 	height: 80px;
+	transform: translateX(-50%);
 `;
 
 const Ring1 = styled.div`

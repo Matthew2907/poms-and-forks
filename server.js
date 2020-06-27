@@ -40,7 +40,7 @@ connection.once('open', () => {
 	//nowe linijki z Uploading file
 	// Inicjalizacja stream'u
 	gfs = Grid(connection.db, mongoose.mongo);
-	gfs.collection('uploads');  // tutaj nazwa kolekcji danych | upload.chunk uploads.files
+	gfs.collection('uploads');  // tutaj nazwa kolekcji danych | upload.chunks uploads.files w MongoDB
 	//nowe linijki z Uploading file
 	console.log("MongoDB database connection established succesfully!");
 })
@@ -67,7 +67,7 @@ const storage = new GridFsStorage({
 	}
 });
 
-const upload = multer({ storage }); // upload to middleware który pozwoli nam wysłać plik przesłany w formie z forntu do bazy danych
+const upload = multer({ storage }); // upload to middleware który pozwoli nam wysłać plik przesłany w Form Data z forntu do bazy danych
 //nowe linijki z Uploading file
 
 app.get('/',  (req, res) => {
@@ -95,7 +95,8 @@ app.get('/',  (req, res) => {
 // @route POST /upload 
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {  
-	res.redirect('http://localhost:3000/');
+	// res.redirect('http://localhost:3000/');
+	res.json({file: req.file});
 	// single bo uploadujemy 1 plik / z multerem możesz przesyłać więcej plików jako tablicę, ale tego tutaj nie robimy upload.single('TUTAJ NAZWA Z INPUTA')  <input type="file" name="file".../>
 	// res.json({file: req.file});  wyświetli JSON z zawartościa danych o pliku wysyłanym
 })

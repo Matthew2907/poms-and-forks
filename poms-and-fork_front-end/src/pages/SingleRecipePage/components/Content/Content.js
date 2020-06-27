@@ -1,42 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { ContentCantainer, Slider,RecipeInfoContainer, RecipeInfoMainInfo, CirclePropertyContainer, RecipeInfoAuthorInfo, RecipeInfoAuthorImageContainer, RecipeInfoAuthorTextContainer, RecipeInfoLevelInfo, RecipeInfoStarContainer, RecipeInfoNutritionInfo, NutritionContainer, RecipeInfoRecipeAndReviews, RecipeAndReviewsActiveBar, RecipeInfoIngredientsContainer, IngredientContainer, RecipeInfoDescription, DescriptionContainer  } from './Content.css';
+import { ContentCantainer, Slider,RecipeInfoContainer, RecipeInfoMainInfo, CirclePropertyContainer, RecipeInfoAuthorInfo, RecipeInfoAuthorImageContainer, RecipeInfoAuthorTextContainer, RecipeInfoLevelInfo, RecipeInfoStarContainer, RecipeInfoNutritionInfo, NutritionContainer, RecipeInfoRecipeAndReviews, RecipeAndReviewsActiveBar, RecipeInfoIngredientsContainer, IngredientContainer, RecipeInfoDescription, DescriptionContainer, RecipeAuthorAvatarContainer  } from './Content.css';
 import { Button } from 'components';
 import { setSliderImageIndex } from 'data/actions/app.actions'; 
 import backIcon from 'images/BackIcon.svg';
-import timeIcon from 'images/Time.svg';
+import timeIcon from 'images/Time icon.svg';
+import servingsIcon from 'images/Servings icon.svg';
+import categoryIcon from 'images/Category icon.svg';
 import whiteStar from 'images/Polygon 5.svg';
 import blackStar from 'images/BlackStar.svg';
 import deleteIcon from 'images/Delete icon.svg';
 
-function Content({recipe, setSliderImageIndex, currentSliderImageIndex}) {
-
+function Content({
+	recipe, currentSliderImageIndex, prevIngredientsShoppingList,
+	setSliderImageIndex, setIngredientsArrForShoppingList
+}) {
+// Stars managment function based on for loop.
 	function starsLevelFunc() {
 		const starsArr = [];
 		let j = 0;
 		for(let i = 0; i < 5; i++){
 			for(j; j < recipe.recipeChefLevel; j++){
-				starsArr.push(blackStar)
+				starsArr.push(whiteStar)
 				i++;
 			}
-			starsArr.push(whiteStar)
+			if(recipe.recipeChefLevel === 5){
+				return starsArr;
+			}
+			starsArr.push(blackStar)
 		}
 		return starsArr;
 	};
 
 	const starsLevelArr = starsLevelFunc();
-	
-	const newIngredientsArr = Object.entries(recipe).length !== 0 ? [...recipe.recipeIngredients] : [];
+// ############################################################################################################
+// Ingredients fields managment. Create state, handle delete button, create ingredients DOM structure and manage Redux shoppingListIngredients array (applicationReducer).
+	const [newIngredientsArr, setNewIngredientsArr] = useState(recipe.recipeIngredients);
 
-	const ingredientsList = newIngredientsArr.map(ingredient => (
-		<IngredientContainer key={ingredient}>
-			<p>{ingredient}</p>
-			<Button variant="ingredient">
+	const handleDeleteIngredientFromRecipeIngredients = (index) => {
+		const newIngredientsArrForDelete = [...newIngredientsArr];
+		newIngredientsArrForDelete.splice(index,1);
+		setNewIngredientsArr(newIngredientsArrForDelete);
+		setIngredientsArrForShoppingList(newIngredientsArrForDelete);
+	};
+	
+	const ingredientsList = newIngredientsArr.map((ingredient, index) => (
+		<IngredientContainer key={ingredient.name}>
+			<p>{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}</p>
+			<Button variant="ingredient" onClick={() => handleDeleteIngredientFromRecipeIngredients(index)}>
 				<img src={deleteIcon} alt="delete"/>
 			</Button>
 		</IngredientContainer>
 	));
 
+	useEffect(() => {
+		setIngredientsArrForShoppingList(recipe.recipeIngredients);
+	},[]);
+// ############################################################################################################
+// Description steps array and its DOM structure.
 	const newDescriptionArr = Object.entries(recipe).length !== 0 ? [...recipe.recipeDescriptionInSteps] : [];
 
 	const descriptionList = newDescriptionArr.map((step, idx) => (
@@ -45,9 +66,33 @@ function Content({recipe, setSliderImageIndex, currentSliderImageIndex}) {
 			<p>{step}</p>
 		</DescriptionContainer>
 	));
+// ############################################################################################################
+// Change slider managment function based on Redux. Create refs to slider buttons. Create functions which manage buttons disable state.
+//FIXME: Should I use state to manage the index?
+	const backButtonRef = useRef(null);
+	const nextButtonRef = useRef(null);
+	let newIndex = currentSliderImageIndex;
+	
+	const changeButtonState = (reference, boolean) => {
+		const color = boolean ? 'background-color: rgba(0,0,0,0.6);' : 'background-color: rgb(196, 196, 196);';
+		reference.current.setAttribute('disabled', boolean);
+		reference.current.setAttribute('style', color);
+	};
 
+	useEffect(() => {
+		if(newIndex === (recipe.recipeImageNames.length - 1)){
+			changeButtonState(backButtonRef, false);
+			changeButtonState(nextButtonRef, true);
+		} else if (newIndex === 0) {
+			changeButtonState(backButtonRef, true);
+			changeButtonState(nextButtonRef, false);
+		} else {
+			changeButtonState(backButtonRef, false);
+			changeButtonState(nextButtonRef, false);
+		}
+	},[newIndex])
+	
 	const changeSliderImage = (operation) => {
-		let newIndex = currentSliderImageIndex;
 		if(currentSliderImageIndex < (recipe.recipeImageNames.length - 1) && operation === "next"){
 			newIndex++;
 		} else if (currentSliderImageIndex > 0 && operation === "back"){
@@ -55,16 +100,16 @@ function Content({recipe, setSliderImageIndex, currentSliderImageIndex}) {
 		}
 		return setSliderImageIndex(newIndex);
 	};
-
+// ############################################################################################################
 	return(
 		<ContentCantainer>
 			{
 				Object.entries(recipe).length !== 0 && 
 				<Slider url={`http://localhost:5000/image/${recipe.recipeImageNames[currentSliderImageIndex]}`}>
-					<Button variant="mainMenu" onClick={() => changeSliderImage("back")}>
+					<Button ref={backButtonRef} variant="mainMenu" onClick={currentSliderImageIndex === 0 ? null : () => changeSliderImage("back")}>
 						<img src={backIcon} alt=""/>
 					</Button>
-					<Button variant="nextSlider" onClick={() => changeSliderImage("next")}>
+					<Button ref={nextButtonRef} variant="nextSlider" onClick={currentSliderImageIndex === (recipe.recipeImageNames.length - 1) ? null : () => changeSliderImage("next")}>
 						<img src={backIcon} alt=""/>
 					</Button>
 				</Slider>
@@ -77,20 +122,20 @@ function Content({recipe, setSliderImageIndex, currentSliderImageIndex}) {
 							<p>{recipe.recipePreparationTime} min.</p>
 						</CirclePropertyContainer>
 						<CirclePropertyContainer>
-							<img src={timeIcon} alt=""/>
+							<img src={categoryIcon} alt=""/>
 							<p>{recipe.recipeCategory}</p>
 						</CirclePropertyContainer>
 						<CirclePropertyContainer>
-							<img src={timeIcon} alt=""/>
+							<img src={servingsIcon} alt=""/>
 							<p>{recipe.recipeServings} servings</p>
 						</CirclePropertyContainer>
 					</RecipeInfoMainInfo>
 					<RecipeInfoAuthorInfo>
 						<RecipeInfoAuthorImageContainer>
-							<img src={timeIcon} alt=""/>
+							<RecipeAuthorAvatarContainer url={`http://localhost:5000/image/${recipe.recipesUser.userAvatarImage}`}/>
 						</RecipeInfoAuthorImageContainer>
 						<RecipeInfoAuthorTextContainer>
-							<h3>Kptn Mateusz S.</h3>
+							<h3>Kptn {recipe.recipesUser.userName} {recipe.recipesUser.userLastName}</h3>
 							<p>{recipe.recipeDescriptionShort}</p>
 						</RecipeInfoAuthorTextContainer>
 					</RecipeInfoAuthorInfo>
@@ -144,6 +189,7 @@ function Content({recipe, setSliderImageIndex, currentSliderImageIndex}) {
 
 const mapStateToProps = (state) => ({
 	currentSliderImageIndex: state.applicationRecuder.currentSliderImageIndex,
+	prevIngredientsShoppingList: state.applicationRecuder.shoppinglistIngredients,
   });
 
 const mapDispatchToProps = dispatch => ({

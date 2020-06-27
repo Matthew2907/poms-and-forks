@@ -1,20 +1,56 @@
 import styled from 'styled-components';
 
+import { device } from 'utils';
+
 export const ContentCantainer = styled.div`
 	width: 100%;
 	min-height: 80vh;
 	margin-bottom: 10vh;
 	margin-top: 10vh;
-	background-color: rgb(236,236,236);
+
+	@media ${device.mobileM} and (orientation: landscape) { 
+		margin-top: 14vh;
+		margin-bottom: 14vh;
+	}
+
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		margin-top: 7vh;
+		margin-bottom: 7vh;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		margin-top: 9vh;
+		margin-bottom: 9vh;
+	}
 `;
 
 export const Slider = styled.div`
 	position: relative;
-	width: 100%;
+	width: 107.5%;
 	height: 45vh;
 	background-image: url(${(props) => props.url});
 	background-size: cover;
 	background-position: center;
+	transform: translateX(-3.5%);
+
+	@media ${device.mobileM} and (orientation: landscape) { 
+		height: 50vh;
+	}
+
+	@media ${device.mobileL} and (orientation: landscape) { 
+		height: 53vh;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		width: 109.5%;
+		transform: translateX(-4.5%);
+		height: 52vh;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		width: 109.5%;
+		transform: translateX(-4.5%);
+	}
 `;
 
 export const RecipeInfoContainer = styled.section`
@@ -32,11 +68,28 @@ export const RecipeInfoMainInfo = styled.div`
 	margin: 0 auto;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		flex-basis: 14vh;
+	}
+	
+	@media ${device.tablet} and (orientation: portrait) { 
+		flex-basis: 13vh;
+	}
+
 	h2 {
 		flex-basis: 100%;
 		margin-top: 2vh;
-		font-size: 20px;
+		font-size: 22px;
 		font-weight: bold;
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 28px;
+		}
+
+		@media ${device.laptop}  { 
+			margin-bottom: 1vh;
+			font-size: 36px;
+		}
 	}
 `;
 
@@ -45,13 +98,50 @@ export const CirclePropertyContainer = styled.div`
 	align-items: center;
 	flex-basis: 30%;
 	height: 45px;
+	
 
 	:nth-of-type(2){
-		flex-basis: 40%;
+		flex-basis: 35%;
+	}
+
+	:nth-of-type(3){
+		flex-basis: 35%;
+	}
+
+	@media ${device.laptop} { 
+		margin-bottom: 10px;
 	}
 
 	img {
 		margin-right: 3px;
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			height: 40px;
+			margin-right: 10px;
+		}
+
+		@media ${device.laptop} { 
+			height: 50px;
+			margin-right: 15px;
+		}
+	}
+
+	p {
+		@media ${device.mobileS} { 
+			font-size: 14px;
+		}
+
+		@media ${device.tablet} { 
+			font-size: 16px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
 	}
 `;
 
@@ -61,17 +151,30 @@ export const RecipeInfoAuthorInfo = styled.div`
 	width: 100%;
 	margin: 0 auto;
 	padding-top: 6px;
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		font-size: 10px;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		flex-basis: 8vh;
+	}
 `;
 
 export const RecipeInfoAuthorImageContainer = styled.div`
 	display: flex;
-	width: 20%;
+	width: 15%;
 	justify-content: center;
 	align-items: flex-start;
 
 	img {
 		width: 70%;
 		height: auto;
+		margin: 0 auto 0 0;
+
+		@media ${device.laptop} { 
+			width: 70%;
+		}
 	}
 `;
 
@@ -81,10 +184,34 @@ export const RecipeInfoAuthorTextContainer = styled.div`
 	h3 {
 		font-size: 14px;
 		font-weight: bold;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 20px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 24px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 
 	p {
-		font-weight: normal;
+		margin-top: 1%;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 16px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
 	}
 `;
 
@@ -94,10 +221,38 @@ export const RecipeInfoLevelInfo = styled.div`
 	width: 100%;
 	margin: 0 auto;
 
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		flex-basis: 4vh;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		flex-basis: 10vh;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		flex-basis: 8vh;
+	}
+
 	h3 {
 		display: flex;
 		align-items: center;
 		flex-basis: 40%;
+
+		@media ${device.mobileM} { 
+			flex-basis: 20%;
+		}
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 20px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 22px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 `;
 
@@ -109,6 +264,18 @@ export const RecipeInfoStarContainer = styled.div`
 
 	img {
 		width: 15%;
+
+		@media ${device.mobileM} and (orientation: landscape) { 
+			width: 12%;
+		}
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			width: 10%;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			width: 12%;
+		}
 
 		&::after {
 			content: "";
@@ -124,6 +291,14 @@ export const RecipeInfoNutritionInfo = styled.div`
 	flex-basis: 15vh;
 	width: 100%;
 	margin: 0 auto;
+
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		flex-basis: 13vh;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		flex-basis: 12vh;
+	}
 `;
 
 export const NutritionContainer = styled.div`
@@ -137,15 +312,79 @@ export const NutritionContainer = styled.div`
 	border-radius: 50%;
 	text-align: center;
 
+	@media ${device.mobileS} { 
+		flex-basis: 19.5%;
+		height: ${0.19 * window.innerWidth}px;
+	}
+
+	@media ${device.mobileM} and (orientation: landscape) { 
+		flex-basis: 14.5%;
+		height: ${0.14 * window.innerWidth}px;
+	}
+
+	@media ${device.mobileL} and (orientation: landscape) { 
+		flex-basis: 12.5%;
+		height: ${0.12 * window.innerWidth}px;
+	}
+	
+	@media ${device.tablet} and (orientation: landscape) { 
+		flex-basis: 10.5%;
+		height: ${0.10 * window.innerWidth}px;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		flex-basis: 13.5%;
+		height: ${0.13 * window.innerWidth}px;
+	}
+	
+	@media ${device.laptop} { 
+		flex-basis: 12.5%;
+		height: ${0.1 * window.innerWidth}px;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		flex-basis: 12.5%;
+		height: ${0.11 * window.innerWidth}px;
+	}
+
+	@media ${device.laptopL} { 
+		flex-basis: 12.5%;
+		height: ${0.07 * window.innerWidth}px;
+	} 
+	
 	p:nth-of-type(1){
 		font-size: 12px;
 		font-weight: bold;
+
+		@media ${device.mobileL} { 
+			font-size: 14px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
 	}
 
 	p:nth-of-type(2){
 		margin-top: 2px;
 		font-size: 16px;
 		font-weight: bold;
+
+		@media ${device.mobileL} { 
+			font-size: 14px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
 	}
 `;
 
@@ -154,7 +393,7 @@ export const RecipeInfoRecipeAndReviews = styled.section`
 	flex-wrap: wrap;
 	align-content: flex-start;
 	min-height: 24vh;
-	width: 90%;
+	width: 100%;
 	margin: 0 auto;
 
 	h2:nth-of-type(1){
@@ -162,6 +401,14 @@ export const RecipeInfoRecipeAndReviews = styled.section`
 		max-height: 20px;
 		text-align: center;
 		font-size: 20px;
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 24px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 
 	h2:nth-of-type(2){
@@ -169,6 +416,14 @@ export const RecipeInfoRecipeAndReviews = styled.section`
 		max-height: 20px;
 		text-align: center;
 		font-size: 20px;
+		
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 24px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 `;
 
@@ -177,6 +432,14 @@ export const RecipeAndReviewsActiveBar = styled.div`
 	margin-top: 5px;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 	
+	@media ${device.tablet} and (orientation: portrait) { 
+		margin-top: 10px;
+	}
+
+	@media ${device.laptop} { 
+		margin-top: 15px;
+	}
+
 	>div {
 		width: 50%;
 		height: 10px;
@@ -192,33 +455,92 @@ export const RecipeInfoIngredientsContainer = styled.div`
 	h3 {
 		display: block;
 		margin-top: 10px;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 20px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 24px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 `;
 
 export const IngredientContainer = styled.div`
 	position: relative;
 	margin-top: 10px;
-	padding: 5px;
-	background: #FFFFFF;
+	padding: 8px 0;
+	background-color: rgba(255, 255, 255, 0.6);
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 
+	@media ${device.mobileS} { 
+		padding: 10px 0;
+	}
+	
+	@media ${device.mobileL} { 
+		padding: 3% 0;
+	}
+
+	@media ${device.tablet} and (orientation: landscape) { 
+		padding: 15px 0;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		padding: 15px 0;
+		border-radius: 10px;
+	}
+	
+	@media ${device.laptop} { 
+		padding: 20px 0;
+	}
+
 	>p {
+		width: 85%;
 		margin-left: 10px;
-		font-size: 18px;
+		font-size: 14px;
 		font-weight: bold;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 16px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}	
+
+		@media ${device.laptop} { 
+			margin-left: 2%;
+			font-size: 24px;
+		}
 	}
 `;
 
 export const RecipeInfoDescription = styled.section`
 	min-height: 20vh;
-	width: 90%;
+	width: 100%;
 	margin: 20px auto 0;
 	border-top: 2px solid rgba(0, 0, 0, 0.4);
 
 	h3 {
 		margin-top: 7px;
 		margin-bottom: 7px;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 20px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 24px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 28px;
+		}
 	}
 `;
 
@@ -226,13 +548,59 @@ export const DescriptionContainer = styled.div`
 	display: flex;
 	margin-bottom: 10px;
 	padding: 10px;
-	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.6);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 
-	> span {
-		flex-basis: 10%;
-		margin-right: 10px;
+	>span {
+		flex-basis: 5%;
 		font-size: 12px;
 		color: rgba(0, 0, 0, 0.46);
+
+		@media ${device.mobileL} { 
+			font-size: 14px;
+		}
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 16px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
+	}
+
+	>p {
+		flex-basis: 95%;
+
+		@media ${device.tablet} and (orientation: landscape) { 
+			font-size: 16px;
+		}
+
+		@media ${device.tablet} and (orientation: portrait) { 
+			font-size: 20px;
+		}
+
+		@media ${device.laptop} { 
+			font-size: 24px;
+		}
+	} 
+`;
+
+export const RecipeAuthorAvatarContainer = styled.div`
+	width: 80%;
+	border-radius: 50%;
+	background-image: url(${(props) => props.url});
+	background-size: cover;
+	background-position: center;
+
+	&::after {
+		transform-origin: center;
+		content: "";
+		display: block;
+		padding-bottom: 100%;
 	}
 `;

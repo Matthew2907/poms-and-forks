@@ -3,18 +3,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
-import { Homepage, AddRecipePage, SingleRecipePage } from 'pages';
+import { AddRecipePage, FavouriteRecipesPage, Homepage, SettingsPage, ShoppinglistPage, SingleRecipePage, UsersPanelPage, SearchedRecipesPage } from 'pages';
 import { Navigation, Wrapper, LoadingIndicator } from 'components';
 import GlobalStyles from './index.css';
 import theme from 'utils/theme';
-import { fetchUsers, fetchImages } from 'data/actions/data.actions';
+import { fetchUsers } from 'data/actions/data.actions';
 
-function App({ fetchUsers, fetchImages }) {
+function App({ fetchUsers }) {
 	
 	useEffect(() => {
 		fetchUsers();
-		fetchImages();
-	}, [fetchUsers, fetchImages])
+	}, [fetchUsers])
 	
 	return (
 		<ThemeProvider theme={theme}>
@@ -25,11 +24,12 @@ function App({ fetchUsers, fetchImages }) {
 					<Switch>
 						<Route exact path="/" component={Homepage}/>
 						<Route path="/recipe/:id" component={SingleRecipePage}/>	
-						<Route path="/user/edit-profile" component={AddRecipePage}/>
+						<Route path="/user/edit-profile" component={UsersPanelPage}/>
 						<Route path="/add-recipe" component={AddRecipePage}/>
-						<Route path="/favourites" component={AddRecipePage}/>
-						<Route path="/shoppinglist" component={AddRecipePage}/>
-						<Route path="/settings" component={AddRecipePage}/>
+						<Route path="/favourites" component={FavouriteRecipesPage}/>
+						<Route path="/shoppinglist" component={ShoppinglistPage}/>
+						<Route path="/settings" component={SettingsPage}/>
+						<Route path="/recipes/:title" component={SearchedRecipesPage}/>
 					</Switch>
 				</Wrapper>
 			</Router>
@@ -39,7 +39,6 @@ function App({ fetchUsers, fetchImages }) {
 
 const ConnectedApp = connect(null, {
 	fetchUsers,
-	fetchImages,
 })(App)
 
 function RootApp() {

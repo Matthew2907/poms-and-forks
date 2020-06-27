@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({		// schemat modelu user ma tylko pole username, w jego ciele przekazuje walidację
-		recipeUserId: { type: String, require: true },
+		recipesUser: { type: Object, require: true },
 		recipeTitle: { type: String, require: true},
 		recipeDescriptionShort: { type: String, require: true},
 		recipeCategory: { type: String, require: true},
-		recipeTags: { type: String, require: true},
+		recipeTags: { type: Array, require: true},
 		recipeServings: { type: Number, require: true},
 		recipePreparationTime: { type: Number, require: true},
 		recipeChefLevel: { type: Number, require: true},

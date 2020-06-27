@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 
 import { Button } from "components";
 import { Container, List } from './Navigation.css';
-
 import userIcon from 'images/Ellipse 7.svg'
 import recipeListIcon from 'images/Vector 8.svg'
-import favouriteRecipeIcon  from 'images/Vector 12.svg'
+import favouriteRecipeIcon  from 'images/Like icon.svg'
 import addRecipeIcon from 'images/Vector 20.svg'
 import shoppingListIcon from 'images/Shopping icon.svg'
 import settingsIcon from 'images/Settings icon.svg'

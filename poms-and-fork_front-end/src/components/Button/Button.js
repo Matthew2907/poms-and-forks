@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
-import PropTypes from "prop-types";
-import { StyledLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput } from './Button.css';
+import { StyledRegularLink, StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink} from './Button.css';
 
 // children to content wewnątrz buttona, ...props to metoda onClick i atrybut to
-function Button({ variant, children, ...props }) {
+function Button({ variant, children, ...props}, ref) {
 	// propsy text oraz to są opcjonalne więc przyjmuje je w zbiorze ...props, żeby nie dostać błędu, a potem jeśli są to biore je z propsów jeśli nie ma to undefined (CHYBA)
 	const { to, text } = props;
 	const Component = useMemo(() => {
@@ -32,14 +31,33 @@ function Button({ variant, children, ...props }) {
 				return NextSliderButton;
 			case "addImage":
 				return AddImageInput;
+			case "backStepMode":
+				return BackStepModeButton;
+			case "nextStepMode":
+				return NextStepModeButton;
+			case "editUser":
+				return EditUserButton;
+			case "settings":
+				return SettingsNavigationButton;
 			default: 
 				return RootButton;
 		}
 	}, [variant]);
-	// children to TAG img z obrazkiem SVG przekazanym w miejscu użycia Buttona 
-const content = useMemo(() => <Component {...props}>{children}</Component>, [
+
+	const StyledLink = useMemo(() => {
+		switch (variant) {
+			case "secondRightTop":
+			case "secondBottom":
+				return StyledSearchLink;
+			default: 
+				return StyledNavigationLink;
+		}
+	}, [variant]);
+// children to TAG img z obrazkiem SVG przekazanym w miejscu użycia Buttona 
+const content = useMemo(() => <Component ref={ref} {...props}>{children}</Component>, [
 		props,
 		children,
+		ref,
 	  ]);
 	
 	return to ? (
@@ -54,8 +72,6 @@ const content = useMemo(() => <Component {...props}>{children}</Component>, [
 	  );
 }
 
-Button.propTypes = {
-	variant: PropTypes.oneOf(["sideBar", "mainMenu", "firstRightTop", "secondRightTop", "firstBottom", "secondBottom", "ingredient", "sliderOrDescAdd", "camera", "descDelete", "nextSlider", "addImage" ]),
-  };
+const forwardedButton = React.forwardRef(Button);
 
-export default Button;
+export default forwardedButton;
