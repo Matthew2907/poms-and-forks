@@ -12,7 +12,7 @@ import blackStar from 'images/BlackStar.svg';
 import deleteIcon from 'images/Delete icon.svg';
 
 function Content({
-	recipe, currentSliderImageIndex, prevIngredientsShoppingList,
+	recipe, currentSliderImageIndex,
 	setSliderImageIndex, setIngredientsArrForShoppingList
 }) {
 // Stars managment function based on for loop.
@@ -55,7 +55,7 @@ function Content({
 
 	useEffect(() => {
 		setIngredientsArrForShoppingList(recipe.recipeIngredients);
-	},[]);
+	},[recipe.recipeIngredients, setIngredientsArrForShoppingList]);
 // ############################################################################################################
 // Description steps array and its DOM structure.
 	const newDescriptionArr = Object.entries(recipe).length !== 0 ? [...recipe.recipeDescriptionInSteps] : [];
@@ -90,7 +90,7 @@ function Content({
 			changeButtonState(backButtonRef, false);
 			changeButtonState(nextButtonRef, false);
 		}
-	},[newIndex])
+	},[newIndex, recipe.recipeImageNames.length])
 	
 	const changeSliderImage = (operation) => {
 		if(currentSliderImageIndex < (recipe.recipeImageNames.length - 1) && operation === "next"){
@@ -189,7 +189,6 @@ function Content({
 
 const mapStateToProps = (state) => ({
 	currentSliderImageIndex: state.applicationRecuder.currentSliderImageIndex,
-	prevIngredientsShoppingList: state.applicationRecuder.shoppinglistIngredients,
   });
 
 const mapDispatchToProps = dispatch => ({

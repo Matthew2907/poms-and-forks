@@ -28,7 +28,7 @@ function StepModeModal({ recipeDescription, currentDescriptionStepIndex, setDesc
 			changeButtonState(backButtonRef, false);
 			changeButtonState(nextButtonRef, false);
 		}
-	},[newIndex])
+	},[newIndex, recipeDescription.length])
 
 	const changeDescriptionStep = (operation) => {
 		if(currentDescriptionStepIndex < (recipeDescription.length - 1) && operation === "next"){

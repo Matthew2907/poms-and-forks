@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import { Button } from 'components';
 import { AddRecipeFormContainer, TitleInput, AddImagesContainer, BigImageContainer, ShortDescriptionTextArea, RecipeLevelInfoContainer, StarsLevelContainer, CategoryAndServingsContainer, CategorySelectionField, ServingsInputField, TagsInputField, PreparationTimeInputField, NutritionFactsContainer, NutritionInputField, IngredientsContainer, IngredientAddContainer, IngredientAddInputsContainer, IngredientNameInputField, IngredientAmountInputField, IngredientCategorySelectField, SingleIngredientInfoContainer, DescriptionStepsContainer, DescriptionStepsAddContainer, LongDescriptionTextArea, SingleDescriptionStepInfoContainer, ConfirmInput, Option } from './AddRecipeForm.css';
@@ -66,7 +67,15 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 				const newImageNamesArr = [...newRecipe.recipeImageNames];
 				newImageNamesArr.push(res.data.file.filename);
 				setNewRecipe(newRecipe => ({ ...newRecipe, recipeImageNames: newImageNamesArr}));
+				toast.success("File has been added successfully!", {
+					position: toast.POSITION.TOP_RIGHT
+				});
 			})
+			.catch(() => {
+				toast.error("Invalid type (jpeg/png) or file too large (<256kB)!", {
+					position: toast.POSITION.TOP_RIGHT
+				});
+			  });
 		}else{
 			return;
 		}
@@ -179,7 +188,23 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 		
 		const tagsArr = values.recipeTags.split("#");
 		tagsArr.splice(0,1);
-
+		
+		// setRecipeInfo(newRecipe => ({
+		// 	...newRecipe,
+		// 	recipesUser: user,
+		// 	recipeTitle: values.recipeTitle,
+		// 	recipeDescriptionShort: values.recipeDescriptionShort,
+		// 	recipeCategory: values.recipeCategory,
+		// 	recipeTags: tagsArr,
+		// 	recipeServings: values.recipeServings,
+		// 	recipePreparationTime: values.recipePreparationTime,
+		// 	recipeSocialRank: 77,
+		// 	recipeEnergyValue: values.recipeEnergyValue,
+		// 	recipeProtein: values.recipeProtein,
+		// 	recipeFat: values.recipeFat,
+		// 	recipeCarbohydrate: values.recipeCarbohydrate,
+		// 	date: new Date(),
+		// }));
 		setNewRecipe(newRecipe => ({
 			...newRecipe,
 			recipesUser: user,
@@ -203,7 +228,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 	
 	return(
 			<AddRecipeFormContainer onSubmit={handleSubmit(onSubmit)}>
-				<TitleInput autoComplete="off" placeholder={errors.recipeTitle ? "Required field!" : "Title"} type="text" ref={register({ required: true, maxLength: 30 })} name="recipeTitle"/>
+				<TitleInput style={errors.recipeTitle && {backgroundColor: "red"}} autoComplete="off" placeholder={"Title"} type="text" ref={register({ required: true, maxLength: 30 })} name="recipeTitle"/>
 				<AddImagesContainer>
 					<BigImageContainer 
 						url={newRecipe.recipeImageNames[0]}
@@ -239,7 +264,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 						<input name="file" id="file" type="file" onChange={handleSendImage}/>
 					</BigImageContainer>
 				</AddImagesContainer>
-				<ShortDescriptionTextArea type="text" name="recipeDescriptionShort" ref={register({ required: true, maxLength: 100 })} cols="30" rows="3" placeholder={errors.recipeDescriptionShort ? "Required field!" : "Short description"}/>
+				<ShortDescriptionTextArea style={errors.recipeDescriptionShort && {backgroundColor: "red"}} type="text" name="recipeDescriptionShort" ref={register({ required: true, maxLength: { value: 200, message: "error message" } })} cols="30" rows="3" placeholder={"Short description"}/>
 				<RecipeLevelInfoContainer>
 					<p>Chef level</p>
 					<StarsLevelContainer>
@@ -256,16 +281,16 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 						<Option value="Dessert">Dessert</Option>
 						<Option value="Dinner">Dinner</Option>
 					</CategorySelectionField>
-					<ServingsInputField type="number" name="recipeServings" ref={register({ required: true  })} placeholder={errors.recipeServings ? "Required field!" : "Servings"} min="1" max="12" step="1"/>
+					<ServingsInputField style={errors.recipeServings && {backgroundColor: "red"}} type="number" name="recipeServings" ref={register({ required: true  })} placeholder={"Servings"} min="1" max="12" step="1"/>
 				</CategoryAndServingsContainer>
-				<TagsInputField autoComplete="off" type="text" name="recipeTags" ref={register({ required: true, maxLength: 40 })} placeholder={errors.recipeTags ? "Required field!" : "#type#here#your#tags#just#like#that"}/>
-				<PreparationTimeInputField type="number" name="recipePreparationTime" ref={register({ required: true })} placeholder={errors.recipePreparationTime ? "Required field!" : "Preparation itme (in minutes)"}/>
+				<TagsInputField style={errors.recipeTags && {backgroundColor: "red"}} autoComplete="off" type="text" name="recipeTags" ref={register({ required: true, maxLength: 40 })} placeholder={"#type#here#your#tags#just#like#that"}/>
+				<PreparationTimeInputField style={errors.recipeTitle && {backgroundColor: "red"}} type="number" name="recipePreparationTime" ref={register({ required: true })} placeholder={"Preparation itme (in minutes)"}/>
 				<NutritionFactsContainer>
 					<p>Nutrition facts</p>
-					<NutritionInputField type="number" name="recipeEnergyValue" ref={register({ required: true })} placeholder={errors.recipeEnergyValue ? "Required field!" : "Energy value"}/>
-					<NutritionInputField type="number" name="recipeProtein" ref={register({ required: true })} placeholder={errors.recipeProtein ? "Required field!" : "Protein"}/>
-					<NutritionInputField type="number" name="recipeFat" ref={register({ required: true })} placeholder={errors.recipeFat ? "Required field!" : "Fat"}/>
-					<NutritionInputField type="number" name="recipeCarbohydrate" ref={register({ required: true })} placeholder={errors.recipeCarbohydrate ? "Required field!" : "Carbohydrate"}/>
+					<NutritionInputField style={errors.recipeEnergyValue && {backgroundColor: "red"}} type="number" name="recipeEnergyValue" ref={register({ required: true })} placeholder={"Energy value"}/>
+					<NutritionInputField style={errors.recipeProtein && {backgroundColor: "red"}} type="number" name="recipeProtein" ref={register({ required: true })} placeholder={"Protein"}/>
+					<NutritionInputField style={errors.recipeFat && {backgroundColor: "red"}} type="number" name="recipeFat" ref={register({ required: true })} placeholder={"Fat"}/>
+					<NutritionInputField style={errors.recipeCarbohydrate && {backgroundColor: "red"}} type="number" name="recipeCarbohydrate" ref={register({ required: true })} placeholder={"Carbohydrate"}/>
 				</NutritionFactsContainer>
 				<IngredientsContainer>
 					<p>Ingredients</p>
@@ -304,15 +329,18 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 						</Button>
 					</DescriptionStepsAddContainer>
 					{/* FIXME: zmień key na coś innego niż index! */}
-						{newRecipe.recipeDescriptionInSteps.map((singleStep, index) => (
-							<SingleDescriptionStepInfoContainer key={index}> 
-								<span>{index + 1}</span>
-								<p>{singleStep}</p>
-								<Button variant="descDelete" type="button" onClick={(event) => handleDeleteDescriptionStep(index, event)}>
-									<img src={deleteIcon} alt="delete"/>
-								</Button>
-							</SingleDescriptionStepInfoContainer>
-						))}
+						{newRecipe.recipeDescriptionInSteps.map((singleStep, index) => {
+							const id = generatorID();
+							return (
+								<SingleDescriptionStepInfoContainer key={id}> 
+									<span>{index + 1}</span>
+									<p>{singleStep}</p>
+									<Button variant="descDelete" type="button" onClick={(event) => handleDeleteDescriptionStep(index, event)}>
+										<img src={deleteIcon} alt="delete"/>
+									</Button>
+								</SingleDescriptionStepInfoContainer>
+							);
+						})}
 				</DescriptionStepsContainer>
 				<ConfirmInput type="submit" value="Confirm"/>
 			</AddRecipeFormContainer>

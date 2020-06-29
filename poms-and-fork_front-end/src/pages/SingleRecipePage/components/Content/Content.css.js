@@ -500,7 +500,7 @@ export const IngredientContainer = styled.div`
 	}
 
 	>p {
-		width: 85%;
+		width: 80%;
 		margin-left: 10px;
 		font-size: 14px;
 		font-weight: bold;

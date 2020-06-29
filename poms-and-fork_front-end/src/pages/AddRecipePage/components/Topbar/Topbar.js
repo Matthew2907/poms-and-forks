@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import { Button, Bar } from 'components';
 import { updateFavouriteRecipesListInDB } from 'utils/globalFunctions';
@@ -27,6 +28,7 @@ function Topbar({recipeInfo, saveButtonRef}) {
 		  .then(function (response) {			
 			updateFavouriteRecipesListInDB(response.data, recipeInfo.recipesUser, "userRecipes")
 			history.push("/");
+			toast.success("Recipe has been added successfully!");
 		  })
 		  .catch(function (error) {
 			console.log(error);

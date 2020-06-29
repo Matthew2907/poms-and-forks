@@ -12,7 +12,7 @@ const Rootbar = styled.div`
 	z-index: 1;
 
 	
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
 		height: 14vh;
 	}
 
@@ -25,7 +25,7 @@ const Rootbar = styled.div`
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
-		height: 7vh;
+		height: 9vh;
 	}
 
 	h1 {

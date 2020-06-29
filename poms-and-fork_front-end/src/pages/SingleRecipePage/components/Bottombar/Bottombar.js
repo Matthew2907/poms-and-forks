@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { Button, Bar } from 'components';
 import { setShoppinglistAddIngredients } from 'data/actions/app.actions';
@@ -24,9 +25,10 @@ function Bottombar({
 			}
 			shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
 			shoplistButtonRef.current.setAttribute('disabled', true);
+			toast.success("Ingredients has been added to your shooping list!");
 			return;
 		}
-		alert("Ingredients from this recipe has been already added!");
+		toast.warning("Ingredients from this recipe has been already added!");
 	};
 //###################################################################################################
 	return(

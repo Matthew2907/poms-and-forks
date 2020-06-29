@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyledRegularLink, StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink, ErrorButton, ErrorLink} from './Button.css';
+import { StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink, ErrorButton, ErrorLink} from './Button.css';
 
 // children to content wewnątrz buttona, ...props to metoda onClick i atrybut to
 function Button({ variant, children, ...props}, ref) {

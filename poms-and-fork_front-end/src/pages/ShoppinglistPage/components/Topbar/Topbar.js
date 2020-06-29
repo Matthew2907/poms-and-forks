@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { Button, Bar } from 'components';
 import { setShoppinglistAddIngredients, showNavigation ,hideNavigation } from 'data/actions/app.actions';
@@ -15,6 +16,7 @@ function Topbar({
 	const handleAddIngredientsToShoppinglist = () => {
 		const newIngredientShoppingList = [...ingredientsArrForShoppingList];
 		setShoppinglistAddIngredients(newIngredientShoppingList);
+		toast.info("Shopping list has been updated!");
 	};
 
 	return(

@@ -10,7 +10,6 @@ function ShoppinglistPage({
  }){
 
 	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState();
-	const [newReduceIngredientsArr, setNewReduceIngredientsArr] = useState();
 
 	useEffect(() => {
 		hideNavigation();

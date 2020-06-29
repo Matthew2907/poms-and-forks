@@ -67,7 +67,24 @@ const storage = new GridFsStorage({
 	}
 });
 
-const upload = multer({ storage }); // upload to middleware który pozwoli nam wysłać plik przesłany w Form Data z forntu do bazy danych
+// filter incoming files by mimetype
+const fileFilter = (req, file, cb) => {
+	console.log(file);
+	// reject a file
+	if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+};
+
+const upload = multer({ 
+	storage: storage, 
+	limits: {
+		fileSize: 1024 * 256
+	},
+	fileFilter: fileFilter
+}); // upload to middleware który pozwoli nam wysłać plik przesłany w Form Data z forntu do bazy danych
 //nowe linijki z Uploading file
 
 app.get('/',  (req, res) => {
@@ -77,14 +94,6 @@ app.get('/',  (req, res) => {
 			return res.status(404).json({
 				err: 'No files exist'
 			})
-		} else {
-				files.map(file => {
-					if(file.contentType === 'image/jpeg' || file.contentType === 'image/png'){
-						file.isImage = true;
-					} else {
-						file.isImage = false;
-					}
-				});
 		}
 	return res.json(files);
 	// res.render('http://localhost:3000/', {files: files}); 

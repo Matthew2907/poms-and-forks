@@ -14,7 +14,7 @@ export const updateFavouriteRecipesListInDB = (variable1, user, type) => {
 		}
 	})
 	  .then(function (response) {
-		console.log(response);
+		console.log("Recipe has been added to favourite list!");
 	  })
 	  .catch(function (error) {
 		console.log(error);

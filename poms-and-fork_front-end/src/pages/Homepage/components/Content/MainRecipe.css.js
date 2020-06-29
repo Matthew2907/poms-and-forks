@@ -17,7 +17,11 @@ export const ContentCantainer = styled.div`
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
-		margin-top: 6vh;
+		margin-top: 12vh;
+	}
+ 
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		margin-top: 9vh;
 	}
 
 	@media ${device.laptop} and (orientation: landscape) { 

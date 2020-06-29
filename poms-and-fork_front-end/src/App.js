@@ -1,38 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { AddRecipePage, FavouriteRecipesPage, Homepage, SettingsPage, ShoppinglistPage, SingleRecipePage, UsersPanelPage, SearchedRecipesPage, ErrorPage } from 'pages';
 import { Navigation, Wrapper, LoadingIndicator } from 'components';
 import GlobalStyles from './index.css';
 import { theme } from 'utils';
 import { fetchUser, fetchFavouriteRecipe } from 'data/actions/data.actions';
-import { setFavouriteRecipeToList } from 'data/actions/app.actions';
 
 function App({ 
 	user, favouriteRecipesList,
-	fetchUser, setFavouriteRecipeToList, fetchFavouriteRecipe
+	fetchUser, fetchFavouriteRecipe
 }) {
-	
-	const setFavRecpsArr = (favRecpsArr) => {
-		if(typeof favRecpsArr !== "undefined" && favRecpsArr.length > 0){
-			favRecpsArr.forEach(id => {
-				fetchFavouriteRecipe(id);
-			})
-		}
-	};
+
+	const setFavRecpsArr = useCallback(
+		(favRecpsArr) => {
+			if(typeof favRecpsArr !== "undefined" && favRecpsArr.length > 0){
+				favRecpsArr.forEach(id => {
+					fetchFavouriteRecipe(id);
+				})
+			}
+		},
+		[fetchFavouriteRecipe],
+	);
 
 	useEffect(() => {
 		fetchUser("Mateusz");
-	}, [])
+	}, [fetchUser])
 	
 	useEffect(() => {
 		if(favouriteRecipesList.length === 0){
 			setFavRecpsArr(user.favouriteRecipes);
 		}
-	}, [user.favouriteRecipes])
+	}, [user.favouriteRecipes, favouriteRecipesList.length, setFavRecpsArr])
 	
+	toast.configure();
+
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles/>
@@ -63,7 +69,6 @@ const ConnectedApp = connect(
 	}),{
 	fetchUser,
 	fetchFavouriteRecipe,
-	setFavouriteRecipeToList,
 })(App)
 
 function RootApp() {

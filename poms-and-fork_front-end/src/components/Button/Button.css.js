@@ -77,6 +77,7 @@ export const RootButton = styled.button`
 	top: 50%;
 	left: 4%;
 	width: 10%;
+	max-width: 50px;
 	background-color: rgb(196, 196, 196);
 	border: 0.5px solid #000000;
 	border-radius: 15%;
@@ -104,7 +105,8 @@ export const RootButton = styled.button`
 		transform: translate(-50%,-50%);
 	}
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape)  { 
+		max-width: 40px;
 		width: 6%;
 	}
 
@@ -114,6 +116,7 @@ export const RootButton = styled.button`
 
 	@media ${device.tablet} and (orientation: landscape) { 
 		width: 5%;
+		max-width: 50px;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
@@ -305,11 +308,13 @@ export const ErrorButton = styled.button`
 	}
 `;
 
-export const EditUserButton = styled(RootButton)`
+export const EditUserButton = styled.button`
 	width: 80%;
 	height: 4vh;
+	position: absolute;
 	top: 94%;
 	left: 50%;
+	border: 0.5px solid rgb(0, 0, 0);
 	border-radius: 6px;
 	background-color: rgba(196, 196, 196, 0.6);
 	transform: translateX(-50%);
@@ -357,6 +362,11 @@ export const EditUserButton = styled(RootButton)`
 
 	&::after {
 		padding-bottom: 0;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
 	}
 `;
 

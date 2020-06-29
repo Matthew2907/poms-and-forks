@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { Button } from 'components';
@@ -10,8 +10,6 @@ function Content({
 	prevIngredientsShoppingList, sumIngredientsArr,
 	setIngredientsArrForShoppingList, 
 }) {
-
-	const [newIngredientsArr, setNewIngredientsArr] = useState(prevIngredientsShoppingList);
 
 	const handleDeleteIngredientFromRecipeIngredients = (index) => {
 		const newIngredientsArrForDelete = [...sumIngredientsArr];

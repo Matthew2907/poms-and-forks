@@ -15,22 +15,19 @@ function SingleRecipePage({
 	
 	const isLoaded = useMemo(
 		() => !!recipeLoadingState && Object.keys(recipeLoadingState).length === 0 && Object.keys(recipe).length > 0
-		,[recipeLoadingState]
+		,[recipeLoadingState, recipe]
 	); 
 
 	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState();
 	
-	const content = useMemo(() => {
+	const isUrlGood = useMemo(() => {
 		if(isLoaded && typeof recipe === "string"){
 			history.push("/error");
 			return null;
-		} else if(isLoaded && Object.keys(recipe).length !== 0){
-			return <Content recipe={recipe} setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}/>;
 		}
-		return null;
-	}, [isLoaded, recipe]);
+		return true;
+	}, [isLoaded, recipe, history]);
 
-	
 	useEffect(() => {
 		hideNavigation();
 		fetchRecipe(match.params.id);
@@ -39,7 +36,7 @@ function SingleRecipePage({
 	return(
 		<React.Fragment>
 			<Topbar recipe={recipe} resetSliderImageIndex={setSliderImageIndex}></Topbar>
-			{isLoaded ? content : <LoadingIndicator/>}
+			{(isLoaded && isUrlGood) ? <Content recipe={recipe} setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}/> : <LoadingIndicator/>}
 			<Bottombar recipeId={match.params.id} ingredients={ingredientsArrForShoppingList}/>
 			
 			<Switch>

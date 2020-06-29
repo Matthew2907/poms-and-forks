@@ -8,7 +8,7 @@ function ErrorPage({ resetRecipe }) {
 
 	useEffect(() => {
 		resetRecipe();
-	},[])
+	},[resetRecipe])
 	
 	return(
 		<React.Fragment>

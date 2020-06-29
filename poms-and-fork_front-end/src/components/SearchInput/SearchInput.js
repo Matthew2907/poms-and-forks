@@ -18,22 +18,30 @@ const SearchInput = styled.input`
 		outline: none;
 	}
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
 		height: 70%;
+		max-height: 50px;
 		font-size: 20px;
 	}  
 
 	@media ${device.tablet} { 
+		height: 50%;
+		border-radius: 50px;
 		font-size: 24px;
 	}  
-
+	
 	@media ${device.laptop} { 
-		font-size: 34px;
-		border-radius: 40px;
+		height: 60%;
+		font-size: 28px;
+	}  
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		height: 40%;
+		font-size: 28px;
 	}  
 
 	&::placeholder {
-		@media ${device.mobileM} { 
+		@media ${device.mobileM} and (orientation: landscape) { 
 			font-size: 20px;
 		}  
 		
@@ -42,7 +50,7 @@ const SearchInput = styled.input`
 		}  
 
 		@media ${device.laptop} { 
-			font-size: 34px;
+			font-size: 28px;
 		}  
 	}
 `;
