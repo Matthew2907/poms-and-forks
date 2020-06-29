@@ -7,9 +7,9 @@ router.route('/').get((req,res) => {
 		.catch(err => res.status(400).json('Error:' + err));
 });
 
-router.route('/:id').get((req,res) => {
-	User.findById(req.params.id)
-		.then(user => res.json(user))
+router.route('/:name').get((req,res) => {
+	User.find({userName: req.params.name})
+		.then(user => res.json(user[0]))
 		.catch(err => res.status(400).json('Error:' + err));
 });
 
@@ -18,7 +18,8 @@ router.route('/add').post((req,res) => {
 	const userLastName = req.body.userLastName; 
 	const userAvatarImageName = req.body.userAvatarImageName; 
 	const userChefLevel = Number(req.body.userChefLevel); 
-	const recipesAmount = Number(req.body.recipesAmount); 
+	const userRecipes = Array.from(req.body.userRecipes); 
+	const favouriteRecipes = Array.from(req.body.favouriteRecipes); 
 	const mainCookSkill = req.body.mainCookSkill; 
 	const id = req.body.id; 
 
@@ -27,7 +28,8 @@ router.route('/add').post((req,res) => {
 		userLastName,
 		userAvatarImageName,
 		userChefLevel,
-		recipesAmount,
+		userRecipes,
+		favouriteRecipes,
 		mainCookSkill,
 		id,
 	}); 
@@ -51,7 +53,8 @@ router.route('/update/:id').post((req, res) => {
 			user.userLastName = req.body.userLastName; 
 			user.userAvatarImageName = req.body.userAvatarImageName; 
 			user.userChefLevel = Number(req.body.userChefLevel); 
-			user.recipesAmount = Number(req.body.recipesAmount); 
+			user.userRecipes = Array.from(req.body.userRecipes); 
+			user.favouriteRecipes = Array.from(req.body.favouriteRecipes); 
 			user.mainCookSkill = req.body.mainCookSkill; 
 			user.id = req.body.id; 
 		

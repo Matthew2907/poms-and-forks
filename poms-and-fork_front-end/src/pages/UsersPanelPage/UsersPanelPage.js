@@ -4,23 +4,27 @@ import { connect } from 'react-redux';
 import { Topbar, Content } from './components';
 import { hideNavigation } from 'data/actions/app.actions';
 
-
-function UsersPanelPage({ hideNavigation }){
+function UsersPanelPage({ user, hideNavigation,  }){
 
 	useEffect(() => {
 		hideNavigation();
-	}, [hideNavigation])
+	}, [hideNavigation, user])
 
 	return(
 		<React.Fragment>
 			<Topbar/>
-			<Content/>
+			<Content user={user}/>
 		</React.Fragment>
 	)
 }
 
+const mapStateToProps = (state) => ({
+	user: state.data.user,
+  });
+
 const mapDispatchToProps = dispatch => ({
 	hideNavigation: () => dispatch(hideNavigation()),
+	
 });
 
-export default connect(null,mapDispatchToProps)(UsersPanelPage);
+export default connect(mapStateToProps,mapDispatchToProps)(UsersPanelPage);

@@ -28,8 +28,7 @@ function ShoppinglistPage({
 				r[a.name].push(a);
 				return r;
 			}, Object.create(null));
-			// Sprawdź czy jednostka jest równa jednostce GLOBALNEJ (np. gram dla cukru, dla ml dla mleka itp.) i jeśli jest to dodaj do siebie wartości klucza value,
-			// jeśli nie jest to wykorzystaj instrukcję warunkową if else i wykorzystaj współczynnik który ujednorodni jednostki z GLOBALNĄ jednostką. Następnie dodaj do siebie nowe wartości.
+		
 			const newIngredients = Object.entries(groupedNewArr).map(element => {
 				const currentShoppingIngredientArr = [...element[1]];
 				if(currentShoppingIngredientArr.length > 1){

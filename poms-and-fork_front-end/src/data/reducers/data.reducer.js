@@ -1,7 +1,8 @@
 import {
-	USERS_GET_REQUEST,
-	USERS_GET_SUCCESS,
-	USERS_GET_FAILURE,
+	USER_GET_REQUEST,
+	USER_GET_SUCCESS,
+	USER_GET_FAILURE,
+	USER_UPDATE_FAVOURITE_RECIPES,
 	RECIPES_GET_REQUEST,
 	RECIPES_GET_SUCCESS,
 	RECIPES_GET_FAILURE,
@@ -12,7 +13,7 @@ import {
 } from 'data/constants';
 
 const initialState = {
-	users: [],
+	user: {},
 	recipes: [],
 	images: [],
 }
@@ -21,8 +22,8 @@ function budget(state = initialState, action) {
 	const newLoadingState = { ...state.loadingState };		// tworzymy nowy obiekt zawierający dane loadingState, aby pracować na nim i z niego usunąć w momencie wykonania akcji BUDGET_GET_SUCCESS klucz LODING_STATE_LOADING bo dane się załadowały, a z racji że korzystamy z Redux'a to nie możemy MUTOWAĆ STANU tylko zwracać nowy :) nie będzie miał referencji, będzie to nowy obiekt
 
 	switch (action.type) {
-		// USERS
-		case USERS_GET_REQUEST:
+		// USER
+		case USER_GET_REQUEST:
 			return {
 				...state,
 				loadingState: {
@@ -30,22 +31,30 @@ function budget(state = initialState, action) {
 					[action.type]: LOADING_STATES.LOADING,
 				}
 			}
-		case USERS_GET_SUCCESS:
-			delete newLoadingState.USERS_GET_REQUEST;
+		case USER_GET_SUCCESS:
+			delete newLoadingState.USER_GET_REQUEST;
 			
 			return {
 				...state,
-				users: action.payload,
+				user: action.payload,
 				loadingState: newLoadingState,
 			}
-		case USERS_GET_FAILURE:
-			delete newLoadingState.USERS_GET_REQUEST;
+		case USER_GET_FAILURE:
+			delete newLoadingState.USER_GET_REQUEST;
 			
 			return {
 				...state,
-				users: [],
+				user: {},
 				loadingState: newLoadingState,
 			}
+		case USER_UPDATE_FAVOURITE_RECIPES:
+			return {
+				...state,
+				user: {
+					...state.user,
+					favouriteRecipes: action.payload,
+				},
+				}
 		// RECIPES
 		case RECIPES_GET_REQUEST:
 			return {

@@ -65,7 +65,7 @@ router.route('/add').post((req,res) => {
 	});
 
 	newRecipe.save()
-	.then(() => res.json('Recipe added!'))
+	.then(() => res.json(newRecipe._id))
 	.catch(err => res.status(400).json('Error: ' + err));
 });
 

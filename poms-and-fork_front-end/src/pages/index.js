@@ -6,3 +6,4 @@ export { default as ShoppinglistPage } from './ShoppinglistPage';
 export { default as SingleRecipePage } from './SingleRecipePage';
 export { default as UsersPanelPage } from './UsersPanelPage';
 export { default as SearchedRecipesPage } from './SearchedRecipesPage';
+export { default as ErrorPage } from './ErrorPage';

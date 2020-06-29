@@ -7,9 +7,8 @@ import closeIcon from 'images/Close icon.svg';
 import searchIcon from 'images/Search icon.svg';
 
 function Topbar({ isNavigationActive, showNavigation, hideNavigation}) {
-
+	
 	const [searchedRecipeTitle, setSearchedRecipeTitle] = useState("");
-
 	const searchRecipeByTitleButtonRef = useRef(null);
 
 	useEffect(() => {

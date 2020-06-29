@@ -64,6 +64,13 @@ export const StyledRegularLink = styled(Link)`
 	}
 `;
 
+export const ErrorLink = styled(StyledNavigationLink)`
+	flex-basis: 6%;
+
+	@media ${device.resolutionI} and (orientation: portrait) { 
+		flex-basis: 5%;
+	}  
+`;
 
 export const RootButton = styled.button`
 	position: absolute;
@@ -165,7 +172,6 @@ export const FirstRightTopButton = styled(RootButton)`
 
 export const SecondRightTopButton = styled(RootButton)`
 	left: 86%;
-	background-color: rgba(0,0,0,0.6);
 
 	@media ${device.mobileM} { 
 		left: 90%;
@@ -245,6 +251,58 @@ export const NextStepModeButton = styled(RootButton)`
 	@media ${device.laptopL} { 
 		width: 4%;
 	}  
+`;
+
+export const ErrorButton = styled.button`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	padding: 5px;
+	border-radius: 6px;
+	background-color: rgba(196, 196, 196, 0.6);
+	font-weight: bold;
+
+	@media ${device.mobileS} { 
+		font-size: 16px;
+	}
+
+	@media ${device.tablet} and (orientation: landscape) { 
+		height: 9vh;
+		border-radius: 8px;
+		font-size: 20px;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		height: 4vh;
+		border-radius: 10px;
+		font-size: 20px;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		height: 6vh;
+		border-radius: 10px;
+		font-size: 24px;
+	}
+
+	@media ${device.laptop} and (orientation: portrait) { 
+		height: 4vh;
+		border-radius: 10px;
+		font-size: 30px;
+	}
+
+	@media ${device.iPadPro} { 
+		height: 4.5vh;
+	}
+
+	@media ${device.laptopL} { 
+		height: 5.5vh;
+	}
+
+	&::after {
+		padding-bottom: 0;
+	}
 `;
 
 export const EditUserButton = styled(RootButton)`

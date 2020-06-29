@@ -1,6 +1,6 @@
 // fetchuje usersów
-export const fetchUsers = () => {
-	const promise = fetch(`${process.env.REACT_APP_API_URL}/users`);
+export const fetchUser = (userName) => {
+	const promise = fetch(`${process.env.REACT_APP_API_URL}/users/${userName}`);
 	return promise;
 }
 

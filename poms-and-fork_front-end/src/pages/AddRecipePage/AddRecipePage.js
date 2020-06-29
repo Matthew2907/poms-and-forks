@@ -11,6 +11,8 @@ function AddRecipePage({user, hideNavigation}){
 
 	useEffect(() => {
 		hideNavigation();
+		saveButtonRef.current.setAttribute('disabled', true);
+		saveButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
 	}, [hideNavigation])
 
 	return(
@@ -23,7 +25,7 @@ function AddRecipePage({user, hideNavigation}){
 
 // Get first user from users collection. Temporary solution.
 const mapStateToProps = (state) => ({
-	user: state.data.users[0],
+	user: state.data.user,
 });
 
 const mapDispatchToProps = dispatch => ({

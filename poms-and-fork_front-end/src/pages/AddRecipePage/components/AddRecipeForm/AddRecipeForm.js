@@ -174,9 +174,11 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 	},[newRecipe.recipeTitle])
 
 	const onSubmit = (values) => {
-		
 		saveButtonRef.current.setAttribute('disabled', false);
 		saveButtonRef.current.setAttribute('style', 'background-color: rgb(196, 196, 196);');
+		
+		const tagsArr = values.recipeTags.split("#");
+		tagsArr.splice(0,1);
 
 		setNewRecipe(newRecipe => ({
 			...newRecipe,
@@ -184,7 +186,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 			recipeTitle: values.recipeTitle,
 			recipeDescriptionShort: values.recipeDescriptionShort,
 			recipeCategory: values.recipeCategory,
-			recipeTags: values.recipeTags.split("#"),
+			recipeTags: tagsArr,
 			recipeServings: values.recipeServings,
 			recipePreparationTime: values.recipePreparationTime,
 			recipeSocialRank: 77,
@@ -198,7 +200,6 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 	};
 
 	const { handleSubmit, register, errors } = useForm();
-	console.log(errors);
 	
 	return(
 			<AddRecipeFormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -257,7 +258,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 					</CategorySelectionField>
 					<ServingsInputField type="number" name="recipeServings" ref={register({ required: true  })} placeholder={errors.recipeServings ? "Required field!" : "Servings"} min="1" max="12" step="1"/>
 				</CategoryAndServingsContainer>
-				<TagsInputField autoComplete="off" type="text" name="recipeTags" ref={register({ required: true, maxLength: 40 })} placeholder={errors.recipeTags ? "Required field!" : "Write your tags with # in the beggining i.e. #dinner"}/>
+				<TagsInputField autoComplete="off" type="text" name="recipeTags" ref={register({ required: true, maxLength: 40 })} placeholder={errors.recipeTags ? "Required field!" : "#type#here#your#tags#just#like#that"}/>
 				<PreparationTimeInputField type="number" name="recipePreparationTime" ref={register({ required: true })} placeholder={errors.recipePreparationTime ? "Required field!" : "Preparation itme (in minutes)"}/>
 				<NutritionFactsContainer>
 					<p>Nutrition facts</p>

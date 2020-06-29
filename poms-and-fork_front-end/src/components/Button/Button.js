@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyledRegularLink, StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink} from './Button.css';
+import { StyledRegularLink, StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink, ErrorButton, ErrorLink} from './Button.css';
 
 // children to content wewnątrz buttona, ...props to metoda onClick i atrybut to
 function Button({ variant, children, ...props}, ref) {
@@ -39,6 +39,8 @@ function Button({ variant, children, ...props}, ref) {
 				return EditUserButton;
 			case "settings":
 				return SettingsNavigationButton;
+			case "error":
+				return ErrorButton;
 			default: 
 				return RootButton;
 		}
@@ -49,6 +51,8 @@ function Button({ variant, children, ...props}, ref) {
 			case "secondRightTop":
 			case "secondBottom":
 				return StyledSearchLink;
+			case "error":
+				return ErrorLink;
 			default: 
 				return StyledNavigationLink;
 		}
@@ -63,7 +67,7 @@ const content = useMemo(() => <Component ref={ref} {...props}>{children}</Compon
 	return to ? (
 		<StyledLink to={to}>
 			{content}
-			<p>{text}</p>
+			{text && <p>{text}</p>}
 		</StyledLink>
 	  ) : (
 		<React.Fragment>

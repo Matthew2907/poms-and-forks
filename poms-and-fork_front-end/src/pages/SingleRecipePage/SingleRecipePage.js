@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Topbar, Content, Bottombar, StepModeModal } from './components'; 
@@ -11,22 +11,35 @@ function SingleRecipePage({
 	match, recipe, recipeLoadingState, 
 	hideNavigation, fetchRecipe, setDescriptionStepIndex, setSliderImageIndex 
 }){
+	let history = useHistory();
+	
+	const isLoaded = useMemo(
+		() => !!recipeLoadingState && Object.keys(recipeLoadingState).length === 0 && Object.keys(recipe).length > 0
+		,[recipeLoadingState]
+	); 
+
 	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState();
+	
+	const content = useMemo(() => {
+		if(isLoaded && typeof recipe === "string"){
+			history.push("/error");
+			return null;
+		} else if(isLoaded && Object.keys(recipe).length !== 0){
+			return <Content recipe={recipe} setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}/>;
+		}
+		return null;
+	}, [isLoaded, recipe]);
+
 	
 	useEffect(() => {
 		hideNavigation();
 		fetchRecipe(match.params.id);
 	}, [hideNavigation, fetchRecipe, match.params.id])
 	
-	const isLoaded = useMemo(
-		() => !!recipeLoadingState && Object.keys(recipeLoadingState).length === 0 && Object.keys(recipe).length > 0
-		,[recipeLoadingState]
-	); 
-	
 	return(
 		<React.Fragment>
 			<Topbar recipe={recipe} resetSliderImageIndex={setSliderImageIndex}></Topbar>
-			{isLoaded ? <Content recipe={recipe} setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}/> : <LoadingIndicator/>}
+			{isLoaded ? content : <LoadingIndicator/>}
 			<Bottombar recipeId={match.params.id} ingredients={ingredientsArrForShoppingList}/>
 			
 			<Switch>

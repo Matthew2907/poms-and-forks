@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 
 import { Button, LoadingIndicator } from 'components';
 import { ContentContainer, UserImageContainer, UserInformationContainer, SingleUserInfoContainer} from './Content.css';
-import { fetchUsers } from 'data/actions/data.actions';
 import whiteStar from 'images/Polygon 5.svg';
 import blackStar from 'images/BlackStar.svg';
 
-function Content({ user, fetchUsers }) {
-
-	useEffect(() => {
-		fetchUsers();
-	}, [fetchUsers])
+function Content({ user }) {
 
 	const functionWillCreate = () => {
 		console.log("Jeszcze nie działam!");
@@ -37,7 +31,7 @@ function Content({ user, fetchUsers }) {
 
 	return(
 		<React.Fragment>
-			{ user ?
+			{ Object.keys(user).length !== 0 ? 
 			<ContentContainer>
 				<UserImageContainer url={`http://localhost:5000/image/${user.userAvatarImage}`}/>
 				<UserInformationContainer>
@@ -59,7 +53,7 @@ function Content({ user, fetchUsers }) {
 					</SingleUserInfoContainer>
 					<SingleUserInfoContainer>
 						<p>Recipes:</p>
-						<p>{user.recipesAmount}</p>
+						<p>{user.userRecipes.length}</p>
 					</SingleUserInfoContainer>
 					<SingleUserInfoContainer>
 						<p>Joined:</p>
@@ -74,12 +68,4 @@ function Content({ user, fetchUsers }) {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	user: state.data.users[0],
-});
-
-const mapDispatchToProps = dispatch => ({
-	fetchUsers: () => dispatch(fetchUsers()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;

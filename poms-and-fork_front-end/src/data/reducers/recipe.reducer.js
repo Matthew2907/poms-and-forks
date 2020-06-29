@@ -2,6 +2,7 @@ import {
 	RECIPE_GET_REQUEST,
 	RECIPE_GET_SUCCESS,
 	RECIPE_GET_FAILURE,
+	RECIPE_RESET,
 	SEARCHED_RECIPE_GET_REQUEST,
 	SEARCHED_RECIPE_GET_SUCCESS,
 	SEARCHED_RECIPE_GET_FAILURE,
@@ -42,6 +43,11 @@ function recipe(state = initialState, action) {
 				...state,
 				recipe: {},
 				loadingState: newLoadingState,
+			}
+		case RECIPE_RESET:
+			return {
+				...state,
+				recipe: {},
 			}
 		case SEARCHED_RECIPE_GET_REQUEST:
 			return {

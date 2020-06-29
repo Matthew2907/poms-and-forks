@@ -28,9 +28,11 @@ const userSchema = new Schema({
 		trim: true,
 		minlength: 3
 	},
-	recipesAmount: {		
-		type: Number,
-		required: true,
+	userRecipes: {		
+		type: Array
+	},
+	favouriteRecipes: {		
+		type: Array
 	},
 	mainCookSkill: {		
 		type: String,
