@@ -14,12 +14,12 @@ export const Wrapper = styled.aside`
 	justify-content: center;
 	z-index: 100;
 `;
-
+// ${1.1 * window.innerWidth}px;
 export const Content = styled.div`
 	position: absolute;
 	margin: auto;
 	width: 90%;
-	height: ${1.1 * window.innerWidth}px;
+	height: ${({updateWidth}) => `${1.1 * updateWidth}px`};
 	max-height: 85vh;
 	box-shadow: ${({ theme }) => `0 5px 10px 2px ${theme.colors.gray.dark}`};
 	padding: 5px;
@@ -27,7 +27,7 @@ export const Content = styled.div`
 	background-color: rgb(255, 255, 255);
 
 	@media ${device.tablet} { 
-		height: ${0.6 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.6 * updateWidth}px`};
 		width: 80%;
 	}
 `;

@@ -27,7 +27,7 @@ export const FavouriteListContainer = styled.div`
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
-		margin-top: 7vh;
+		margin-top: 10vh;
 	}
 `;
 

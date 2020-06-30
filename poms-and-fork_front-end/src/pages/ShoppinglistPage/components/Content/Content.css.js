@@ -8,7 +8,15 @@ export const ShopinglistIngredientsContainer = styled(RecipeInfoIngredientsConta
 	margin-top: 10vh;
 	margin-bottom: 2vh;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
+		margin-top: 14vh;
+	}
+
+	@media ${device.tablet} and (orientation: landscape) { 
+		margin-top: 11vh;
+	}
+	
+	@media ${device.tablet} and (orientation: landscape) and (min-height: 370px){ 
 		margin-top: 14vh;
 	}
 
@@ -16,13 +24,29 @@ export const ShopinglistIngredientsContainer = styled(RecipeInfoIngredientsConta
 		margin-top: 6vh;
 	}
 
+	@media (min-height: 500px) and (orientation: landscape) { 
+		margin-top: 10vh;
+	}
+
 	@media ${device.laptop} and (orientation: landscape) { 
-		margin-top: 9vh;
+		margin-top: 10vh;
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
+		margin-top: 9vh;
+	}
+
+	@media ${device.iPadPro} and (min-height: 1000px) { 
 		margin-top: 7vh;
+	}
+
+	@media ${device.laptopL} and (orientation: landscape) {
+		margin-top: 13h;
 	}
 `;
 
-export const ShopingIngredientContainer = styled(IngredientContainer)``;
+export const ShopingIngredientContainer = styled(IngredientContainer)`
+	@media ${device.mobileL} { 
+		padding: 2% 0;
+	}
+`;

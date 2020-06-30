@@ -8,12 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AddRecipePage, FavouriteRecipesPage, Homepage, SettingsPage, ShoppinglistPage, SingleRecipePage, UsersPanelPage, SearchedRecipesPage, ErrorPage } from 'pages';
 import { Navigation, Wrapper, LoadingIndicator } from 'components';
 import GlobalStyles from './index.css';
+import { updateFavouriteRecipesListInDB } from 'utils/globalFunctions';
+import { setShoppinglistAddIngredients } from 'data/actions/app.actions';
 import { theme } from 'utils';
 import { fetchUser, fetchFavouriteRecipe } from 'data/actions/data.actions';
 
 function App({ 
-	user, favouriteRecipesList,
-	fetchUser, fetchFavouriteRecipe
+	user, favouriteRecipesList, shoppinglistIngredients,
+	fetchUser, fetchFavouriteRecipe, setShoppinglistAddIngredients
 }) {
 
 	const setFavRecpsArr = useCallback(
@@ -32,11 +34,25 @@ function App({
 	}, [fetchUser])
 	
 	useEffect(() => {
+		if(Object.entries(user).length > 0){
+			setShoppinglistAddIngredients(user.userShoppinglist);
+		}
+	}, [user])
+	
+	useEffect(() => {
 		if(favouriteRecipesList.length === 0){
 			setFavRecpsArr(user.favouriteRecipes);
 		}
 	}, [user.favouriteRecipes, favouriteRecipesList.length, setFavRecpsArr])
 	
+	useEffect(() => {
+		// set shoppinglistIngredients in DB
+		console.log(shoppinglistIngredients);
+		if(typeof shoppinglistIngredients !== "undefined" && shoppinglistIngredients.length < 20){
+			updateFavouriteRecipesListInDB(shoppinglistIngredients, user, "shoppingIngredients");
+		}
+	},[shoppinglistIngredients])
+
 	toast.configure();
 
 	return (
@@ -66,8 +82,10 @@ const ConnectedApp = connect(
 	(state) => ({
 		user: state.data.user,
 		favouriteRecipesList: state.applicationRecuder.favouriteRecipesList,
+		shoppinglistIngredients: state.applicationRecuder.shoppinglistIngredients,
 	}),{
 	fetchUser,
+	setShoppinglistAddIngredients,
 	fetchFavouriteRecipe,
 })(App)
 

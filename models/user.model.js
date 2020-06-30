@@ -34,6 +34,9 @@ const userSchema = new Schema({
 	favouriteRecipes: {		
 		type: Array
 	},
+	userShoppinglist: {		
+		type: Array
+	},
 	mainCookSkill: {		
 		type: String,
 		required: true,

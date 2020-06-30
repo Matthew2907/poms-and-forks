@@ -7,6 +7,7 @@ const Rootbar = styled.div`
 	left: 0;
 	width: 100%;
 	height: 10vh;
+	min-height: 35px;
 	background-color: rgba(255, 255, 255, 1);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	z-index: 1;
@@ -14,6 +15,7 @@ const Rootbar = styled.div`
 	
 	@media ${device.mobileM} and (orientation: landscape) { 
 		height: 14vh;
+		max-height: 74px;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
@@ -22,6 +24,7 @@ const Rootbar = styled.div`
 
 	@media ${device.laptop} and (orientation: landscape) { 
 		height: 9vh;
+		min-height: 60px;
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 

@@ -100,6 +100,12 @@ function Content({
 		}
 		return setSliderImageIndex(newIndex);
 	};
+
+	const [updateWidth, setUpdateWidth] = useState(window.innerWidth);
+	
+	window.addEventListener("resize", function() {
+		setUpdateWidth(window.innerWidth);
+	});
 // ############################################################################################################
 	return(
 		<ContentCantainer>
@@ -148,19 +154,19 @@ function Content({
 					<RecipeInfoNutritionInfo>
 					{recipe.recipeEnergyValue &&
 					<React.Fragment>
-							<NutritionContainer>
+							<NutritionContainer updateWidth={updateWidth}>
 								<p>kcal</p>
 								<p>{recipe.recipeEnergyValue}</p>
 							</NutritionContainer>
-							<NutritionContainer>
+							<NutritionContainer updateWidth={updateWidth}>
 								<p>Protein</p>
 								<p>{`${recipe.recipeProtein}g`}</p>
 							</NutritionContainer>
-							<NutritionContainer>
+							<NutritionContainer updateWidth={updateWidth}>
 								<p>Fat</p>
 								<p>{`${recipe.recipeFat}g`}</p>
 							</NutritionContainer>
-							<NutritionContainer>
+							<NutritionContainer updateWidth={updateWidth}>
 								<p>Carbs</p>
 								<p>{`${recipe.recipeCarbohydrate}g`}</p>
 							</NutritionContainer>

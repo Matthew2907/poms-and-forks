@@ -11,9 +11,15 @@ function Modal({ children, resetDescriptionStepIndex }) {
 		resetDescriptionStepIndex(0);
 	}
 	
+	const [updateWidth, setUpdateWidth] = React.useState(window.innerWidth);
+	
+	window.addEventListener("resize", function() {
+		setUpdateWidth(window.innerWidth);
+	});
+	
 	return createPortal(
 		<Wrapper onClick={handleClose}>
-			<Content onClick={event => event.stopPropagation()}>
+			<Content updateWidth={updateWidth} onClick={event => event.stopPropagation()}>
 				<CloseIcon onClick={handleClose}>&times;</CloseIcon>
 				{children}
 			</Content>

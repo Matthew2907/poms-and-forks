@@ -183,28 +183,12 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 	},[newRecipe.recipeTitle])
 
 	const onSubmit = (values) => {
-		saveButtonRef.current.setAttribute('disabled', false);
+		saveButtonRef.current.removeAttribute('disabled');
 		saveButtonRef.current.setAttribute('style', 'background-color: rgb(196, 196, 196);');
 		
 		const tagsArr = values.recipeTags.split("#");
 		tagsArr.splice(0,1);
 		
-		// setRecipeInfo(newRecipe => ({
-		// 	...newRecipe,
-		// 	recipesUser: user,
-		// 	recipeTitle: values.recipeTitle,
-		// 	recipeDescriptionShort: values.recipeDescriptionShort,
-		// 	recipeCategory: values.recipeCategory,
-		// 	recipeTags: tagsArr,
-		// 	recipeServings: values.recipeServings,
-		// 	recipePreparationTime: values.recipePreparationTime,
-		// 	recipeSocialRank: 77,
-		// 	recipeEnergyValue: values.recipeEnergyValue,
-		// 	recipeProtein: values.recipeProtein,
-		// 	recipeFat: values.recipeFat,
-		// 	recipeCarbohydrate: values.recipeCarbohydrate,
-		// 	date: new Date(),
-		// }));
 		setNewRecipe(newRecipe => ({
 			...newRecipe,
 			recipesUser: user,
@@ -224,6 +208,14 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 		
 	};
 
+
+	
+	const [updateWidth, setUpdateWidth] = React.useState(window.innerWidth);
+	
+	window.addEventListener("resize", function() {
+			setUpdateWidth(window.innerWidth);
+	});
+
 	const { handleSubmit, register, errors } = useForm();
 	
 	return(
@@ -233,7 +225,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 					<BigImageContainer 
 						url={newRecipe.recipeImageNames[0]}
 					>
-						<Button type="button" variant={"addImage"} htmlFor="file">
+						<Button updateWidth={updateWidth} type="button" variant={"addImage"} htmlFor="file">
 							<img src={cameraIcon} alt="add icon"/>
 						</Button>
 						<input name="file" id="file" type="file" onChange={handleSendImage}/>
@@ -242,7 +234,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 					<BigImageContainer 
 						url={newRecipe.recipeImageNames[1]}
 					>
-						<Button variant={"addImage"} htmlFor="file">
+						<Button updateWidth={updateWidth} variant={"addImage"} htmlFor="file">
 							<img src={cameraIcon} alt="add icon"/>
 						</Button>
 						<input name="file" id="file" type="file" onChange={handleSendImage}/>
@@ -250,7 +242,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 					<BigImageContainer 
 						url={newRecipe.recipeImageNames[2]}
 					>
-						<Button variant={"addImage"} htmlFor="file">
+						<Button updateWidth={updateWidth} variant={"addImage"} htmlFor="file">
 							<img src={cameraIcon} alt="add icon"/>
 						</Button>
 						<input name="file" id="file" type="file" onChange={handleSendImage}/>
@@ -258,7 +250,7 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 					<BigImageContainer 
 						url={newRecipe.recipeImageNames[3]}
 					>
-						<Button variant={"addImage"} htmlFor="file">
+						<Button updateWidth={updateWidth} variant={"addImage"} htmlFor="file">
 							<img src={cameraIcon} alt="add icon"/>
 						</Button>
 						<input name="file" id="file" type="file" onChange={handleSendImage}/>
@@ -328,7 +320,6 @@ function AddRecipeForm({ user, setRecipeInfo, saveButtonRef }){
 							<img src={addRecipeIcon} alt="add recipe button"/>
 						</Button>
 					</DescriptionStepsAddContainer>
-					{/* FIXME: zmień key na coś innego niż index! */}
 						{newRecipe.recipeDescriptionInSteps.map((singleStep, index) => {
 							const id = generatorID();
 							return (

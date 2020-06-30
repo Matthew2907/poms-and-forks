@@ -57,7 +57,6 @@ function Topbar({
 	// 		console.log(error);
 	// 	  });
 	// };
-
 	const handleAddToFavourites = () =>  {
 		const newFavouritesArr = [...favouriteRecipesList];		// Array of recipes objects 
 		const newFavouritesUserArr = [...user.favouriteRecipes];	// Array of recipes ids 
@@ -81,7 +80,6 @@ function Topbar({
 	};
 
 	return(
-		
 		<Bar text={recipe.recipeTitle} variant="topbar">
 			<Button variant="mainMenu" onClick={handleClickGoBack}>
 				<img src={backIcon} alt=""/>

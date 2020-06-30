@@ -20,6 +20,7 @@ router.route('/add').post((req,res) => {
 	const userChefLevel = Number(req.body.userChefLevel); 
 	const userRecipes = Array.from(req.body.userRecipes); 
 	const favouriteRecipes = Array.from(req.body.favouriteRecipes); 
+	const userShoppinglist = Array.from(req.body.userShoppinglist); 
 	const mainCookSkill = req.body.mainCookSkill; 
 	const id = req.body.id; 
 
@@ -30,6 +31,7 @@ router.route('/add').post((req,res) => {
 		userChefLevel,
 		userRecipes,
 		favouriteRecipes,
+		userShoppinglist,
 		mainCookSkill,
 		id,
 	}); 
@@ -55,6 +57,7 @@ router.route('/update/:id').post((req, res) => {
 			user.userChefLevel = Number(req.body.userChefLevel); 
 			user.userRecipes = Array.from(req.body.userRecipes); 
 			user.favouriteRecipes = Array.from(req.body.favouriteRecipes); 
+			user.userShoppinglist = Array.from(req.body.userShoppinglist); 
 			user.mainCookSkill = req.body.mainCookSkill; 
 			user.id = req.body.id; 
 		

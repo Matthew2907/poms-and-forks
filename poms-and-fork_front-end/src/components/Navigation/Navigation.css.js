@@ -23,10 +23,24 @@ export const Container = styled.nav`
 		height: 94vh;
 	}
 
-	@media ${device.laptop} and (orientation: landscape) { 
-		top: 9%;
-		width: 28%;
+	@media ${device.resolutionI} and (orientation: portrait) {
 		height: 91vh;
+		top: 9%;
+	}
+
+	@media (min-height: 500px) and (min-width: 640px) { 
+		top: 10%;
+	}
+
+	@media (min-height: 1024px) and (min-width: 768px) { 
+		height: 91vh;
+		top: 9%;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		top: 7%;
+		width: 28%;
+		height: 93vh;
 	}
 `;
 

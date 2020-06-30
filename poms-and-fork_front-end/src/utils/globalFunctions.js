@@ -6,6 +6,9 @@ export const updateFavouriteRecipesListInDB = (variable1, user, type) => {
 		newUser.favouriteRecipes = variable1;
 	} else if(type === "userRecipes") {
 		newUser.userRecipes.push(variable1);
+	} else if(type === "shoppingIngredients") {
+		console.log(variable1);
+		newUser.userShoppinglist = variable1;
 	}
 	
 	axios.post(`http://localhost:5000/users/update/${user._id}`, newUser, {
@@ -14,7 +17,7 @@ export const updateFavouriteRecipesListInDB = (variable1, user, type) => {
 		}
 	})
 	  .then(function (response) {
-		console.log("Recipe has been added to favourite list!");
+		console.log("User data has been updated!");
 	  })
 	  .catch(function (error) {
 		console.log(error);

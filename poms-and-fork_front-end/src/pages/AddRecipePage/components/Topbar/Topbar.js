@@ -18,21 +18,21 @@ function Topbar({recipeInfo, saveButtonRef}) {
 	};
 
 	const handleSendNewRecipe = () => {
-		console.log(recipeInfo);
-		
-		axios.post('http://localhost:5000/recipes/add', recipeInfo, {
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		})
-		  .then(function (response) {			
-			updateFavouriteRecipesListInDB(response.data, recipeInfo.recipesUser, "userRecipes")
-			history.push("/");
-			toast.success("Recipe has been added successfully!");
-		  })
-		  .catch(function (error) {
-			console.log(error);
-		  });
+		if(!saveButtonRef.current.hasAttribute('disabled')) {
+			axios.post('http://localhost:5000/recipes/add', recipeInfo, {
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			})
+			  .then(function (response) {			
+				updateFavouriteRecipesListInDB(response.data, recipeInfo.recipesUser, "userRecipes")
+				history.push("/");
+				toast.success("Recipe has been added successfully!");
+			  })
+			  .catch(function (error) {
+				console.log(error);
+			  });
+		} 
 	};
 
 	return(

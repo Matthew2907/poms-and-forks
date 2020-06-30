@@ -106,7 +106,7 @@ export const RootButton = styled.button`
 	}
 
 	@media ${device.mobileM} and (orientation: landscape)  { 
-		max-width: 40px;
+		max-width: 30px;
 		width: 6%;
 	}
 
@@ -116,19 +116,25 @@ export const RootButton = styled.button`
 
 	@media ${device.tablet} and (orientation: landscape) { 
 		width: 5%;
-		max-width: 50px;
+		max-width: 30px;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
 		width: 6%;
 	}
 
+	@media (min-height: 500px) and (max-height: 756px) and (min-width: 700px) and (max-width: 1024px) { 
+		max-width: 50px;
+	}
+
 	@media ${device.laptop} and (orientation: landscape) { 
 		width: 5%;
+		max-width: 50px;
 	}  
 
 	@media ${device.laptop} and (orientation: portrait) { 
 		width: 6%;
+		max-width: 70px;
 	}  
 
 	@media ${device.laptopL} { 
@@ -168,16 +174,44 @@ export const SideNavigationButton = styled(RootButton)`
 export const FirstRightTopButton = styled(RootButton)`
 	left: 74%;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
 		left: 80%;
+	}
+	
+	@media ${device.tablet} and (orientation: landscape) { 
+		left: auto;
+		right: 10%;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) { 
+		left: auto;
+		right: 13%;
 	}
 `;
 
 export const SecondRightTopButton = styled(RootButton)`
 	left: 86%;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
+		max-width: 30px;
 		left: 90%;
+	}
+	
+	@media ${device.tablet} { 
+		left: auto;
+		right: 4%;
+	}
+
+	@media ${device.tablet} and (orientation: landscape) { 
+		max-width: 30px;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) { 
+		max-width: 50px;
+	}
+
+	@media (min-height: 500px) and (max-height: 756px) and (min-width: 700px) and (max-width: 1024px) { 
+		max-width: 50px;
 	}
 `;
 
@@ -191,6 +225,20 @@ export const SecondBottomButton = styled(RootButton)`
 `;
 
 export const IngredientButton = styled(RootButton)`
+	width: 8%;
+	left: auto;
+	right: 5%;
+
+	@media ${device.mobileM} { 
+		width: 6%;
+	} 
+
+	@media ${device.laptopL} { 
+		width: 5%;
+	} 
+`;
+
+export const ShoppingIngredientButton = styled(IngredientButton)`
 	width: 8%;
 	left: auto;
 	right: 5%;
@@ -349,7 +397,7 @@ export const EditUserButton = styled.button`
 
 	@media ${device.laptop} and (orientation: portrait) { 
 		width: 40%;
-		height: 4vh;
+		height: 3vh;
 		top: 92%;
 		border-radius: 20px;
 	}
@@ -357,6 +405,7 @@ export const EditUserButton = styled.button`
 	@media ${device.iPadPro} { 
 		height: 4.5vh;
 		left: 50%;
+		top: 88%;
 		transform: translateX(20%);
 	}
 
@@ -398,7 +447,7 @@ export const AddImageInput = styled.label`
 	top: 50%;
 	left: 50%;
 	width: 20%;
-	height: ${0.08 * window.innerWidth}px;
+	height: ${({updateWidth}) => `${0.08 * updateWidth}px`};
 	background-color: rgb(196, 196, 196);
 	border: 0.5px solid #000000;
 	border-radius: 15%;
@@ -406,17 +455,17 @@ export const AddImageInput = styled.label`
 	
 	@media ${device.mobileM} and (orientation: landscape) { 
 		width: 15%;
-		height: ${0.06 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.06 * updateWidth}px`};
 	}
 
 	@media ${device.laptop} { 
 		width: 15%;
-		height: ${0.045 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.045 * updateWidth}px`};
 	}
 
 	@media ${device.laptopL} { 
 		width: 15%;
-		height: ${0.04 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.04 * updateWidth}px`};
 	}
 
 	img {

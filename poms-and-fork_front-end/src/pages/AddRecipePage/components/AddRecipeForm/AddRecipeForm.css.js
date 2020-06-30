@@ -9,7 +9,7 @@ export const AddRecipeFormContainer = styled.form`
 	margin-top: 10vh;
 	margin-bottom: 2vh;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} and (orientation: landscape) { 
 		margin-top: 14vh;
 	}
 
@@ -22,7 +22,7 @@ export const AddRecipeFormContainer = styled.form`
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
-		margin-top: 7vh;
+		margin-top: 9vh;
 	}
 `;
 

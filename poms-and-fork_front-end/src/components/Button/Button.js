@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink, ErrorButton, ErrorLink} from './Button.css';
+import { StyledNavigationLink, RootButton, SideNavigationButton, FirstRightTopButton, SecondRightTopButton, FirstBottomButton, SecondBottomButton,IngredientButton, SliderAndDescAddRightButton, CameraButton, DescDeleteButton, NextSliderButton, AddImageInput, BackStepModeButton, NextStepModeButton, EditUserButton , SettingsNavigationButton, StyledSearchLink, ErrorButton, ErrorLink, ShoppingIngredientButton} from './Button.css';
 
 // children to content wewnątrz buttona, ...props to metoda onClick i atrybut to
 function Button({ variant, children, ...props}, ref) {
@@ -21,6 +21,8 @@ function Button({ variant, children, ...props}, ref) {
 				return SecondBottomButton;
 			case "ingredient":
 				return IngredientButton;
+			case "shoppingIngredient":
+				return ShoppingIngredientButton;
 			case "sliderOrDescAdd":
 				return SliderAndDescAddRightButton;
 			case "camera":
@@ -58,7 +60,7 @@ function Button({ variant, children, ...props}, ref) {
 		}
 	}, [variant]);
 // children to TAG img z obrazkiem SVG przekazanym w miejscu użycia Buttona 
-const content = useMemo(() => <Component ref={ref} {...props}>{children}</Component>, [
+	const content = useMemo(() => <Component ref={ref} {...props}>{children}</Component>, [
 		props,
 		children,
 		ref,

@@ -22,7 +22,7 @@ export const Container = styled.nav`
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
-		margin-top: 7vh;
+		margin-top: 9vh;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 

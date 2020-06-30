@@ -13,14 +13,29 @@ export const ContentCantainer = styled.div`
 		margin-bottom: 14vh;
 	}
 
+	@media ${device.mobileM} and (min-height: 500px) { 
+		margin-top: 10vh;
+		margin-bottom: 10vh;
+	}
+
 	@media ${device.resolutionI} and (orientation: portrait) { 
-		margin-top: 7vh;
-		margin-bottom: 7vh;
+		margin-top: 9vh;
+		margin-bottom: 9vh;
 	}
 
 	@media ${device.laptop} and (orientation: landscape) { 
 		margin-top: 9vh;
 		margin-bottom: 9vh;
+	}
+	
+	@media ${device.laptop} and (orientation: landscape) { 
+		margin-top: 9vh;
+		margin-bottom: 9vh;
+	}
+
+	@media ${device.iPadPro} and (min-height: 1000px) { 
+		margin-top: 7vh;
+		margin-bottom: 7vh;
 	}
 `;
 
@@ -306,7 +321,7 @@ export const NutritionContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	flex-basis: 22%;
-	height: ${0.21 * window.innerWidth}px;
+	height: ${({updateWidth}) => `${0.21 * updateWidth}px`};
 	margin: 10px 3px;
 	border: 2px solid black;
 	border-radius: 50%;
@@ -314,42 +329,42 @@ export const NutritionContainer = styled.div`
 
 	@media ${device.mobileS} { 
 		flex-basis: 19.5%;
-		height: ${0.19 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.19 * updateWidth}px`};
 	}
 
 	@media ${device.mobileM} and (orientation: landscape) { 
 		flex-basis: 14.5%;
-		height: ${0.14 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.14 * updateWidth}px`};
 	}
 
 	@media ${device.mobileL} and (orientation: landscape) { 
 		flex-basis: 12.5%;
-		height: ${0.12 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.12 * updateWidth}px`};
 	}
 	
 	@media ${device.tablet} and (orientation: landscape) { 
 		flex-basis: 10.5%;
-		height: ${0.10 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.1 * updateWidth}px`};
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
 		flex-basis: 13.5%;
-		height: ${0.13 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.13 * updateWidth}px`};
 	}
 	
 	@media ${device.laptop} { 
 		flex-basis: 12.5%;
-		height: ${0.1 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.1 * updateWidth}px`};
 	}
 
 	@media ${device.laptop} and (orientation: portrait) { 
 		flex-basis: 12.5%;
-		height: ${0.11 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.11 * updateWidth}px`};
 	}
 
 	@media ${device.laptopL} { 
 		flex-basis: 12.5%;
-		height: ${0.07 * window.innerWidth}px;
+		height: ${({updateWidth}) => `${0.07 * updateWidth}px`};
 	} 
 	
 	p:nth-of-type(1){
@@ -492,7 +507,7 @@ export const IngredientContainer = styled.div`
 
 	@media ${device.tablet} and (orientation: portrait) { 
 		padding: 15px 0;
-		border-radius: 10px;
+		border-radius: 6px;
 	}
 	
 	@media ${device.laptop} { 

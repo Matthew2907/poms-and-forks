@@ -13,8 +13,8 @@ export const ContentContainer = styled.div`
 
 	@media ${device.mobileM} and (orientation: landscape) { 
 		display: flex;
-		height: 91vh;
-		margin-top: 12vh;
+		height: 84vh;
+		margin-top: 16vh;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) { 
@@ -23,7 +23,7 @@ export const ContentContainer = styled.div`
 	}
 
 	@media ${device.laptop} and (orientation: landscape) { 
-		margin-top: 9vh;
+		margin-top: 12vh;
 	}
 
 	@media ${device.resolutionI} and (orientation: portrait) { 
@@ -59,7 +59,7 @@ export const UserImageContainer = styled.div`
 		margin: 13% 12% auto 25px;
 	}
 
-	@media ${device.iPadPro} { 
+	@media ${device.iPadPro} and (min-height: 1000px;) { 
 		flex-basis: 50%;
 		margin: 25% 10% auto 0;
 	}

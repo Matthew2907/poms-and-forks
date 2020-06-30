@@ -19,12 +19,17 @@ const SearchInput = styled.input`
 	}
 
 	@media ${device.mobileM} and (orientation: landscape) { 
-		height: 70%;
+		height: 65%;
+		min-height: 25px;
 		max-height: 50px;
 		font-size: 20px;
 	}  
 
-	@media ${device.tablet} { 
+	@media ${device.mobileL} and (orientation: portrait) { 
+		max-height: 35px;
+	}
+
+	@media (min-width: 700px) { 
 		height: 50%;
 		border-radius: 50px;
 		font-size: 24px;
@@ -37,6 +42,7 @@ const SearchInput = styled.input`
 
 	@media ${device.laptop} and (orientation: portrait) { 
 		height: 40%;
+		min-height: 50px;
 		font-size: 28px;
 	}  
 
@@ -45,7 +51,7 @@ const SearchInput = styled.input`
 			font-size: 20px;
 		}  
 		
-		@media ${device.tablet} { 
+		@media (min-width: 700px) { 
 			font-size: 24px;
 		}  
 

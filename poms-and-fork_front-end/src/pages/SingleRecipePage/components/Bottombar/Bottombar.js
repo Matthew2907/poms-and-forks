@@ -19,14 +19,24 @@ function Bottombar({
 		if(!shoplistButtonRef.current.hasAttribute('disabled')){
 			if(prevIngredientsShoppingList.length > 0){
 				const newIngredientShoppingList = [...prevIngredientsShoppingList, ...ingredients];
-				setShoppinglistAddIngredients(newIngredientShoppingList);	
+
+				if(newIngredientShoppingList.length < 20){
+					setShoppinglistAddIngredients(newIngredientShoppingList);	
+					shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
+					shoplistButtonRef.current.setAttribute('disabled', true);
+					toast.success("Ingredients has been added to your shooping list!");
+					return;
+				} else {
+					shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
+					shoplistButtonRef.current.setAttribute('disabled', true);
+					toast.error("The shopping list can only contain 20 items!");
+					return;
+				}
+
 			} else{
 				setShoppinglistAddIngredients(ingredients);
+				return;
 			}
-			shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
-			shoplistButtonRef.current.setAttribute('disabled', true);
-			toast.success("Ingredients has been added to your shooping list!");
-			return;
 		}
 		toast.warning("Ingredients from this recipe has been already added!");
 	};
