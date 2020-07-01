@@ -37,7 +37,7 @@ function App({
 		if(Object.entries(user).length > 0){
 			setShoppinglistAddIngredients(user.userShoppinglist);
 		}
-	}, [user])
+	}, [user, setShoppinglistAddIngredients])
 	
 	useEffect(() => {
 		if(favouriteRecipesList.length === 0){

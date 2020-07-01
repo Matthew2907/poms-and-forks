@@ -29,7 +29,7 @@ function Bottombar({
 				} else {
 					shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
 					shoplistButtonRef.current.setAttribute('disabled', true);
-					toast.error("The shopping list can only contain 20 items!");
+					toast.error("Your shopping list is too big!");
 					return;
 				}
 

@@ -32,6 +32,14 @@ export const ShopinglistIngredientsContainer = styled(RecipeInfoIngredientsConta
 		margin-top: 10vh;
 	}
 
+	@media ${device.laptop} and (orientation: landscape) and (min-height: 250px) and (max-height: 500px) { 
+		margin-top: 18vh;
+	}
+
+	@media ${device.tablet} and (orientation: landscape) and (min-height: 370px){ 
+		margin-top: 14vh;
+	}
+
 	@media ${device.resolutionI} and (orientation: portrait) { 
 		margin-top: 9vh;
 	}
