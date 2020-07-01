@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
+
 import bgc from 'images/pattern-3371709_1920.jpg';
-//można wykorzystać normalizer styled-normalize, ale tutaj korzystam z standardowej normalizacji
-import { device } from 'utils';
+import {device} from 'utils';
 
 export default createGlobalStyle`
 	* {

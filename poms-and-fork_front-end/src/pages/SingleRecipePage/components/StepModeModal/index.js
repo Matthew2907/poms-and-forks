@@ -1,1 +1,1 @@
-export { default } from './StepModeModal';
+export {default} from './StepModeModal';

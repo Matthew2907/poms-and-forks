@@ -41,7 +41,7 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	id: {		// nazwa grafiki, back-end szuka po nazwie 
+	id: {
 		type: String,
 		required: true,
 		unique: true,

@@ -1,4 +1,3 @@
-// nie podajemy jednostek w spacingu ponieważ potem możemy zdefiniwoać jednostki w czasie rzeczywistym podczas używania motywu
 export default {
 	spacing: {
 		xs: 5,
@@ -11,7 +10,7 @@ export default {
 			normal: 'rgb(196, 196, 196)',
 		},
 		orange: {
-			normal: 'rgb(242,153,74)'
+			normal: 'rgb(242,153,74)',
 		},
-	}
-}
+	},
+};

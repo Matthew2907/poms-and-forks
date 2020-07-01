@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { device } from 'utils';
+import {device} from 'utils';
 
 export const AddRecipeFormContainer = styled.form`
 	display: flex;
@@ -9,19 +9,19 @@ export const AddRecipeFormContainer = styled.form`
 	margin-top: 10vh;
 	margin-bottom: 2vh;
 
-	@media ${device.mobileM} and (orientation: landscape) { 
+	@media ${device.mobileM} and (orientation: landscape) {
 		margin-top: 14vh;
 	}
 
-	@media ${device.tablet} and (orientation: portrait) { 
+	@media ${device.tablet} and (orientation: portrait) {
 		margin-top: 6vh;
 	}
 
-	@media ${device.laptop} and (orientation: landscape) { 
+	@media ${device.laptop} and (orientation: landscape) {
 		margin-top: 9vh;
 	}
 
-	@media ${device.resolutionI} and (orientation: portrait) { 
+	@media ${device.iphoneX} and (orientation: portrait) {
 		margin-top: 9vh;
 	}
 `;
@@ -30,22 +30,22 @@ const RootInput = styled.input`
 	width: 100%;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196,196,196, 0.6);
 	border: 0.5px solid #000000;
 	border-radius: 5px;
+	background-color: rgba(196, 196, 196, 0.6);
 	color: rgb(0, 0, 0);
-	opacity: 1; 
+	opacity: 1;
 	font-weight: bold;
 	letter-spacing: 0.5px;
 
-	@media ${device.mobileM} and (orientation: landscape) { 
+	@media ${device.mobileM} and (orientation: landscape) {
 		font-size: 16px;
 	}
 
 	@media ${device.tablet} {
 		padding: 10px;
-		font-size: 20px;
 		border-radius: 10px;
+		font-size: 20px;
 	}
 
 	@media ${device.laptop} {
@@ -54,10 +54,10 @@ const RootInput = styled.input`
 
 	&::placeholder {
 		color: rgb(0, 0, 0);
-		opacity: 1; 
+		opacity: 1;
 		font-weight: bold;
 		letter-spacing: 0.5px;
-	}	
+	}
 `;
 
 export const TitleInput = styled(RootInput)``;
@@ -71,17 +71,20 @@ export const AddImagesContainer = styled.div`
 `;
 
 export const BigImageContainer = styled.div`
-	position: relative;
 	flex-basis: 45%;
+	position: relative;
 	margin: 4% auto 5%;
 	border: 0.5px solid #000000;
 	border-radius: 7px;
-	background-color: rgba(196,196,196, 0.6);
-	${(props) => typeof props.url !== 'undefined' ? `background-image: url(http://localhost:5000/image/${props.url});` : ''}
+	background-color: rgba(196, 196, 196, 0.6);
+	${(props) => typeof props.url !== 'undefined'
+		? `background-image: url(http://localhost:5000/image/${props.url});`
+		: ''
+	}
 	background-size: cover;
 	background-position: center;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		margin: 3% auto 2%;
 	}
 
@@ -90,10 +93,10 @@ export const BigImageContainer = styled.div`
 	}
 
 	&::after {
-		content: "";
 		display: block;
 		padding-bottom: 70%;
-	}	
+		content: '';
+	}
 
 	input {
 		display: none;
@@ -104,12 +107,12 @@ export const ShortDescriptionTextArea = styled.textarea`
 	padding: 5px;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
-	background-color: rgba(196,196,196, 0.6);
+	background-color: rgba(196, 196, 196, 0.6);
 	font-weight: bold;
-	line-height: 16px;
 	font-size: 14px;
+	line-height: 16px;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		padding: 7px;
 		font-size: 16px;
 	}
@@ -123,10 +126,10 @@ export const ShortDescriptionTextArea = styled.textarea`
 
 	&::placeholder {
 		color: rgb(0, 0, 0);
-		opacity: 1; 
+		opacity: 1;
+		font-weight: bold;
 		font-weight: bold;
 		letter-spacing: 0.5px;
-		font-weight: bold;
 	}
 `;
 
@@ -136,7 +139,7 @@ export const RecipeLevelInfoContainer = styled.div`
 	width: 100%;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196,196,196, 0.6);
+	background-color: rgba(196, 196, 196, 0.6);
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 
@@ -145,13 +148,13 @@ export const RecipeLevelInfoContainer = styled.div`
 		border-radius: 10px;
 	}
 
-	>p {
+	> p {
 		display: flex;
 		align-items: center;
 		flex-basis: 40%;
 		font-size: 14px;
 
-		@media ${device.mobileM} { 
+		@media ${device.mobileM} {
 			font-size: 16px;
 		}
 
@@ -170,22 +173,22 @@ export const StarsLevelContainer = styled.div`
 	img {
 		width: 15%;
 
-		@media ${device.mobileM} { 
+		@media ${device.mobileM} {
 			width: 11%;
 		}
 
-		@media ${device.tablet} { 
+		@media ${device.tablet} {
 			width: 9%;
 		}
 
-		@media ${device.laptop} { 
+		@media ${device.laptop} {
 			width: 7%;
 		}
 
 		&::after {
-			content: "";
 			display: block;
 			padding-bottom: 100%;
+			content: '';
 		}
 	}
 `;
@@ -203,12 +206,12 @@ const RootSelect = styled.select`
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	color: rgb(0, 0, 0);
-	background-color: rgba(196,196,196, 0.6);
-	opacity: 1; 
+	background-color: rgba(196, 196, 196, 0.6);
+	opacity: 1;
 	font-weight: bold;
 	letter-spacing: 0.5px;
 
-	@media ${device.mobileM} and (orientation: landscape) { 
+	@media ${device.mobileM} and (orientation: landscape) {
 		font-size: 16px;
 	}
 
@@ -245,14 +248,14 @@ export const NutritionFactsContainer = styled.div`
 	margin-top: 10px;
 	border-top: 2px solid rgba(0, 0, 0, 0.4);
 
-	>p {
+	> p {
 		padding: 0;
 		margin-top: 10px;
 		font-size: 18px;
 		flex-basis: 100%;
 
-		@media ${device.mobileM} { 
-			font-size: 20px;	
+		@media ${device.mobileM} {
+			font-size: 20px;
 		}
 
 		@media ${device.tablet} {
@@ -265,12 +268,12 @@ export const NutritionInputField = styled.input`
 	width: 48%;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196,196,196, 0.6);
+	background-color: rgba(196, 196, 196, 0.6);
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	font-weight: bold;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		font-size: 16px;
 		padding: 7px;
 	}
@@ -290,7 +293,7 @@ export const NutritionInputField = styled.input`
 
 	&::placeholder {
 		color: rgb(0, 0, 0);
-		opacity: 1; 
+		opacity: 1;
 		font-weight: bold;
 		letter-spacing: 0.5px;
 	}
@@ -301,8 +304,8 @@ export const IngredientsContainer = styled(NutritionFactsContainer)`
 `;
 
 export const IngredientAddContainer = styled.div`
-	position: relative;
 	width: 100%;
+	position: relative;
 `;
 
 export const IngredientAddInputsContainer = styled.div`
@@ -320,7 +323,7 @@ export const IngredientNameInputField = styled(RootInput)`
 
 export const IngredientAmountInputField = styled(RootInput)`
 	width: 35%;
-	margin-top:0;
+	margin-top: 0;
 	margin-right: 10px;
 `;
 
@@ -330,7 +333,7 @@ export const IngredientCategorySelectField = styled(RootSelect)`
 
 	&::placeholder {
 		color: rgb(0, 0, 0);
-		opacity: 1; 
+		opacity: 1;
 		font-weight: bold;
 		letter-spacing: 0.5px;
 	}
@@ -340,35 +343,35 @@ export const SingleIngredientInfoContainer = styled.div`
 	position: relative;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196,196,196, 0.6);
+	background-color: rgba(196, 196, 196, 0.6);
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 
-	@media ${device.mobileS} { 
+	@media ${device.mobileS} {
 		padding: 8px 5px;
 	}
-	
-	@media ${device.mobileM} { 
+
+	@media ${device.mobileM} {
 		padding: 12px 8px;
 	}
 
-	@media ${device.mobileL} { 
+	@media ${device.mobileL} {
 		padding: 18px 9px;
 	}
-	
+
 	@media ${device.laptop} {
 		padding: 25px 10px;
 		border-radius: 10px;
 		font-size: 22px;
 	}
 
-	>p {
+	> p {
 		width: 85%;
 		font-size: 14px;
 		font-weight: bold;
 		overflow-x: scroll;
 
-		@media ${device.mobileL} { 
+		@media ${device.mobileL} {
 			font-size: 16px;
 		}
 
@@ -413,30 +416,30 @@ export const SingleDescriptionStepInfoContainer = styled.div`
 	margin-bottom: 10px;
 	margin-top: 10px;
 	padding: 12px;
-	background-color: rgba(196,196,196, 0.6);
+	background-color: rgba(196, 196, 196, 0.6);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 
-	@media ${device.mobileS} { 
+	@media ${device.mobileS} {
 		padding: 15px;
 	}
 
-	@media ${device.mobileL} { 
+	@media ${device.mobileL} {
 		padding: 20px 15px;
 	}
-	
+
 	@media ${device.laptop} {
 		padding: 25px 10px;
 		border-radius: 10px;
 		font-size: 22px;
 	}
 
-	>span {
+	> span {
 		flex-basis: 5%;
 		margin-right: 5px;
 		font-size: 12px;
 		color: rgba(0, 0, 0, 0.46);
 
-		@media ${device.mobileL} { 
+		@media ${device.mobileL} {
 			font-size: 14px;
 		}
 
@@ -449,12 +452,12 @@ export const SingleDescriptionStepInfoContainer = styled.div`
 		}
 	}
 
-	>p {
+	> p {
 		max-width: 80%;
 		font-size: 12px;
 		overflow-x: scroll;
-		
-		@media ${device.mobileL} { 
+
+		@media ${device.mobileL} {
 			font-size: 16px;
 		}
 
@@ -471,8 +474,8 @@ export const SingleDescriptionStepInfoContainer = styled.div`
 `;
 
 export const ConfirmInput = styled(RootInput)`
-	color: rgb(256,256,256);
-	background-color: rgba(0,0,0, 0.6);
+	color: rgb(256, 256, 256);
+	background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const Option = styled.option`
@@ -480,20 +483,20 @@ export const Option = styled.option`
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	color: rgb(0, 0, 0);
-	background-color: rgba(196,196,196, 0.6);
-	opacity: 1; 
+	background-color: rgba(196, 196, 196, 0.6);
+	opacity: 1;
 	font-weight: bold;
 	letter-spacing: 0.5px;
 
-@media ${device.mobileM} and (orientation: landscape) { 
-	font-size: 12px;
-}
+	@media ${device.mobileM} and (orientation: landscape) {
+		font-size: 12px;
+	}
 
-@media ${device.tablet} {
-	font-size: 14px;
-}
+	@media ${device.tablet} {
+		font-size: 14px;
+	}
 
-@media ${device.laptop} {
-	font-size: 16px;
-}
+	@media ${device.laptop} {
+		font-size: 16px;
+	}
 `;

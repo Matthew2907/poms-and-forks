@@ -1,1 +1,1 @@
-export { default } from './Bottombar';
+export {default} from './Bottombar';

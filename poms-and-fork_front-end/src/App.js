@@ -1,76 +1,87 @@
-import React, { useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { connect } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { toast } from 'react-toastify';
+import React, {useEffect, useCallback} from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {ThemeProvider} from 'styled-components';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { AddRecipePage, FavouriteRecipesPage, Homepage, SettingsPage, ShoppinglistPage, SingleRecipePage, UsersPanelPage, SearchedRecipesPage, ErrorPage } from 'pages';
-import { Navigation, Wrapper, LoadingIndicator } from 'components';
+import {
+	AddRecipePage,
+	FavouriteRecipesPage,
+	Homepage,
+	SettingsPage,
+	ShoppinglistPage,
+	SingleRecipePage,
+	UsersPanelPage,
+	SearchedRecipesPage,
+	ErrorPage,
+} from 'pages';
+import {Navigation, Wrapper, LoadingIndicator} from 'components';
+import {updateFavouriteRecipesListInDB} from 'utils/globalFunctions';
+import {setShoppinglistAddIngredients} from 'data/actions/app.actions';
+import {fetchUser, fetchFavouriteRecipe} from 'data/actions/data.actions';
 import GlobalStyles from './index.css';
-import { updateFavouriteRecipesListInDB } from 'utils/globalFunctions';
-import { setShoppinglistAddIngredients } from 'data/actions/app.actions';
-import { theme } from 'utils';
-import { fetchUser, fetchFavouriteRecipe } from 'data/actions/data.actions';
+import {theme} from 'utils';
 
-function App({ 
-	user, favouriteRecipesList, shoppinglistIngredients,
-	fetchUser, fetchFavouriteRecipe, setShoppinglistAddIngredients
+function App({
+	user,
+	favouriteRecipesList,
+	shoppinglistIngredients,
+	fetchUser,
+	fetchFavouriteRecipe,
+	setShoppinglistAddIngredients,
 }) {
-
 	const setFavRecpsArr = useCallback(
 		(favRecpsArr) => {
-			if(typeof favRecpsArr !== "undefined" && favRecpsArr.length > 0){
-				favRecpsArr.forEach(id => {
+			if (typeof favRecpsArr !== 'undefined' && favRecpsArr.length > 0) {
+				favRecpsArr.forEach((id) => {
 					fetchFavouriteRecipe(id);
-				})
+				});
 			}
 		},
 		[fetchFavouriteRecipe],
 	);
 
 	useEffect(() => {
-		fetchUser("Mateusz");
-	}, [fetchUser])
-	
+		fetchUser('Mateusz');
+	}, [fetchUser]);
+
 	useEffect(() => {
-		if(Object.entries(user).length > 0){
+		if (Object.entries(user).length > 0) {
 			setShoppinglistAddIngredients(user.userShoppinglist);
 		}
-	}, [user, setShoppinglistAddIngredients])
-	
+	}, [user, setShoppinglistAddIngredients]);
+
 	useEffect(() => {
-		if(favouriteRecipesList.length === 0){
+		if (favouriteRecipesList.length === 0) {
 			setFavRecpsArr(user.favouriteRecipes);
 		}
-	}, [user.favouriteRecipes, favouriteRecipesList.length, setFavRecpsArr])
-	
+	}, [user.favouriteRecipes, favouriteRecipesList.length, setFavRecpsArr]);
+
 	useEffect(() => {
-		// set shoppinglistIngredients in DB
-		console.log(shoppinglistIngredients);
-		if(typeof shoppinglistIngredients !== "undefined" && shoppinglistIngredients.length < 20){
-			updateFavouriteRecipesListInDB(shoppinglistIngredients, user, "shoppingIngredients");
+		if (typeof shoppinglistIngredients !== 'undefined' && shoppinglistIngredients.length < 20) {
+			updateFavouriteRecipesListInDB(shoppinglistIngredients, user, 'shoppingIngredients');
 		}
-	},[shoppinglistIngredients])
+	}, [shoppinglistIngredients]);
 
 	toast.configure();
 
 	return (
 		<ThemeProvider theme={theme}>
-			<GlobalStyles/>
-			<Router>		
-				<Navigation/>
+			<GlobalStyles />
+			<Router>
+				<Navigation />
 				<Wrapper>
 					<Switch>
-						<Route exact path="/" component={Homepage}/>
-						<Route path="/recipe/:id" component={SingleRecipePage}/>	
-						<Route path="/user/edit-profile" component={UsersPanelPage}/>
-						<Route path="/add-recipe" component={AddRecipePage}/>
-						<Route path="/favourites" component={FavouriteRecipesPage}/>
-						<Route path="/shoppinglist" component={ShoppinglistPage}/>
-						<Route path="/settings" component={SettingsPage}/>
-						<Route path="/recipes/:title" component={SearchedRecipesPage}/>
-						<Route component={ErrorPage}/>
+						<Route exact path="/" component={Homepage} />
+						<Route path="/recipe/:id" component={SingleRecipePage} />
+						<Route path="/user/edit-profile" component={UsersPanelPage} />
+						<Route path="/add-recipe" component={AddRecipePage} />
+						<Route path="/favourites" component={FavouriteRecipesPage} />
+						<Route path="/shoppinglist" component={ShoppinglistPage} />
+						<Route path="/settings" component={SettingsPage} />
+						<Route path="/recipes/:title" component={SearchedRecipesPage} />
+						<Route component={ErrorPage} />
 					</Switch>
 				</Wrapper>
 			</Router>
@@ -83,18 +94,20 @@ const ConnectedApp = connect(
 		user: state.data.user,
 		favouriteRecipesList: state.applicationRecuder.favouriteRecipesList,
 		shoppinglistIngredients: state.applicationRecuder.shoppinglistIngredients,
-	}),{
-	fetchUser,
-	setShoppinglistAddIngredients,
-	fetchFavouriteRecipe,
-})(App)
+	}),
+	{
+		fetchUser,
+		setShoppinglistAddIngredients,
+		fetchFavouriteRecipe,
+	},
+)(App);
 
 function RootApp() {
 	return (
-		<React.Suspense fallback={<LoadingIndicator/>}>
-			<ConnectedApp />		
-	  </React.Suspense> 
-	)
+		<React.Suspense fallback={<LoadingIndicator />}>
+			<ConnectedApp />
+		</React.Suspense>
+	);
 }
 
 export default RootApp;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const recipeSchema = new Schema({		// schemat modelu user ma tylko pole username, w jego ciele przekazuje walidację
+const recipeSchema = new Schema({	
 		recipesUser: { type: Object, require: true },
 		recipeTitle: { type: String, require: true},
 		recipeDescriptionShort: { type: String, require: true},
@@ -18,11 +18,11 @@ const recipeSchema = new Schema({		// schemat modelu user ma tylko pole username
 		recipeCarbohydrate: { type: Number, require: true},
 		recipeIngredients: {type: Array, require: true},
 		recipeDescriptionInSteps: {type: Array, require: true},
-		recipeImageNames: {type: Array, require: true},	// tablica stringów z nazwami obrazków. Back-end szuka po nazwie zdjęć w bazie MongoDB na roucie http://localhost:5000/image/nazwaZdjecia
+		recipeImageNames: {type: Array, require: true},	
 		date: { type: Date, require: true, default: Date.now},
 	},
 {
-	timestamps: true,  // kiedy został stworzony oraz kiedy został zmodyfikowany
+	timestamps: true,  
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

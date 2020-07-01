@@ -1,26 +1,24 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
-import { Topbar, Content } from './components';
-import { hideNavigation } from 'data/actions/app.actions';
+import {Topbar, Content} from './components';
+import {hideNavigation} from 'data/actions/app.actions';
 
-
-function SettingsPage({ hideNavigation }){
-
+function SettingsPage({hideNavigation}) {
 	useEffect(() => {
 		hideNavigation();
-	}, [hideNavigation])
+	}, [hideNavigation]);
 
-	return(
+	return (
 		<React.Fragment>
-			<Topbar/>
-			<Content/>
+			<Topbar />
+			<Content />
 		</React.Fragment>
-	)
+	);
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 	hideNavigation: () => dispatch(hideNavigation()),
 });
 
-export default connect(null,mapDispatchToProps)(SettingsPage);
+export default connect(null, mapDispatchToProps)(SettingsPage);

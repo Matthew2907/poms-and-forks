@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
 import data from './data.reducer';
 import recipe from './recipe.reducer';

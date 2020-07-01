@@ -7,8 +7,6 @@ router.route('/').get((req,res) => {
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
-// http://localhost:5000/recipes/searchByTitle?title=Sernik+wiede%C5%84ski
-//  MongoDB has a $regex operator which allows a regular expression to be submitted as a query. 
 router.route('/searchByTitle').get((req,res) => {
 	Recipe.find({recipeTitle: { "$regex": req.query.title, "$options": "i" }})
 	.then(recipe => {
@@ -18,7 +16,6 @@ router.route('/searchByTitle').get((req,res) => {
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
-// http://localhost:5000/recipes/searchById/5eecd9bbab408449988da7ad
 router.route('/searchById/:id').get((req,res) => {
 	Recipe.findById(req.params.id)
 	.then(recipe => res.json(recipe))

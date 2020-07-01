@@ -1,1 +1,1 @@
-export { default } from './AddRecipeForm';
+export {default} from './AddRecipeForm';

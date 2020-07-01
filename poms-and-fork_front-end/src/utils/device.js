@@ -6,12 +6,11 @@ const sizeWidth = {
 	laptop: '1024px',
 	iPadPro: '1366px',
 	laptopL: '1440px',
-	desktop: '1920px'
-  };
+	desktop: '1920px',
+	iphoneX: '800px',
+};
 
-const resolutionI = '800px';
-
-  export default {
+export default {
 	mobileS: `(min-width: ${sizeWidth.mobileS})`,
 	mobileM: `(min-width: ${sizeWidth.mobileM})`,
 	mobileL: `(min-width: ${sizeWidth.mobileL})`,
@@ -21,5 +20,5 @@ const resolutionI = '800px';
 	laptopL: `(min-width: ${sizeWidth.laptopL})`,
 	desktop: `(min-width: ${sizeWidth.desktop})`,
 	desktopL: `(min-width: ${sizeWidth.desktop})`,
-	resolutionI: `(min-height: ${resolutionI}) and (orientation: portrait)`,
-  };
+	iphoneX: `(min-height: ${sizeWidth.iphoneX}) and (orientation: portrait)`,
+};

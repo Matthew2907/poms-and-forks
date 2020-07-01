@@ -1,1 +1,1 @@
-export { default } from './FavouriteRecipesPage';
+export {default} from './FavouriteRecipesPage';

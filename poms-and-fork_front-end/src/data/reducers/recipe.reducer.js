@@ -12,12 +12,12 @@ import {
 
 const initialState = {
 	loadingState: null,
-	recipe: {},	
+	recipe: {},
 	searchedRecipeByTitle: [],
-}
+};
 
 function recipe(state = initialState, action) {
-	const newLoadingState = { ...state.loadingState };
+	const newLoadingState = {...state.loadingState};
 
 	switch (action.type) {
 		case RECIPE_GET_REQUEST:
@@ -26,61 +26,57 @@ function recipe(state = initialState, action) {
 				loadingState: {
 					...state.loadingState,
 					[action.type]: LOADING_STATES.LOADING,
-				}
-			}
+				},
+			};
 		case RECIPE_GET_SUCCESS:
 			delete newLoadingState.RECIPE_GET_REQUEST;
-			
 			return {
 				...state,
 				recipe: action.payload,
 				loadingState: newLoadingState,
-			}
+			};
 		case RECIPE_GET_FAILURE:
 			delete newLoadingState.RECIPE_GET_REQUEST;
-			
 			return {
 				...state,
 				recipe: {},
 				loadingState: newLoadingState,
-			}
+			};
 		case RECIPE_RESET:
 			return {
 				...state,
 				recipe: {},
-			}
+			};
 		case SEARCHED_RECIPE_GET_REQUEST:
 			return {
 				...state,
 				loadingState: {
 					...state.loadingState,
 					[action.type]: LOADING_STATES.LOADING,
-				}
-			}
+				},
+			};
 		case SEARCHED_RECIPE_GET_SUCCESS:
 			delete newLoadingState.SEARCHED_RECIPE_GET_REQUEST;
-			
 			return {
 				...state,
 				searchedRecipeByTitle: action.payload,
 				loadingState: newLoadingState,
-			}
+			};
 		case SEARCHED_RECIPE_GET_FAILURE:
 			delete newLoadingState.SEARCHED_RECIPE_GET_REQUEST;
-			
 			return {
 				...state,
 				searchedRecipeByTitle: [],
 				loadingState: newLoadingState,
-			}
+			};
 		case SEARCHED_RECIPE_RESET:
 			return {
 				...state,
 				searchedRecipeByTitle: [],
-			}
+			};
 		default:
-			return state;		
+			return state;
 	}
 }
 
-export default recipe
+export default recipe;

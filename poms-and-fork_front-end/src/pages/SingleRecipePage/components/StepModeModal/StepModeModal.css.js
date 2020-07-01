@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { device } from 'utils';
+import {device} from 'utils';
 
 export const StepModeModalContainer = styled.div`
 	display: flex;
@@ -17,11 +17,11 @@ export const StepModeModalContainer = styled.div`
 		left: 50%;
 		transform: translateX(-50%);
 
-		@media ${device.tablet} and (orientation: portrait) { 
+		@media ${device.tablet} and (orientation: portrait) {
 			font-size: 30px;
 		}
 
-		@media ${device.laptop} { 
+		@media ${device.laptop} {
 			font-size: 36px;
 		}
 	}
@@ -35,19 +35,19 @@ export const StepModeModalContainer = styled.div`
 		letter-spacing: 0.5px;
 		overflow-y: scroll;
 
-		@media ${device.mobileM} { 
+		@media ${device.mobileM} {
 			margin: 5% 20px;
 		}
 
-		@media ${device.mobileL} and (orientation: landscape) { 
+		@media ${device.mobileL} and (orientation: landscape) {
 			font-size: 16px;
 		}
 
-		@media ${device.tablet} and (orientation: portrait) { 
+		@media ${device.tablet} and (orientation: portrait) {
 			font-size: 20px;
 		}
 
-		@media ${device.laptop} { 
+		@media ${device.laptop} {
 			font-size: 24px;
 			margin: 5% 30px;
 		}

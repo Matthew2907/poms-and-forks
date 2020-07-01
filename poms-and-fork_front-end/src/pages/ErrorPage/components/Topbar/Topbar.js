@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Bar } from 'components';
+import {Bar} from 'components';
 
 function Topbar() {
-
-	return(
+	return (
 		<React.Fragment>
-			<Bar variant="topbar"/>
+			<Bar variant="topbar" />
 		</React.Fragment>
-	)
+	);
 }
 
 export default Topbar;

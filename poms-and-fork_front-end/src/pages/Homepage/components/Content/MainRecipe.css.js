@@ -1,14 +1,13 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import { device } from 'utils';
-// background-color: rgb(236,236,236); wstawiono grafikę
+import {device} from 'utils';
+
 export const ContentCantainer = styled.div`
 	min-height: 90vh;
 	margin-top: 10vh;
-	
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		margin-top: 13vh;
 	}
 
@@ -16,51 +15,51 @@ export const ContentCantainer = styled.div`
 		margin-top: 15vh;
 	}
 
-	@media ${device.tablet} and (orientation: portrait) { 
+	@media ${device.tablet} and (orientation: portrait) {
 		margin-top: 12vh;
 	}
- 
-	@media ${device.resolutionI} and (orientation: portrait) { 
+
+	@media ${device.iphoneX} and (orientation: portrait) {
 		margin-top: 9vh;
 	}
 
-	@media ${device.laptop} and (orientation: landscape) { 
+	@media ${device.laptop} and (orientation: landscape) {
 		margin-top: 9vh;
 	}
 `;
 
 export const MainRecipeContainer = styled.div`
-	position: relative;
 	width: 100%;
 	height: 60vh;
+	position: relative;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		height: 87vh;
 	}
 
-	@media ${device.resolutionI} { 
+	@media ${device.iphoneX} {
 		height: 62vh;
 	}
 
-	@media ${device.tablet} { 
+	@media ${device.tablet} {
 		height: 40vh;
 	}
 
-	@media ${device.tablet} and (orientation: landscape) { 
+	@media ${device.tablet} and (orientation: landscape) {
 		height: 85vh;
 	}
 
-	@media ${device.laptop} and (orientation: landscape) { 
+	@media ${device.laptop} and (orientation: landscape) {
 		height: 49vh;
 	}
 `;
 
 export const MainImageContainer = styled(Link)`
-	position: absolute;
-	left: 50%;
-	top: 4%;
-	width: 80%;
 	height: 73%;
+	width: 80%;
+	position: absolute;
+	top: 4%;
+	left: 50%;
 	border: 0.5px solid rgb(0, 0, 0);
 	border-radius: 7px;
 	background-image: url(${(props) => props.url});
@@ -68,53 +67,51 @@ export const MainImageContainer = styled(Link)`
 	background-position: center;
 	transform: translateX(-50%);
 
-	@media ${device.mobileS} { 
+	@media ${device.mobileS} {
 		width: 95%;
 		height: 75%;
-	  }
+	}
 
-	  @media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		width: 90%;
 		height: 80%;
 		top: 5%;
-	  } 
+	}
 
-	@media ${device.tablet} and (orientation: landscape) { 
+	@media ${device.tablet} and (orientation: landscape) {
 		height: 80%;
 		top: 3%;
 	}
 
-	@media ${device.tablet} and (orientation: portrait) { 
+	@media ${device.tablet} and (orientation: portrait) {
 		width: 94%;
 	}
-
-	
 `;
 
 export const MainRecipeTitle = styled.h2`
-	position: absolute;
-	left: 0;
-	top: 82%;
 	width: 100%;
+	position: absolute;
+	top: 82%;
+	left: 0;
 	padding-bottom: 3%;
 	text-align: center;
 
-	@media ${device.mobileM} { 
+	@media ${device.mobileM} {
 		top: 88%;
 		padding-bottom: 0%;
 		font-size: 22px;
-	  } 
+	}
 
-	@media ${device.resolutionI} { 
-		font-size:30px;
+	@media ${device.iphoneX} {
+		font-size: 30px;
 		bottom: 15px;
 	}
 
-	@media ${device.tablet} { 
+	@media ${device.tablet} {
 		font-size: 34px;
 	}
 
-	@media ${device.tablet} and (orientation: landscape) { 
+	@media ${device.tablet} and (orientation: landscape) {
 		top: 85%;
 	}
 `;

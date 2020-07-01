@@ -50,7 +50,7 @@ router.route('/:id').delete((req,res) => {
 router.route('/update/:id').post((req, res) => {
 	User.findById(req.params.id)
 		.then(user => {
-			
+
 			user.userName = req.body.userName; 
 			user.userLastName = req.body.userLastName; 
 			user.userAvatarImageName = req.body.userAvatarImageName; 
