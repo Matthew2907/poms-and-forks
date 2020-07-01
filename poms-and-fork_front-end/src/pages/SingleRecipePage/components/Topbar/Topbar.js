@@ -1,6 +1,7 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {toast} from 'react-toastify';
 
 import {Button, Bar} from 'components';
 import {setFavouriteRecipeToList} from 'data/actions/app.actions';
@@ -51,13 +52,17 @@ function Topbar({
 		return;
 	};
 
+	const functionWillCreate = () => {
+		toast.info("I'm still not ready yet.");
+	};
+
 	return (
 		<Bar text={recipe.recipeTitle} variant="topbar">
 			<Button variant="mainMenu" onClick={handleClickGoBack}>
 				<img src={backIcon} alt="show menu" />
 			</Button>
 			<h1>{recipe.recipeTitle && limitRecipeTitle(recipe.recipeTitle)}</h1>
-			<Button variant="firstRightTop">
+			<Button variant="firstRightTop" onClick={functionWillCreate}>
 				<img src={shareIcon} alt="share recipe" />
 			</Button>
 			{favouriteRecipesList && (

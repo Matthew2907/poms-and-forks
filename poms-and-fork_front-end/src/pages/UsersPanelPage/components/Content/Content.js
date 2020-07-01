@@ -1,4 +1,5 @@
 import React from 'react';
+import {toast} from 'react-toastify';
 
 import {Button, LoadingIndicator} from 'components';
 import {
@@ -13,7 +14,7 @@ import blackStar from 'images/BlackStar.svg';
 
 function Content({user}) {
 	const functionWillCreate = () => {
-		console.log('Jeszcze nie działam!');
+		toast.info("I'm still not ready yet.");
 	};
 
 	const starsLevelArr = user && starsLevelFunc(user, whiteStar, blackStar, 'userChefLevel');

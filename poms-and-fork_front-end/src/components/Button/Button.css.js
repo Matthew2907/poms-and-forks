@@ -171,6 +171,7 @@ export const SideNavigationButton = styled(RootButton)`
 
 export const FirstRightTopButton = styled(RootButton)`
 	left: 74%;
+	background-color: rgba(0, 0, 0, 0.6);
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		left: 80%;
@@ -362,7 +363,7 @@ export const EditUserButton = styled.button`
 	left: 50%;
 	border: 0.5px solid rgb(0, 0, 0);
 	border-radius: 6px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background-color: rgba(0, 0, 0, 0.6);
 	font-weight: bold;
 	transform: translateX(-50%);
 
@@ -374,6 +375,13 @@ export const EditUserButton = styled.button`
 	}
 
 	@media ${device.tablet} and (orientation: landscape) {
+		height: 6vh;
+		top: 85%;
+		border-radius: 10px;
+		font-size: 20px;
+	}
+
+	@media ${device.tablet} and (min-height: 1000px) and (orientation: landscape) {
 		height: 8vh;
 		top: 85%;
 		border-radius: 10px;
@@ -422,6 +430,7 @@ export const SettingsNavigationButton = styled(RootButton)`
 	position: static;
 	margin-right: 10%;
 	transform: translate(0, 0);
+	background-color: rgba(0, 0, 0, 0.6);
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		width: 6%;

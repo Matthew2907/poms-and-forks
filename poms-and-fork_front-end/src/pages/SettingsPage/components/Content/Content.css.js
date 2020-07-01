@@ -29,6 +29,10 @@ export const Container = styled.nav`
 		height: 93vh;
 	}
 
+	@media (min-height: 1000px) and (orientation: portrait) {
+		height: 91vh;
+	}
+
 	@media ${device.laptop} and (orientation: landscape) {
 		height: 91vh;
 		margin-top: 9vh;

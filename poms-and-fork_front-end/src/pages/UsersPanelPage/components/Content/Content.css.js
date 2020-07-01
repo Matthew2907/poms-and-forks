@@ -7,9 +7,7 @@ export const ContentContainer = styled.div`
 	position: relative;
 	margin-top: 10vh;
 
-	@media ${device.mobileM} {
-		height: 93vh;
-	}
+	
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		display: flex;
@@ -42,6 +40,11 @@ export const UserImageContainer = styled.div`
 	@media ${device.mobileM} and (orientation: landscape) {
 		flex-basis: 45%;
 		margin: 20px 25px auto 0;
+	}
+
+	@media (min-width: 500px) and (max-width: 770px) and (orientation: portrait) {
+		max-height: 400px;
+		flex-basis: 45%;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) {
@@ -94,6 +97,14 @@ export const SingleUserInfoContainer = styled.div`
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		height: 12vh;
+	}
+
+	@media (min-width: 420px) and (max-width: 500px) and (orientation: portrait) {
+		height: 6vh;
+	}
+	
+	@media (min-width: 500px) and (max-width: 770px) and (orientation: portrait) {
+		height: 4vh;
 	}
 
 	@media ${device.tablet} and (orientation: portrait) {

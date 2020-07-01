@@ -1,11 +1,12 @@
 import React from 'react';
+import {toast} from 'react-toastify';
 
 import {List, Container} from './Content.css';
 import {Button} from 'components';
 
 function Content() {
 	const functionWillCreate = () => {
-		console.log('Jeszcze nie działam!');
+		toast.info("I'm still not ready yet.");
 	};
 
 	return (
