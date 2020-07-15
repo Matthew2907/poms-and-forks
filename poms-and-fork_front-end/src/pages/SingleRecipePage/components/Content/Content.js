@@ -112,7 +112,7 @@ function Content({
 		<ContentCantainer>
 			{Object.entries(recipe).length !== 0 && (
 				<Slider
-					url={`http://localhost:5000/image/${recipe.recipeImageNames[currentSliderImageIndex]}`}
+					url={`http://localhost:5000/files/image/${recipe.recipeImageNames[currentSliderImageIndex]}`}
 				>
 					<Button
 						ref={backButtonRef}
@@ -155,7 +155,7 @@ function Content({
 				<RecipeInfoAuthorInfo>
 					<RecipeInfoAuthorImageContainer>
 						<RecipeAuthorAvatarContainer
-							url={`http://localhost:5000/image/${recipe.recipesUser.userAvatarImage}`}
+							url={`http://localhost:5000/files/image/${recipe.recipesUser.userAvatarImage}`}
 						/>
 					</RecipeInfoAuthorImageContainer>
 					<RecipeInfoAuthorTextContainer>

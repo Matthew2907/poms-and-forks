@@ -78,7 +78,7 @@ export const BigImageContainer = styled.div`
 	border-radius: 7px;
 	background-color: rgba(196, 196, 196, 0.6);
 	${(props) => typeof props.url !== 'undefined'
-		? `background-image: url(http://localhost:5000/image/${props.url});`
+		? `background-image: url(http://localhost:5000/files/image/${props.url});`
 		: ''
 	}
 	background-size: cover;

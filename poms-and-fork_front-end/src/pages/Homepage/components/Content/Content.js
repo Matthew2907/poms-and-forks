@@ -24,7 +24,7 @@ function Content({fetchRecipes, recipes}) {
 		<RecipeContainer key={recipe._id}>
 			<ImageContainer
 				to={`/recipe/${recipe._id}`}
-				url={`http://localhost:5000/image/${recipe.recipeImageNames[0]}`}
+				url={`http://localhost:5000/files/image/${recipe.recipeImageNames[0]}`}
 			/>
 			<RecipeTitle>{recipe.recipeTitle}</RecipeTitle>
 		</RecipeContainer>
@@ -35,7 +35,7 @@ function Content({fetchRecipes, recipes}) {
 				<MainRecipeContainer key={mainRecipe._id}>
 					<MainImageContainer
 						to={`/recipe/${mainRecipe._id}`}
-						url={`http://localhost:5000/image/${mainRecipe.recipeImageNames[0]}`}
+						url={`http://localhost:5000/files/image/${mainRecipe.recipeImageNames[0]}`}
 					/>
 					<MainRecipeTitle>{mainRecipe.recipeTitle}</MainRecipeTitle>
 				</MainRecipeContainer>

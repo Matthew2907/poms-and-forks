@@ -1,4 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# IDE config
 .vscode
 
 # dependencies
@@ -13,6 +13,7 @@ coverage
 /build
 
 # misc
+nodemon.json
 .env
 .DS_Store
 .env.local

@@ -6,8 +6,8 @@ import {
 } from 'data/constants';
 import API from 'data/fetch';
 
-export const fetchUser = (userName) => {
-	const promise = API.data.fetchUser(userName); 
+export const fetchUser = (email, password) => {
+	const promise = API.data.fetchUser(email, password); 
 	return {
 		promise,
 		type: USER_GET,

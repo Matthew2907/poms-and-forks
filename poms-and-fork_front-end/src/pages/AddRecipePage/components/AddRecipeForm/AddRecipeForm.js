@@ -82,13 +82,14 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 			const fd = new FormData();
 			fd.append('file', selectedFile);
 			axios
-				.post('http://localhost:5000/upload', fd, {
+				.post('http://localhost:5000/files/upload', fd, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 					},
 				})
 				.then((res) => {
 					const newImageNamesArr = [...newRecipe.recipeImageNames];
+					console.log(res);
 					newImageNamesArr.push(res.data.file.filename);
 					setNewRecipe((newRecipe) => ({
 						...newRecipe,
@@ -223,19 +224,19 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 
 		setNewRecipe((newRecipe) => ({
 			...newRecipe,
-			recipesUser: user,
 			recipeTitle: values.recipeTitle,
 			recipeDescriptionShort: values.recipeDescriptionShort,
 			recipeCategory: values.recipeCategory,
 			recipeTags: tagsArr,
 			recipeServings: values.recipeServings,
 			recipePreparationTime: values.recipePreparationTime,
-			recipeSocialRank: 77,
+			recipeSocialRank: 1,
 			recipeEnergyValue: values.recipeEnergyValue,
 			recipeProtein: values.recipeProtein,
 			recipeFat: values.recipeFat,
 			recipeCarbohydrate: values.recipeCarbohydrate,
 			date: new Date(),
+			creator: user._id,
 		}));
 	};
 

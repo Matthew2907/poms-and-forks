@@ -1,71 +1,35 @@
 const router = require('express').Router();
-let User = require('../models/user.model');
+const {check} = require('express-validator');
 
-router.route('/').get((req,res) => {
-	User.find()
-		.then(users => res.json(users))
-		.catch(err => res.status(400).json('Error:' + err));
-});
+const fileUpload = require('../middleware/file-upload');
+const usersController = require('../controllers/users-controller');
+const checkAuth = require('../middleware/check-auth');
 
-router.route('/:name').get((req,res) => {
-	User.find({userName: req.params.name})
-		.then(user => res.json(user[0]))
-		.catch(err => res.status(400).json('Error:' + err));
-});
+router.get('/searchById/:id', usersController.getUserById);
 
-router.route('/add').post((req,res) => {
-	const userName = req.body.userName; 
-	const userLastName = req.body.userLastName; 
-	const userAvatarImageName = req.body.userAvatarImageName; 
-	const userChefLevel = Number(req.body.userChefLevel); 
-	const userRecipes = Array.from(req.body.userRecipes); 
-	const favouriteRecipes = Array.from(req.body.favouriteRecipes); 
-	const userShoppinglist = Array.from(req.body.userShoppinglist); 
-	const mainCookSkill = req.body.mainCookSkill; 
-	const id = req.body.id; 
+router.post(
+	'/signup',
+	fileUpload.single('image'),
+	[
+		check('name').not().isEmpty(),
+		check('email').normalizeEmail().isEmail(),
+		check('password').isLength({min: 6}),
+	],
+	usersController.createUser,
+);
 
-	const newUser = new User({
-		userName,
-		userLastName,
-		userAvatarImageName,
-		userChefLevel,
-		userRecipes,
-		favouriteRecipes,
-		userShoppinglist,
-		mainCookSkill,
-		id,
-	}); 
+router.post('/login', usersController.loginUser);
 
-	newUser.save()  
-	.then(() => res.json('User added!'))
-	.catch(err => res.status(400).json('Error: ' + err));
-});
+router.use(checkAuth);
 
-router.route('/:id').delete((req,res) => {
-	User.findByIdAndDelete(req.params.id)
-		.then(() => res.json('User deleted.'))  
-		.catch(err => res.status(400).json('Error' + err));
-});
+router.patch('/updateUsersShoppings/:id', usersController.updateUsersShoppings);
 
-router.route('/update/:id').post((req, res) => {
-	User.findById(req.params.id)
-		.then(user => {
+router.patch(
+	'/:id',
+	[check('name').not().isEmpty(), check('password').isLength({min: 6})],
+	usersController.updateUser,
+);
 
-			user.userName = req.body.userName; 
-			user.userLastName = req.body.userLastName; 
-			user.userAvatarImageName = req.body.userAvatarImageName; 
-			user.userChefLevel = Number(req.body.userChefLevel); 
-			user.userRecipes = Array.from(req.body.userRecipes); 
-			user.favouriteRecipes = Array.from(req.body.favouriteRecipes); 
-			user.userShoppinglist = Array.from(req.body.userShoppinglist); 
-			user.mainCookSkill = req.body.mainCookSkill; 
-			user.id = req.body.id; 
-		
-			user.save()
-				.then(() => res.json('User updated!'))
-				.catch(err => res.status(400).json('Error' + err));
-		})
-		.catch(err => res.status(400).json('Error: ' + err))
-});
+router.delete('/:id', usersController.deleteUser);
 
 module.exports = router;

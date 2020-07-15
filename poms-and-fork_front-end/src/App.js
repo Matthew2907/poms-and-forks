@@ -43,7 +43,7 @@ function App({
 	);
 
 	useEffect(() => {
-		fetchUser('Mateusz');
+		fetchUser('sylwia@test.pl', 'fluffy');
 	}, [fetchUser]);
 
 	useEffect(() => {

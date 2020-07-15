@@ -1,5 +1,9 @@
-export const fetchUser = (userName) => {
-	const promise = fetch(`${process.env.REACT_APP_API_URL}/users/${userName}`);
+export const fetchUser = (email, password) => {
+	const promise = fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({email, password}),
+	});
 	return promise;
 };
 

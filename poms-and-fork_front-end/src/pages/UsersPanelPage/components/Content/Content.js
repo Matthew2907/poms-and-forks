@@ -24,7 +24,7 @@ function Content({user}) {
 			{Object.keys(user).length !== 0 ? (
 				<ContentContainer>
 					<UserImageContainer
-						url={`http://localhost:5000/image/${user.userAvatarImage}`}
+						url={`http://localhost:5000/files/image/${user.userAvatarImage}`}
 					/>
 					<UserInformationContainer>
 						<SingleUserInfoContainer>

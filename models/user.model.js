@@ -1,57 +1,21 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({	
-	userName: {
-		type: String,
-		required: true,
-		unique: true,
-		trim: true,
-		minlength: 3
-	},
-	userLastName: {
-		type: String,
-		required: true,
-		unique: true,
-		trim: true,
-		minlength: 3
-	},
-	userChefLevel: { 
-		type: Number,
-		require: true
-	},
-	userAvatarImage: {		
-		type: String,
-		required: true,
-		unique: true,
-		trim: true,
-		minlength: 3
-	},
-	userRecipes: {		
-		type: Array
-	},
-	favouriteRecipes: {		
-		type: Array
-	},
-	userShoppinglist: {		
-		type: Array
-	},
-	mainCookSkill: {		
-		type: String,
-		required: true,
-	},
-	id: {
-		type: String,
-		required: true,
-		unique: true,
-		trim: true,
-		minlength: 3
-	},
-}, {
-	timestamps: true, 
+const userSchema = new Schema({
+	name: {type: String, required: true},
+	email: {type: String, required: true, unique: true},
+	password: {type: String, required: true, minlength: 6},
+	image: {type: String, required: true},
+	mainSkill: {type: String, required: true},
+	userChefLevel: {type: Number, require: true},
+	userRecipes: [{type: mongoose.Types.ObjectId, required: true, ref: 'Recipe'}],
+	favouriteRecipes: [{type: mongoose.Types.ObjectId, required: true, ref: 'Recipe'}],
+	shoppingList: {type: Array, require: true},
+	date: { type: Date, require: true, default: Date.now()},
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.plugin(uniqueValidator);
 
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

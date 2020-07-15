@@ -30,7 +30,7 @@ function budget(state = initialState, action) {
 			delete newLoadingState.USER_GET_REQUEST;
 			return {
 				...state,
-				user: action.payload,
+				user: action.payload.existingUser,
 				loadingState: newLoadingState,
 			};
 		case USER_GET_FAILURE:

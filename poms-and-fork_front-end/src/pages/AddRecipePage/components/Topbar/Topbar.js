@@ -24,11 +24,12 @@ function Topbar({recipeInfo, saveButtonRef}) {
 					},
 				})
 				.then(function (response) {
-					updateFavouriteRecipesListInDB(
-						response.data,
-						recipeInfo.recipesUser,
-						'userRecipes',
-					);
+					// updateFavouriteRecipesListInDB(
+					// 	response.data,
+					// 	recipeInfo.recipesUser,
+					// 	'userRecipes',
+					// );
+					console.log(response);
 					history.push('/');
 					toast.success('Recipe has been added successfully!');
 				})
