@@ -89,7 +89,6 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 				})
 				.then((res) => {
 					const newImageNamesArr = [...newRecipe.recipeImageNames];
-					console.log(res);
 					newImageNamesArr.push(res.data.file.filename);
 					setNewRecipe((newRecipe) => ({
 						...newRecipe,
@@ -217,7 +216,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 
 	const onSubmit = (values) => {
 		saveButtonRef.current.removeAttribute('disabled');
-		saveButtonRef.current.setAttribute('style', 'background-color: rgb(196, 196, 196);');
+		saveButtonRef.current.setAttribute('style', 'background: transparent;');
 
 		const tagsArr = values.recipeTags.split('#');
 		tagsArr.splice(0, 1);
@@ -251,7 +250,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 	return (
 		<AddRecipeFormContainer onSubmit={handleSubmit(onSubmit)}>
 			<TitleInput
-				style={errors.recipeTitle && {backgroundColor: 'red'}}
+				style={errors.recipeTitle && {backgroundColor: '#ff000080'}}
 				autoComplete="off"
 				placeholder={'Title'}
 				type="text"
@@ -260,6 +259,12 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 			/>
 			<AddImagesContainer>
 				<BigImageContainer url={newRecipe.recipeImageNames[0]}>
+					{!newRecipe.recipeImageNames[0] && (
+						<React.Fragment>
+							<p>File extension: jpeg / png</p>
+							<p>File max size: 256 kB</p>
+						</React.Fragment>
+					)}
 					<Button
 						updateWidth={updateWidth}
 						type="button"
@@ -272,18 +277,36 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 				</BigImageContainer>
 
 				<BigImageContainer url={newRecipe.recipeImageNames[1]}>
+					{!newRecipe.recipeImageNames[1] && (
+						<React.Fragment>
+							<p>File extension: jpeg / png</p>
+							<p>File max size: 256 kB</p>
+						</React.Fragment>
+					)}
 					<Button updateWidth={updateWidth} variant={'addImage'} htmlFor="file">
 						<img src={cameraIcon} alt="add icon" />
 					</Button>
 					<input name="file" id="file" type="file" onChange={handleSendImage} />
 				</BigImageContainer>
 				<BigImageContainer url={newRecipe.recipeImageNames[2]}>
+					{!newRecipe.recipeImageNames[2] && (
+						<React.Fragment>
+							<p>File extension: jpeg / png</p>
+							<p>File max size: 256 kB</p>
+						</React.Fragment>
+					)}
 					<Button updateWidth={updateWidth} variant={'addImage'} htmlFor="file">
 						<img src={cameraIcon} alt="add icon" />
 					</Button>
 					<input name="file" id="file" type="file" onChange={handleSendImage} />
 				</BigImageContainer>
 				<BigImageContainer url={newRecipe.recipeImageNames[3]}>
+					{!newRecipe.recipeImageNames[3] && (
+						<React.Fragment>
+							<p>File extension: jpeg / png</p>
+							<p>File max size: 256 kB</p>
+						</React.Fragment>
+					)}
 					<Button updateWidth={updateWidth} variant={'addImage'} htmlFor="file">
 						<img src={cameraIcon} alt="add icon" />
 					</Button>
@@ -291,7 +314,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 				</BigImageContainer>
 			</AddImagesContainer>
 			<ShortDescriptionTextArea
-				style={errors.recipeDescriptionShort && {backgroundColor: 'red'}}
+				style={errors.recipeDescriptionShort && {backgroundColor: '#ff000080'}}
 				type="text"
 				name="recipeDescriptionShort"
 				ref={register({required: true, maxLength: {value: 200, message: 'error message'}})}
@@ -328,7 +351,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 					<Option value="Dinner">Dinner</Option>
 				</CategorySelectionField>
 				<ServingsInputField
-					style={errors.recipeServings && {backgroundColor: 'red'}}
+					style={errors.recipeServings && {backgroundColor: '#ff000080'}}
 					type="number"
 					name="recipeServings"
 					ref={register({required: true})}
@@ -339,7 +362,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 				/>
 			</CategoryAndServingsContainer>
 			<TagsInputField
-				style={errors.recipeTags && {backgroundColor: 'red'}}
+				style={errors.recipeTags && {backgroundColor: '#ff000080'}}
 				autoComplete="off"
 				type="text"
 				name="recipeTags"
@@ -347,7 +370,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 				placeholder={'#type#here#your#tags#just#like#that'}
 			/>
 			<PreparationTimeInputField
-				style={errors.recipeTitle && {backgroundColor: 'red'}}
+				style={errors.recipeTitle && {backgroundColor: '#ff000080'}}
 				type="number"
 				name="recipePreparationTime"
 				ref={register({required: true})}
@@ -356,28 +379,28 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 			<NutritionFactsContainer>
 				<p>Nutrition facts</p>
 				<NutritionInputField
-					style={errors.recipeEnergyValue && {backgroundColor: 'red'}}
+					style={errors.recipeEnergyValue && {backgroundColor: '#ff000080'}}
 					type="number"
 					name="recipeEnergyValue"
 					ref={register({required: true})}
 					placeholder={'Energy value'}
 				/>
 				<NutritionInputField
-					style={errors.recipeProtein && {backgroundColor: 'red'}}
+					style={errors.recipeProtein && {backgroundColor: '#ff000080'}}
 					type="number"
 					name="recipeProtein"
 					ref={register({required: true})}
 					placeholder={'Protein'}
 				/>
 				<NutritionInputField
-					style={errors.recipeFat && {backgroundColor: 'red'}}
+					style={errors.recipeFat && {backgroundColor: '#ff000080'}}
 					type="number"
 					name="recipeFat"
 					ref={register({required: true})}
 					placeholder={'Fat'}
 				/>
 				<NutritionInputField
-					style={errors.recipeCarbohydrate && {backgroundColor: 'red'}}
+					style={errors.recipeCarbohydrate && {backgroundColor: '#ff000080'}}
 					type="number"
 					name="recipeCarbohydrate"
 					ref={register({required: true})}
@@ -464,7 +487,13 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 					);
 				})}
 			</DescriptionStepsContainer>
-			<ConfirmInput type="submit" value="Confirm" />
+			<Button
+				variant="editSubmitUser"
+				style={{position: 'static', alignSelf: 'center', transform: 'translateX(0)'}}
+				type="submit"
+			>
+				Confirm
+			</Button>
 		</AddRecipeFormContainer>
 	);
 }

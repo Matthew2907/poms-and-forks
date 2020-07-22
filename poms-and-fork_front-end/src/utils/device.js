@@ -4,7 +4,7 @@ const sizeWidth = {
 	mobileL: '640px',
 	tablet: '768px',
 	laptop: '1024px',
-	iPadPro: '1366px',
+	iPadPro: '1360px',
 	laptopL: '1440px',
 	desktop: '1920px',
 	iphoneX: '800px',

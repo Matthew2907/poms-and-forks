@@ -9,60 +9,113 @@ import {
 	setDescriptionStepIndex,
 	setSliderImageIndex,
 } from 'data/actions/app.actions';
-import {fetchRecipe} from 'data/actions/recipe.actions';
+import {
+	fetchRecipeById,
+	fetchCreatorById,
+	fetchUserById,
+	resetCurrentRecipeCreatorAndRecipe,
+	fetchUserUpdateShoppingList,
+} from 'data/actions/dataDB.actions';
 
 function SingleRecipePage({
 	match,
-	recipe,
-	recipeLoadingState,
+	loadingState,
+	storedToken,
+	currentRecipe,
+	loggedUser,
+	currentRecipeCreator,
+	currentSliderImageIndex,
 	hideNavigation,
-	fetchRecipe,
 	setDescriptionStepIndex,
 	setSliderImageIndex,
+	fetchRecipeById,
+	fetchUserById,
+	fetchCreatorById,
+	resetCurrentRecipeCreatorAndRecipe,
+	fetchUserUpdateShoppingList,
 }) {
+	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState([]);
 	let history = useHistory();
 
 	const isLoaded = useMemo(
 		() =>
-			!!recipeLoadingState &&
-			Object.keys(recipeLoadingState).length === 0 &&
-			Object.keys(recipe).length > 0,
-		[recipeLoadingState, recipe],
+			!!loadingState &&
+			Object.keys(loadingState).length === 0 &&
+			Object.keys(currentRecipe).length > 0,
+		[loadingState, currentRecipe],
 	);
 
-	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState();
-
+	// Redirect to /error if url wrong
 	const isUrlGood = useMemo(() => {
-		if (isLoaded && typeof recipe === 'string') {
+		if (isLoaded && typeof currentRecipe.message === 'string') {
 			history.push('/error');
 			return null;
 		}
 		return true;
-	}, [isLoaded, recipe, history]);
-
+	}, [isLoaded, currentRecipe, history]);
+	// ###################################################################
+	// Fetch recipe next fetch creator and set shopping list in state
 	useEffect(() => {
-		hideNavigation();
-		fetchRecipe(match.params.id);
-	}, [hideNavigation, fetchRecipe, match.params.id]);
-
+		if (Object.entries(currentRecipe).length > 0) {
+			fetchCreatorById(currentRecipe.creator);
+			setIngredientsArrForShoppingList(currentRecipe.recipeIngredients);
+		} else {
+			fetchRecipeById(match.params.id);
+			hideNavigation();
+		}
+	}, [currentRecipe, hideNavigation, match.params.id]);
+	// ###################################################################
+	// Delete current user and recipe from store after exit
+	useEffect(() => {
+		return function cleanup() {
+			resetCurrentRecipeCreatorAndRecipe();
+		};
+	}, []);
+	// ###################################################################
 	return (
 		<React.Fragment>
-			<Topbar recipe={recipe} resetSliderImageIndex={setSliderImageIndex}></Topbar>
-			{isLoaded && isUrlGood ? (
-				<Content
-					recipe={recipe}
-					setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}
-				/>
+			{isLoaded &&
+			isUrlGood &&
+			currentRecipeCreator &&
+			Object.entries(currentRecipeCreator).length > 0 ? (
+				<React.Fragment>
+					<Topbar
+						storedToken={storedToken}
+						fetchUserById={fetchUserById}
+						loggedUser={loggedUser}
+						recipe={currentRecipe}
+						resetSliderImageIndex={setSliderImageIndex}
+						setSliderImageIndex={setSliderImageIndex}
+					/>
+					<Content
+						history={history}
+						storedToken={storedToken}
+						recipe={currentRecipe}
+						creator={currentRecipeCreator}
+						ingredientsArrForShoppingList={ingredientsArrForShoppingList}
+						currentSliderImageIndex={currentSliderImageIndex}
+						setSliderImageIndex={setSliderImageIndex}
+						setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}
+					/>
+				</React.Fragment>
 			) : (
 				<LoadingIndicator />
 			)}
-			<Bottombar recipeId={match.params.id} ingredients={ingredientsArrForShoppingList} />
+			<Bottombar
+				recipeId={match.params.id}
+				loggedUser={loggedUser}
+				storedToken={storedToken}
+				ingredientsArrForShoppingList={ingredientsArrForShoppingList}
+				fetchUserUpdateShoppingList={fetchUserUpdateShoppingList}
+			/>
 
 			<Switch>
 				<Route path="/recipe/:id/stepmode">
 					<Modal resetDescriptionStepIndex={setDescriptionStepIndex}>
 						{isLoaded ? (
-							<StepModeModal recipeDescription={recipe.recipeDescriptionInSteps} />
+							<StepModeModal
+								recipeDescription={currentRecipe.recipeDescriptionInSteps}
+							/>
 						) : (
 							<LoadingIndicator />
 						)}
@@ -74,15 +127,24 @@ function SingleRecipePage({
 }
 
 const mapStateToProps = (state) => ({
-	recipe: state.recipe.recipe,
-	recipeLoadingState: state.recipe.loadingState,
+	loadingState: state.dataDB.loadingState,
+	loggedUser: state.dataDB.user,
+	currentRecipe: state.dataDB.currentRecipe,
+	currentRecipeCreator: state.dataDB.currentRecipeCreator,
+	storedToken: state.applicationRecuder.storedToken,
+	currentSliderImageIndex: state.applicationRecuder.currentSliderImageIndex,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchRecipe: (id) => dispatch(fetchRecipe(id)),
 	hideNavigation: () => dispatch(hideNavigation()),
 	setDescriptionStepIndex: (index) => dispatch(setDescriptionStepIndex(index)),
 	setSliderImageIndex: (index) => dispatch(setSliderImageIndex(index)),
+	fetchRecipeById: (id) => dispatch(fetchRecipeById(id)),
+	fetchCreatorById: (id) => dispatch(fetchCreatorById(id)),
+	fetchUserById: (id) => dispatch(fetchUserById(id)),
+	resetCurrentRecipeCreatorAndRecipe: () => dispatch(resetCurrentRecipeCreatorAndRecipe()),
+	fetchUserUpdateShoppingList: (userId, shoppingList, storedToken) =>
+		dispatch(fetchUserUpdateShoppingList(userId, shoppingList, storedToken)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleRecipePage);

@@ -198,6 +198,7 @@ export const RecipeInfoAuthorTextContainer = styled.div`
 	h3 {
 		font-size: 14px;
 		font-weight: bold;
+		transition: 0.5s;
 
 		@media ${device.tablet} and (orientation: landscape) {
 			font-size: 20px;
@@ -209,6 +210,9 @@ export const RecipeInfoAuthorTextContainer = styled.div`
 
 		@media ${device.laptop} {
 			font-size: 28px;
+			&:hover {
+				transform: translateX(10px);
+			}
 		}
 	}
 
@@ -610,11 +614,19 @@ export const RecipeAuthorAvatarContainer = styled.div`
 	background-image: url(${(props) => props.url});
 	background-size: cover;
 	background-position: center;
+	cursor: pointer; 
+	transition: 0.5s;
 
 	&::after {
 		display: block;
 		padding-bottom: 100%;
 		transform-origin: center;
 		content: '';
+	}
+
+	@media ${device.laptop} {
+		&:hover {
+			box-shadow: 0 0 10px black;
+		}
 	}
 `;

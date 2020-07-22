@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Topbar, AddRecipeForm} from './components';
 import {hideNavigation} from 'data/actions/app.actions';
 
-function AddRecipePage({user, hideNavigation}) {
+function AddRecipePage({user, storedToken, hideNavigation}) {
 	const saveButtonRef = useRef(null);
 	const [recipeInfo, setRecipeInfo] = useState({});
 
@@ -16,7 +16,7 @@ function AddRecipePage({user, hideNavigation}) {
 
 	return (
 		<React.Fragment>
-			<Topbar saveButtonRef={saveButtonRef} recipeInfo={recipeInfo} />
+			<Topbar storedToken={storedToken} recipeInfo={recipeInfo} saveButtonRef={saveButtonRef} />
 			<AddRecipeForm
 				saveButtonRef={saveButtonRef}
 				user={user}
@@ -27,7 +27,8 @@ function AddRecipePage({user, hideNavigation}) {
 }
 
 const mapStateToProps = (state) => ({
-	user: state.data.user,
+	user: state.dataDB.user,
+	storedToken: state.applicationRecuder.storedToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({

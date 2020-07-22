@@ -1,13 +1,8 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 
 import {Topbar, Content} from './components';
-import {resetRecipe} from 'data/actions/recipe.actions';
 
-function ErrorPage({resetRecipe}) {
-	useEffect(() => {
-		resetRecipe();
-	}, [resetRecipe]);
+function ErrorPage() {
 
 	return (
 		<React.Fragment>
@@ -17,8 +12,4 @@ function ErrorPage({resetRecipe}) {
 	);
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	resetRecipe: () => dispatch(resetRecipe()),
-});
-
-export default connect(null, mapDispatchToProps)(ErrorPage);
+export default ErrorPage;

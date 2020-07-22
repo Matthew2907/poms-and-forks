@@ -7,8 +7,6 @@ export const ContentContainer = styled.div`
 	position: relative;
 	margin-top: 10vh;
 
-	
-
 	@media ${device.mobileM} and (orientation: landscape) {
 		display: flex;
 		height: 84vh;
@@ -59,17 +57,17 @@ export const UserImageContainer = styled.div`
 
 	@media ${device.laptop} and (orientation: landscape) {
 		flex-basis: 45%;
-		margin: 13% 12% auto 25px;
+		margin: 10% 12% auto 25px;
 	}
 
-	@media ${device.iPadPro} and (min-height: 1000px;) {
+	@media ${device.iPadPro} and (min-height: 1000px) {
 		flex-basis: 50%;
 		margin: 25% 10% auto 0;
 	}
 
 	@media ${device.laptopL} {
 		flex-basis: 50%;
-		margin: 12% 10% auto 0;
+		margin: 10% 10% auto 0;
 	}
 
 	&::after {
@@ -86,7 +84,7 @@ export const UserInformationContainer = styled.div`
 	border-top: 2px solid rgba(0, 0, 0, 0.4);
 
 	@media ${device.mobileM} and (orientation: landscape) {
-		flex-basis: 45%;
+		flex-basis: 62%;
 	}
 `;
 
@@ -102,7 +100,7 @@ export const SingleUserInfoContainer = styled.div`
 	@media (min-width: 420px) and (max-width: 500px) and (orientation: portrait) {
 		height: 6vh;
 	}
-	
+
 	@media (min-width: 500px) and (max-width: 770px) and (orientation: portrait) {
 		height: 4vh;
 	}
@@ -140,4 +138,21 @@ export const SingleUserInfoContainer = styled.div`
 			height: 40px;
 		}
 	}
+`;
+
+export const FormUserEdit = styled.form`
+	@media ${device.mobileM} and (orientation: landscape) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 60%;
+		margin-right: 4%;
+		margin-bottom: 4%;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) {
+		margin-right: 1%;
+	}
+
 `;

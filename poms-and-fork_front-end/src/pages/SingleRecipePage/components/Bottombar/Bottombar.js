@@ -1,42 +1,57 @@
 import React, {useRef} from 'react';
-import {connect} from 'react-redux';
 import {toast} from 'react-toastify';
 
 import {Button, Bar} from 'components';
-import {setShoppinglistAddIngredients} from 'data/actions/app.actions';
 import shoppingListIcon from 'images/Shopping icon.svg';
 import stepModeIcon from 'images/Stepmode icon.svg';
 
 function Bottombar({
 	recipeId,
-	ingredients,
-	prevIngredientsShoppingList,
-	setShoppinglistAddIngredients,
+	loggedUser,
+	storedToken,
+	ingredientsArrForShoppingList,
+	fetchUserUpdateShoppingList,
 }) {
 	const shoplistButtonRef = useRef(null);
 
-	const handleAddIngredientsToShoppinglist = () => {
+	const handleAddIngredientsToShoppinglist = async () => {
 		if (!shoplistButtonRef.current.hasAttribute('disabled')) {
-			shoplistButtonRef.current.setAttribute('disabled', true);
-			shoplistButtonRef.current.setAttribute('style', 'background-color: rgba(0,0,0,0.6);');
-			if (prevIngredientsShoppingList.length > 0) {
-				const newIngredientShoppingList = [...prevIngredientsShoppingList, ...ingredients];
-
+			if (loggedUser.shoppingList.length > 0) {
+				const newIngredientShoppingList = [
+					...loggedUser.shoppingList,
+					...ingredientsArrForShoppingList,
+				];
 				if (newIngredientShoppingList.length < 20) {
-					setShoppinglistAddIngredients(newIngredientShoppingList);
+					// Add new shopping list to user in DB
+					fetchUserUpdateShoppingList(
+						loggedUser.id,
+						newIngredientShoppingList,
+						storedToken,
+					);
+					shoplistButtonRef.current.setAttribute('disabled', true);
 					shoplistButtonRef.current.setAttribute(
 						'style',
 						'background-color: rgba(0,0,0,0.6);',
 					);
-					shoplistButtonRef.current.setAttribute('disabled', true);
-					toast.success('Ingredients has been added to your shooping list!');
+					setTimeout(() => {
+						toast.success('Ingredients has been added to your shooping list!');
+					},1000)
 					return;
 				} else {
 					toast.error('Your shopping list is too big!');
 					return;
 				}
 			} else {
-				setShoppinglistAddIngredients(ingredients);
+				shoplistButtonRef.current.setAttribute('disabled', true);
+				shoplistButtonRef.current.setAttribute(
+					'style',
+					'background-color: rgba(0,0,0,0.6);',
+				);
+				fetchUserUpdateShoppingList(
+					loggedUser.id,
+					ingredientsArrForShoppingList,
+					storedToken,
+				);
 				return;
 			}
 		}
@@ -45,13 +60,15 @@ function Bottombar({
 
 	return (
 		<Bar variant="bottombar">
-			<Button
-				ref={shoplistButtonRef}
-				variant="firstBottom"
-				onClick={handleAddIngredientsToShoppinglist}
-			>
-				<img src={shoppingListIcon} alt="add ingredients to shoopinglist" />
-			</Button>
+			{loggedUser && Object.entries(loggedUser).length > 0 && (
+				<Button
+					ref={shoplistButtonRef}
+					variant="firstBottom"
+					onClick={handleAddIngredientsToShoppinglist}
+				>
+					<img src={shoppingListIcon} alt="add ingredients to shoopinglist" />
+				</Button>
+			)}
 			<Button variant="secondBottom" to={`/recipe/${recipeId}/stepmode`}>
 				<img src={stepModeIcon} alt="display step mode" />
 			</Button>
@@ -59,12 +76,4 @@ function Bottombar({
 	);
 }
 
-const mapStateToProps = (state) => ({
-	prevIngredientsShoppingList: state.applicationRecuder.shoppinglistIngredients,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setShoppinglistAddIngredients: (data) => dispatch(setShoppinglistAddIngredients(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Bottombar);
+export default Bottombar;

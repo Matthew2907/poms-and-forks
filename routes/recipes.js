@@ -13,15 +13,15 @@ router.get('/searchById/:id', recipesController.getRecipesById);
 
 router.get('/searchByUserId/:id', recipesController.getRecipesByUserId);
 
-// FIXME: Gdy odpalę autoryzację
-// router.use(checkAuth);
+router.use(checkAuth);
+
+router.post('/searchFavouriteRecipes', recipesController.getRecipesFavourite);
 
 router.post(
 	'/add',
 	fileUpload.array('images', 4),
 	[
 		check('recipeTitle').not().isEmpty(),
-		check('recipeDescriptionShort').isLength({min: 10}),
 		check('recipeIngredients').isLength({min: 1}),
 		check('recipeDescriptionInSteps').isLength({min: 1}),
 	],
@@ -32,10 +32,7 @@ router.patch('/addToFavourites/:id', recipesController.updateRecipeFollowings);
 
 router.patch(
 	'/:id',
-	[
-		check('recipeTitle').not().isEmpty(),
-		check('recipeDescriptionShort').isLength({min: 10}),
-	],
+	[check('recipeTitle').not().isEmpty(), check('recipeDescriptionShort').isLength({min: 10})],
 	recipesController.updateRecipe,
 );
 

@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 
 import {
 	ContentCantainer,
@@ -8,17 +7,12 @@ import {
 	MainRecipeTitle,
 } from './MainRecipe.css';
 import {RecipeListContainer, RecipeContainer, ImageContainer, RecipeTitle} from './RecipeList.css';
-import {fetchRecipes} from 'data/actions/data.actions';
 
-function Content({fetchRecipes, recipes}) {
-	useEffect(() => {
-		fetchRecipes();
-	}, [fetchRecipes]);
-
-	const newRecipesArr = [...recipes]; 
+function Content({recipes}) {
+	const newRecipesArr = [...recipes];
 	const index = Math.floor(Math.random() * recipes.length);
 	const deletedRecipe = newRecipesArr.splice(index, 1);
-	const mainRecipe = deletedRecipe[0]; 
+	const mainRecipe = deletedRecipe[0];
 
 	const recipesList = newRecipesArr.map((recipe) => (
 		<RecipeContainer key={recipe._id}>
@@ -45,12 +39,4 @@ function Content({fetchRecipes, recipes}) {
 	);
 }
 
-const mapStateToProps = (state) => ({
-	recipes: state.data.recipes,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	fetchRecipes: () => dispatch(fetchRecipes()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;

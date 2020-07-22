@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import {Link} from 'react-router-dom';
 
 import {device} from 'utils';
@@ -77,10 +77,25 @@ export const RootButton = styled.button`
 	position: absolute;
 	top: 50%;
 	left: 4%;
-	border: 0.5px solid #000000;
 	border-radius: 15%;
-	background-color: rgb(196, 196, 196);
+	background-color: white;
 	transform: translateY(-50%);
+	cursor: pointer;
+	text-decoration: none;
+	overflow: hidden;
+
+	&::before {
+		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 180%;
+		z-index: -1;
+		transition: 0.8s;
+		border-radius: 0 0 50% 50%;
+		content: '';
+	}
 
 	&::after {
 		display: block;
@@ -92,6 +107,14 @@ export const RootButton = styled.button`
 	&:focus {
 		outline: none;
 		box-shadow: none;
+	}
+
+	&:disabled,
+	&:hover:disabled,
+	&:active:disabled,
+	&:disabled::before {
+		background: linear-gradient(to bottom, #0000 5%, #0000 95%);
+		cursor: not-allowed;
 	}
 
 	img {
@@ -129,6 +152,10 @@ export const RootButton = styled.button`
 	@media ${device.laptop} and (orientation: landscape) {
 		width: 5%;
 		max-width: 50px;
+
+		&:hover::before {
+			height: 0;
+		}
 	}
 
 	@media ${device.laptop} and (orientation: portrait) {
@@ -171,7 +198,7 @@ export const SideNavigationButton = styled(RootButton)`
 
 export const FirstRightTopButton = styled(RootButton)`
 	left: 74%;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(255, 0, 0, 0.6);
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		left: 80%;
@@ -190,6 +217,8 @@ export const FirstRightTopButton = styled(RootButton)`
 
 export const SecondRightTopButton = styled(RootButton)`
 	left: 86%;
+
+
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		max-width: 30px;
@@ -304,6 +333,7 @@ export const NextStepModeButton = styled(RootButton)`
 `;
 
 export const ErrorButton = styled.button`
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -311,8 +341,25 @@ export const ErrorButton = styled.button`
 	width: 100%;
 	padding: 5px;
 	border-radius: 6px;
-	background-color: rgba(196, 196, 196, 0.6);
 	font-weight: bold;
+	overflow: hidden;
+	background-color: white;
+	background: none;
+	color: black;
+	cursor: pointer;
+
+	&::before {
+		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 180%;
+		z-index: -1;
+		transition: 0.8s;
+		border-radius: 0 0 50% 50%;
+		content: '';
+	}
 
 	@media ${device.mobileS} {
 		font-size: 16px;
@@ -334,6 +381,10 @@ export const ErrorButton = styled.button`
 		height: 6vh;
 		border-radius: 10px;
 		font-size: 24px;
+
+		&:hover::before {
+			height: 0;
+		}
 	}
 
 	@media ${device.laptop} and (orientation: portrait) {
@@ -361,11 +412,41 @@ export const EditUserButton = styled.button`
 	position: absolute;
 	top: 94%;
 	left: 50%;
-	border: 0.5px solid rgb(0, 0, 0);
 	border-radius: 6px;
-	background-color: rgba(0, 0, 0, 0.6);
 	font-weight: bold;
 	transform: translateX(-50%);
+	cursor: pointer;
+	overflow: hidden;
+	background-color: white;
+	background: none;
+	color: black;
+
+	&::before {
+		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 180%;
+		z-index: -1;
+		transition: 0.8s;
+		border-radius: 0 0 50% 50%;
+		content: '';
+	}
+
+	&:disabled {
+		background: linear-gradient(to bottom, #000000b5 5%, #00000082 95%);
+	}
+
+	&:hover:disabled {
+		cursor: not-allowed;
+	}
+
+	&:active:disabled,
+	&:disabled::before {
+		background: linear-gradient(to bottom, #0000 5%, #0000 95%);
+		cursor: not-allowed;
+	}
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		width: 40%;
@@ -395,10 +476,19 @@ export const EditUserButton = styled.button`
 		font-size: 20px;
 	}
 
+	@media ${device.tablet} and (max-height: 420px) {
+		height: 7vh;
+		top: 87%;
+	}
+
 	@media ${device.laptop} and (orientation: landscape) {
 		height: 5vh;
 		left: 56%;
 		border-radius: 10px;
+
+		&:hover::before {
+			height: 0;
+		}
 	}
 
 	@media ${device.laptop} and (orientation: portrait) {
@@ -425,12 +515,20 @@ export const EditUserButton = styled.button`
 	}
 `;
 
+export const EditUserSubmitButton = styled(EditUserButton)`
+	top: 70% !important;
+
+	@media (orientation: portrait) {
+		top: 85% !important;
+	}
+`;
+
 export const SettingsNavigationButton = styled(RootButton)`
 	width: 10%;
 	position: static;
 	margin-right: 10%;
 	transform: translate(0, 0);
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: white;
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		width: 6%;
@@ -457,8 +555,23 @@ export const AddImageInput = styled.label`
 	left: 50%;
 	border: 0.5px solid #000000;
 	border-radius: 15%;
-	background-color: rgb(196, 196, 196);
+	background-color: white;
 	transform: translate(-50%, -50%);
+	cursor: pointer;
+	overflow: hidden;
+
+	&::before {
+		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 180%;
+		z-index: -1;
+		transition: 0.8s;
+		border-radius: 0 0 50% 50%;
+		content: '';
+	}
 
 	@media ${device.mobileM} and (orientation: landscape) {
 		width: 15%;
@@ -468,6 +581,10 @@ export const AddImageInput = styled.label`
 	@media ${device.laptop} {
 		width: 15%;
 		height: ${({updateWidth}) => `${0.045 * updateWidth}px`};
+
+		&:hover::before {
+			height: 0;
+		}
 	}
 
 	@media ${device.laptopL} {

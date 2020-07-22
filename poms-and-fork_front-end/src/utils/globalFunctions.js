@@ -33,7 +33,7 @@ export const generatorID = function () {
 export const changeButtonState = (reference, boolean) => {
 	const color = boolean
 		? 'background-color: rgba(0,0,0,0.6);'
-		: 'background-color: rgb(196, 196, 196);';
+		: 'background-color: rgb(255, 255, 255);';
 	reference.current.setAttribute('style', color);
 	if (boolean) {
 		reference.current.setAttribute('disabled', boolean);

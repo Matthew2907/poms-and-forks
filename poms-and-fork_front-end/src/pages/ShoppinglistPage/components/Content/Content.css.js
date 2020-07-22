@@ -63,4 +63,8 @@ export const ShopingIngredientContainer = styled(IngredientContainer)`
 	@media ${device.tablet} and (orientation: landscape) and (min-height: 370px) {
 		padding: 3% 0;
 	}
+
+	@media ${device.tablet} and (orientation: landscape) {
+		padding: 18px 0;
+	}
 `;

@@ -64,13 +64,13 @@ export const ImageContainer = styled(Link)`
 	display: block;
 	width: 75%;
 	margin: 1% auto 5%;
-	border: 0.5px solid #000000;
 	border-radius: 7px;
-	background-color: #c4c4c4;
 	background-image: url(${(props) => props.url});
 	background-size: cover;
 	background-position: center;
-
+	box-shadow: 0 4px 8px 2px rgba(0,0,0,0.2);
+	transition: 0.3s;
+	
 	&::after {
 		display: block;
 		padding-bottom: 100%;
@@ -104,6 +104,12 @@ export const ImageContainer = styled(Link)`
 
 	@media ${device.tablet} and (orientation: landscape) {
 		height: 80%;
+	}
+
+	@media ${device.laptop} {
+		:hover {
+			box-shadow: 0 8px 16px 10px rgba(0,0,0,0.2);
+		}
 	}
 `;
 

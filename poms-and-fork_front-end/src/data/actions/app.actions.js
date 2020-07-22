@@ -3,8 +3,7 @@ import {
 	NAVIGATION_HIDE,
 	SLIDER_SET_IMAGE_INDEX,
 	DESCRIPTION_SET_STEP_INDEX,
-	SHOPPINGLIST_ADD_INGREDIENTS,
-	FAVOURITE_RECIPE_TOGGLE,
+	SET_TOKEN,
 } from 'data/constants';
 
 export const showNavigation = () => {
@@ -33,16 +32,9 @@ export const setDescriptionStepIndex = (index) => {
 	};
 };
 
-export const setShoppinglistAddIngredients = (data) => {
+export const setTokenInStore = (token) => {
 	return {
-		type: SHOPPINGLIST_ADD_INGREDIENTS,
-		payload: data,
-	};
-};
-
-export const setFavouriteRecipeToList = (data) => {
-	return {
-		type: FAVOURITE_RECIPE_TOGGLE,
-		payload: data,
+		type: SET_TOKEN,
+		payload: token,
 	};
 };

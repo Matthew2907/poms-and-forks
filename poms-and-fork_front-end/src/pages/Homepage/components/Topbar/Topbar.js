@@ -16,13 +16,13 @@ function Topbar({isNavigationActive, showNavigation, hideNavigation}) {
 			searchRecipeByTitleButtonRef.current.setAttribute('disabled', true);
 			searchRecipeByTitleButtonRef.current.setAttribute(
 				'style',
-				'background-color: rgba(0,0,0,0.6);',
+				'background: linear-gradient(to bottom, #000000b5 5%, #00000082 95%);',
 			);
 		} else {
 			searchRecipeByTitleButtonRef.current.removeAttribute('disabled');
 			searchRecipeByTitleButtonRef.current.setAttribute(
 				'style',
-				'background-color: rgb(196, 196, 196);',
+				'background: none;',
 			);
 		}
 	}, [searchedRecipeTitle]);

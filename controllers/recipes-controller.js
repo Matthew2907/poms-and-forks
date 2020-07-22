@@ -49,21 +49,21 @@ const getRecipesByTitle = async (req, res, next) => {
 
 const getRecipesById = async (req, res, next) => {
 	const recipeId = req.params.id;
-	let recipes;
+	let recipe;
 
 	try {
-		recipes = await Recipe.findById(recipeId);
+		recipe = await Recipe.findById(recipeId);
 	} catch (err) {
 		const error = new HttpError('Something went wrong, could not find recipes.', 500);
 		return next(error);
 	}
 
-	if (!recipes) {
+	if (!recipe) {
 		const error = new HttpError('Could not find recipes for the provided id.', 404);
 		return next(error);
 	}
 
-	res.json(recipes);
+	res.json(recipe);
 };
 
 const getRecipesByUserId = async (req, res, next) => {
@@ -81,9 +81,25 @@ const getRecipesByUserId = async (req, res, next) => {
 	if (!userWithRecipes || userWithRecipes.userRecipes.length === 0) {
 		return next(new HttpError('Could not find recipes for the provided user id.', 404)); // trigger error handling middleware in app.js
 	}
-
-	res.json(userWithRecipes.userRecipes.map((recipe) => recipe.toObject({getters: true})));
+	const recipeArr = userWithRecipes.userRecipes.map((recipe) => recipe.toObject({getters: true}));
+	res.json(recipeArr);
 };
+
+const getRecipesFavourite = async (req, res, next) => {
+	const recipesObjectedId = req.body.favouriteRecipes.map(recipe => mongoose.Types.ObjectId(recipe));
+	
+	let recipes;
+
+	try {
+		recipes = await Recipe.find({'_id': { $in : recipesObjectedId}});
+	} catch (err) {
+		const error = new HttpError('Fetching recipes faild, please try again later.', 500);
+		return next(error);
+	}
+
+	res.json(recipes);
+};
+
 
 const createRecipe = async (req, res, next) => {
 	const errors = validationResult(req);
@@ -94,8 +110,11 @@ const createRecipe = async (req, res, next) => {
 
 	let newRecipeImages = [];
 
-	if(req.files && req.files.length > 0){
-		newRecipeImages = req.files.map(file => file.filename);
+	if(req.body.recipeImageNames && req.body.recipeImageNames.length > 0){
+		// newRecipeImages = req.files.map(file => file.filename);
+		newRecipeImages = req.body.recipeImageNames
+	} else {
+		newRecipeImages.push('b2421e7220cccf64bae6a8989abcf0bc.jpg')
 	}
 	
 	const {
@@ -164,7 +183,7 @@ const createRecipe = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(201).json({recipe: newRecipe});
+	res.status(201).json("Recipe has been added successfully!");
 };
 
 const updateRecipe = async (req, res, next) => {
@@ -188,11 +207,12 @@ const updateRecipe = async (req, res, next) => {
 
 	try {
 		recipe = await Recipe.findById(recipeId);
+		// recipe = await Recipe.findById(recipeId).populate('creator');
 	} catch (err) {
 		const error = new HttpError('Something went wrong. Could not update recipe.', 500);
 		return next(error);
 	}
-
+	// if(recipe.creator.id.toString() !== req.userData.userId){
 	if(recipe.creator.toString() !== req.userData.userId){
 		const error = new HttpError('You are not allowed to delete this recipe.', 401);
 		return next(error);
@@ -212,7 +232,7 @@ const updateRecipe = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(200).json({recipe: recipe});
+	res.status(200).json(recipe);
 };
 
 const updateRecipeFollowings = async (req, res, next) => {
@@ -266,7 +286,7 @@ const updateRecipeFollowings = async (req, res, next) => {
 			return next(error); 		
 		}
 
-		res.status(201).json('Recipe removed from favourites successfully!');
+		res.status(201).json('Recipe has been removed from favourites successfully!');
 	} else {
 		try {
 			const session = await mongoose.startSession();
@@ -281,7 +301,7 @@ const updateRecipeFollowings = async (req, res, next) => {
 			return next(error);
 		}
 
-		res.status(201).json('Recipe added to favourites successfully!');
+		res.status(201).json('Recipe has been added to favourites successfully!');
 	}
 };
 
@@ -302,7 +322,7 @@ const deleteRecipe = async (req, res, next) => {
 		return next(error);
 	}
 
-	if(recipe.creator.toString() !== req.userData.userId){
+	if(recipe.creator.id.toString() !== req.userData.userId){
 		const error = new HttpError('You are not allowed to delete this recipe.', 401);
 		return next(error);
 	}
@@ -345,6 +365,7 @@ exports.getAllRecipes = getAllRecipes;
 exports.getRecipesByTitle = getRecipesByTitle;
 exports.getRecipesById = getRecipesById;
 exports.getRecipesByUserId = getRecipesByUserId;
+exports.getRecipesFavourite = getRecipesFavourite;
 exports.createRecipe = createRecipe;
 exports.updateRecipe = updateRecipe;
 exports.updateRecipeFollowings = updateRecipeFollowings;

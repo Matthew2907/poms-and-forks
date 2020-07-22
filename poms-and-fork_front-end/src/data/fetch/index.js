@@ -1,7 +1,5 @@
-import * as data from './data.fetch';
-import * as recipe from './recipe.fetch';
+import * as dataDB from './dataDB.fetch';
 
 export default {
-	data,
-	recipe,
+	dataDB,
 };

@@ -8,9 +8,8 @@ const SearchInput = styled.input`
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	border: 0.5px solid rgb(0, 0, 0);
+	border: 1px solid rgb(0, 0, 0);
 	border-radius: 23px;
-	background-color: rgb(229, 229, 229);
 	text-align: center;
 	transform: translate(-50%, -50%);
 
@@ -47,6 +46,7 @@ const SearchInput = styled.input`
 	}
 
 	&::placeholder {
+		color: black;
 		@media ${device.mobileM} and (orientation: landscape) {
 			font-size: 20px;
 		}

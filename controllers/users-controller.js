@@ -3,6 +3,7 @@ const {validationResult} = require('express-validator');
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid');
 
 const HttpError = require('../models/http-error');
 let User = require('../models/user.model');
@@ -31,7 +32,7 @@ const getUserById = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.json({user: user.toObject({getters: true})});
+	res.json(user.toObject({getters: true}));
 };
 
 const createUser = async (req, res, next) => {
@@ -94,7 +95,7 @@ const createUser = async (req, res, next) => {
 	}
 
 	res.status(201).json({
-		newUser,
+		userId: newUser.id,
 		token
 	});
 };
@@ -147,7 +148,7 @@ const loginUser = async (req, res, next) => {
 	}
 
 	res.json({
-		existingUser,
+		userId: existingUser.id,
 		token,
 	});
 };
@@ -175,7 +176,12 @@ const updateUsersShoppings = async (req, res, next) => {
 		return next(error);
 	}
 
-	user.shoppingList = shoppingList;
+	const newShoppingList = shoppingList.map(element => {
+		element.id = uuid.v1();
+		return element;
+	})
+
+	user.shoppingList = newShoppingList;
 	
 	try {
 		await user.save();
@@ -184,7 +190,7 @@ const updateUsersShoppings = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(200).json({user: user});
+	res.status(200).json(user);
 };
 
 const updateUser = async (req, res, next) => {
@@ -229,7 +235,7 @@ const updateUser = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(200).json({user: user});
+	res.status(200).json(user);
 };
 
 const deleteUser = async (req, res, next) => {

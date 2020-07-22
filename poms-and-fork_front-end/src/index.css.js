@@ -8,7 +8,7 @@ export default createGlobalStyle`
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: Montserrat, Arial, sans-serif;
+		font-family: Cabin, Arial, sans-serif;
 	}
 	
 	#root {

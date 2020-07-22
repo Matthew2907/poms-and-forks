@@ -3,26 +3,29 @@ import {connect} from 'react-redux';
 
 import {Topbar, Content} from './components';
 import {hideNavigation} from 'data/actions/app.actions';
+import {fetchUserUpdate} from 'data/actions/dataDB.actions';
 
-function UsersPanelPage({user, hideNavigation}) {
+function UsersPanelPage({loggedUser, storedToken, hideNavigation, fetchUserUpdate}) {
 	useEffect(() => {
 		hideNavigation();
-	}, [hideNavigation, user]);
+	}, [hideNavigation]);
 
 	return (
 		<React.Fragment>
 			<Topbar />
-			<Content user={user} />
+			<Content fetchUserUpdate={fetchUserUpdate} user={loggedUser} storedToken={storedToken} />
 		</React.Fragment>
 	);
 }
 
 const mapStateToProps = (state) => ({
-	user: state.data.user,
+	loggedUser: state.dataDB.user,
+	storedToken: state.applicationRecuder.storedToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	hideNavigation: () => dispatch(hideNavigation()),
+	fetchUserUpdate: (userId, updatedUser, storedToken) => dispatch(fetchUserUpdate(userId, updatedUser, storedToken)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersPanelPage);

@@ -37,7 +37,13 @@ export const CloseIcon = styled.div`
 	top: 5px;
 	right: 7px;
 	font-size: 20px;
+	color: black;
 	cursor: pointer;
+	transition: 0.3s;
+
+	&:hover {
+		color: red;
+	}
 
 	@media ${device.tablet} and (orientation: landscape) {
 		font-size: 24px;

@@ -38,7 +38,7 @@ export const Container = styled.nav`
 	}
 
 	@media ${device.laptop} and (orientation: landscape) {
-		width: 28%;
+		width: 31%;
 		height: 93vh;
 		top: 7%;
 	}
@@ -59,7 +59,7 @@ export const List = styled.ul`
 		flex-basis: 12%;
 
 		@media ${device.mobileM} and (orientation: landscape) {
-			flex-basis: 14%;
+			flex-basis: 13%;
 		}
 	}
 `;

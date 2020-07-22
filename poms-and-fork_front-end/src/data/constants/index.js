@@ -1,6 +1,5 @@
-export * from './data.constants';		
-export * from './recipe.constatns';	
 export * from './app.constants';	
+export * from './dataDB.constants';	
 
 export const LOADING_STATES = {	
 	INITIAL: 'INITIAL',

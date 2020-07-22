@@ -32,7 +32,7 @@ const RootInput = styled.input`
 	padding: 5px;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	color: rgb(0, 0, 0);
 	opacity: 1;
 	font-weight: bold;
@@ -76,11 +76,11 @@ export const BigImageContainer = styled.div`
 	margin: 4% auto 5%;
 	border: 0.5px solid #000000;
 	border-radius: 7px;
-	background-color: rgba(196, 196, 196, 0.6);
-	${(props) => typeof props.url !== 'undefined'
-		? `background-image: url(http://localhost:5000/files/image/${props.url});`
-		: ''
-	}
+	background: transparent;
+	${(props) =>
+		typeof props.url !== 'undefined'
+			? `background-image: url(http://localhost:5000/files/image/${props.url});`
+			: ''}
 	background-size: cover;
 	background-position: center;
 
@@ -101,13 +101,26 @@ export const BigImageContainer = styled.div`
 	input {
 		display: none;
 	}
+
+	p {
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		top: 15%;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	p+p {
+		top: 70%;
+	}
 `;
 
 export const ShortDescriptionTextArea = styled.textarea`
 	padding: 5px;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	font-weight: bold;
 	font-size: 14px;
 	line-height: 16px;
@@ -139,7 +152,7 @@ export const RecipeLevelInfoContainer = styled.div`
 	width: 100%;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 
@@ -172,6 +185,8 @@ export const StarsLevelContainer = styled.div`
 
 	img {
 		width: 15%;
+		cursor: pointer;
+		transition: 0.3s;
 
 		@media ${device.mobileM} {
 			width: 11%;
@@ -183,6 +198,10 @@ export const StarsLevelContainer = styled.div`
 
 		@media ${device.laptop} {
 			width: 7%;
+
+			&:hover {
+				transform: translateY(-5px);
+			}
 		}
 
 		&::after {
@@ -206,7 +225,7 @@ const RootSelect = styled.select`
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	color: rgb(0, 0, 0);
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	opacity: 1;
 	font-weight: bold;
 	letter-spacing: 0.5px;
@@ -228,6 +247,29 @@ const RootSelect = styled.select`
 export const CategorySelectionField = styled(RootSelect)`
 	flex-basis: 45%;
 	margin-right: 5px;
+`;
+
+export const MainSkillSelectionField = styled(RootSelect)`
+	width: 100%;
+	margin-top: 10px;
+
+	@media ${device.mobileM} and (orientation: landscape) {
+		font-size: 14px;
+		border-radius: 5px;
+	}
+
+	@media ${device.tablet} and (max-height: 420px) {
+		border-radius: 5px;
+	}
+
+	@media ${device.tablet} and (orientation: portrait) {
+		border-radius: 5px;
+		font-size: 20px;
+	}
+
+	@media ${device.iPadPro} and (orientation: landscape) {
+		font-size: 28px;
+	}
 `;
 
 export const ServingsInputField = styled(RootInput)`
@@ -268,7 +310,7 @@ export const NutritionInputField = styled.input`
 	width: 48%;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	font-weight: bold;
@@ -343,7 +385,7 @@ export const SingleIngredientInfoContainer = styled.div`
 	position: relative;
 	margin-top: 10px;
 	padding: 5px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 
@@ -416,7 +458,7 @@ export const SingleDescriptionStepInfoContainer = styled.div`
 	margin-bottom: 10px;
 	margin-top: 10px;
 	padding: 12px;
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 
 	@media ${device.mobileS} {
@@ -474,8 +516,31 @@ export const SingleDescriptionStepInfoContainer = styled.div`
 `;
 
 export const ConfirmInput = styled(RootInput)`
-	color: rgb(256, 256, 256);
-	background-color: rgba(0, 0, 0, 0.6);
+	position: realtive;
+	cursor: pointer;
+	text-decoration: none;
+	overflow: hidden;
+	background-color: white;
+	background: none;
+
+	&::before {
+		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 180%;
+		z-index: -1;
+		transition: 0.8s;
+		border-radius: 0 0 50% 50%;
+		content: '';
+	}
+
+	@media ${device.laptop} and (orientation: landscape) {
+		&:hover::before {
+			height: 0;
+		}
+	}
 `;
 
 export const Option = styled.option`
@@ -483,7 +548,7 @@ export const Option = styled.option`
 	border: 0.5px solid #000000;
 	border-radius: 5px;
 	color: rgb(0, 0, 0);
-	background-color: rgba(196, 196, 196, 0.6);
+	background: transparent;
 	opacity: 1;
 	font-weight: bold;
 	letter-spacing: 0.5px;

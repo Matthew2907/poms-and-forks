@@ -60,12 +60,14 @@ export const MainImageContainer = styled(Link)`
 	position: absolute;
 	top: 4%;
 	left: 50%;
-	border: 0.5px solid rgb(0, 0, 0);
+	
 	border-radius: 7px;
 	background-image: url(${(props) => props.url});
 	background-size: cover;
 	background-position: center;
 	transform: translateX(-50%);
+	box-shadow: 0 4px 8px 2px rgba(0,0,0,0.2);
+  	transition: 0.3s;
 
 	@media ${device.mobileS} {
 		width: 95%;
@@ -85,6 +87,12 @@ export const MainImageContainer = styled(Link)`
 
 	@media ${device.tablet} and (orientation: portrait) {
 		width: 94%;
+	}
+
+	@media ${device.laptop} {
+		:hover {
+			box-shadow: 0 8px 16px 10px rgba(0,0,0,0.2);
+		}
 	}
 `;
 

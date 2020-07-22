@@ -3,17 +3,16 @@ import {connect} from 'react-redux';
 
 import {Button} from 'components';
 import {ShopinglistIngredientsContainer, ShopingIngredientContainer} from './Content.css';
-import {setShoppinglistAddIngredients} from 'data/actions/app.actions';
 import deleteIcon from 'images/Delete icon.svg';
 
-function Content({sumIngredientsArr, setIngredientsArrForShoppingList}) {
+function Content({ingredientsArrForShoppingList, setIngredientsArrForShoppingList}) {
 	const handleDeleteIngredientFromRecipeIngredients = (index) => {
-		const newIngredientsArrForDelete = [...sumIngredientsArr];
+		const newIngredientsArrForDelete = [...ingredientsArrForShoppingList];
 		newIngredientsArrForDelete.splice(index, 1);
 		setIngredientsArrForShoppingList(newIngredientsArrForDelete);
 	};
 
-	const ingredientsList = sumIngredientsArr.map((ingredient, index) => (
+	const ingredientsList = ingredientsArrForShoppingList.map((ingredient, index) => (
 		<ShopingIngredientContainer key={ingredient.id}>
 			<p>{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}</p>
 			<Button
@@ -31,7 +30,7 @@ function Content({sumIngredientsArr, setIngredientsArrForShoppingList}) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	setShoppinglistAddIngredients: (data) => dispatch(setShoppinglistAddIngredients(data)),
+	// setShoppinglistAddIngredients: (data) => dispatch(setShoppinglistAddIngredients(data)),
 });
 
 export default connect(null, mapDispatchToProps)(Content);

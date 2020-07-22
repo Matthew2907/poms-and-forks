@@ -4,21 +4,21 @@ import {connect} from 'react-redux';
 import {Topbar, Content} from './components';
 import {LoadingIndicator} from 'components';
 import {hideNavigation} from 'data/actions/app.actions';
-import {fetchRecipeByTitle} from 'data/actions/recipe.actions';
+import {fetchRecipesByTitle} from 'data/actions/dataDB.actions';
 
 function SearchedRecipesPage({
 	match,
-	searchedRecipeByTitle,
+	searchedRecipesByTitle,
 	recipeLoadingState,
 	hideNavigation,
-	fetchRecipeByTitle,
+	fetchRecipesByTitle,
 }) {
 	const title = match.params.title;
 
 	useEffect(() => {
 		hideNavigation();
-		fetchRecipeByTitle(title);
-	}, [hideNavigation, fetchRecipeByTitle, title]);
+		fetchRecipesByTitle(title);
+	}, [hideNavigation, title]);
 
 	const isLoaded = useMemo(
 		() => !!recipeLoadingState && Object.keys(recipeLoadingState).length === 0,
@@ -29,7 +29,7 @@ function SearchedRecipesPage({
 		<React.Fragment>
 			<Topbar title={title} />
 			{isLoaded ? (
-				<Content searchedRecipeByTitle={searchedRecipeByTitle} title={title} />
+				<Content searchedRecipesByTitle={searchedRecipesByTitle} title={title} />
 			) : (
 				<LoadingIndicator />
 			)}
@@ -38,13 +38,13 @@ function SearchedRecipesPage({
 }
 
 const mapStateToProps = (state) => ({
-	searchedRecipeByTitle: state.recipe.searchedRecipeByTitle,
-	recipeLoadingState: state.recipe.loadingState,
+	searchedRecipesByTitle: state.dataDB.recipes,
+	recipeLoadingState: state.dataDB.loadingState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchRecipeByTitle: (title) => dispatch(fetchRecipeByTitle(title)),
 	hideNavigation: () => dispatch(hideNavigation()),
+	fetchRecipesByTitle: (title) => dispatch(fetchRecipesByTitle(title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchedRecipesPage);

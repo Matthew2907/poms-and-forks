@@ -2,52 +2,37 @@ import React, {useEffect, useState, useMemo} from 'react';
 import {connect} from 'react-redux';
 
 import {Topbar, Content} from './components';
-import {hideNavigation} from 'data/actions/app.actions';
+import {showNavigation, hideNavigation} from 'data/actions/app.actions';
+import {fetchUserUpdateShoppingList} from 'data/actions/dataDB.actions';
 
-function ShoppinglistPage({prevIngredientsShoppingList, hideNavigation}) {
-	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState();
-
+function ShoppinglistPage({
+	loggedUser,
+	storedToken,
+	hideNavigation,
+	isNavigationActive,
+	fetchUserUpdateShoppingList,
+	showNavigation,
+}) {
 	useEffect(() => {
 		hideNavigation();
-		setIngredientsArrForShoppingList(prevIngredientsShoppingList);
-	}, [hideNavigation, prevIngredientsShoppingList]);
-
-	const sumIngredients = useMemo(() => {
-		if (ingredientsArrForShoppingList) {
-			const newArr = [...ingredientsArrForShoppingList];
-			const groupedNewArr = newArr.reduce(function (r, a) {
-				r[a.name] = r[a.name] || [];
-				r[a.name].push(a);
-				return r;
-			}, Object.create(null));
-
-			const newIngredients = Object.entries(groupedNewArr).map((element) => {
-				const currentShoppingIngredientArr = [...element[1]];
-				if (currentShoppingIngredientArr.length > 1) {
-					const amount = currentShoppingIngredientArr.reduce((r, a) => {
-						return r + parseFloat(a['amount']);
-					}, 0);
-
-					return {
-						name: currentShoppingIngredientArr[0].name,
-						amount: amount,
-						unit: currentShoppingIngredientArr[0].unit,
-						id: currentShoppingIngredientArr[0].id,
-					};
-				}
-				return currentShoppingIngredientArr[0];
-			});
-			return newIngredients;
-		}
-		return [];
-	}, [ingredientsArrForShoppingList]);
+	}, [hideNavigation]);
+	const [ingredientsArrForShoppingList, setIngredientsArrForShoppingList] = useState(
+		loggedUser.shoppingList || [],
+	);
 
 	return (
 		<React.Fragment>
-			<Topbar ingredientsArrForShoppingList={ingredientsArrForShoppingList} />
+			<Topbar
+				loggedUser={loggedUser}
+				storedToken={storedToken}
+				ingredientsArrForShoppingList={ingredientsArrForShoppingList}
+				isNavigationActive={isNavigationActive}
+				showNavigation={showNavigation}
+				hideNavigation={hideNavigation}
+				fetchUserUpdateShoppingList={fetchUserUpdateShoppingList}
+			/>
 			<Content
-				sumIngredientsArr={sumIngredients}
-				prevIngredientsShoppingList={prevIngredientsShoppingList}
+				ingredientsArrForShoppingList={ingredientsArrForShoppingList}
 				setIngredientsArrForShoppingList={setIngredientsArrForShoppingList}
 			/>
 		</React.Fragment>
@@ -55,11 +40,16 @@ function ShoppinglistPage({prevIngredientsShoppingList, hideNavigation}) {
 }
 
 const mapStateToProps = (state) => ({
-	prevIngredientsShoppingList: state.applicationRecuder.shoppinglistIngredients,
+	loggedUser: state.dataDB.user,
+	storedToken: state.applicationRecuder.storedToken,
+	isNavigationActive: state.applicationRecuder.isNavigationActive,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+	showNavigation: () => dispatch(showNavigation()),
 	hideNavigation: () => dispatch(hideNavigation()),
+	fetchUserUpdateShoppingList: (userId, shoppingList, storedToken) =>
+		dispatch(fetchUserUpdateShoppingList(userId, shoppingList, storedToken)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppinglistPage);

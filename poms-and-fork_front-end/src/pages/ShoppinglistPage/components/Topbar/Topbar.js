@@ -1,27 +1,22 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {toast} from 'react-toastify';
 
 import {Button, Bar} from 'components';
-import {
-	setShoppinglistAddIngredients,
-	showNavigation,
-	hideNavigation,
-} from 'data/actions/app.actions';
 import closeIcon from 'images/Close icon.svg';
 import menuIcon from 'images/Menu-icon.svg';
 import saveIcon from 'images/Save icon.svg';
 
 function Topbar({
+	loggedUser,
+	storedToken,
 	ingredientsArrForShoppingList,
 	isNavigationActive,
-	setShoppinglistAddIngredients,
-	hideNavigation,
 	showNavigation,
+	hideNavigation,
+	fetchUserUpdateShoppingList,
 }) {
 	const handleAddIngredientsToShoppinglist = () => {
-		const newIngredientShoppingList = [...ingredientsArrForShoppingList];
-		setShoppinglistAddIngredients(newIngredientShoppingList);
+		fetchUserUpdateShoppingList(loggedUser.id, ingredientsArrForShoppingList, storedToken)
 		toast.info('Shopping list has been updated!');
 	};
 
@@ -41,14 +36,4 @@ function Topbar({
 	);
 }
 
-const mapStateToProps = (state) => ({
-	isNavigationActive: state.applicationRecuder.isNavigationActive,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	showNavigation: () => dispatch(showNavigation()),
-	hideNavigation: () => dispatch(hideNavigation()),
-	setShoppinglistAddIngredients: (data) => dispatch(setShoppinglistAddIngredients(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
+export default Topbar;

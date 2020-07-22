@@ -14,7 +14,11 @@ function StepModeModal({recipeDescription, currentDescriptionStepIndex, setDescr
 
 	useEffect(() => {
 		if (newIndex === recipeDescription.length - 1) {
-			changeButtonState(backButtonRef, false);
+			if(recipeDescription.length === 1){
+				changeButtonState(backButtonRef, true);	
+			} else {
+				changeButtonState(backButtonRef, false);
+			}
 			changeButtonState(nextButtonRef, true);
 		} else if (newIndex === 0) {
 			changeButtonState(backButtonRef, true);

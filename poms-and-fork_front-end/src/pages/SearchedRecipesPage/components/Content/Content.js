@@ -7,8 +7,8 @@ import {
 	FavouriteListContainer,
 } from 'pages/Homepage/components/Content/RecipeList.css';
 
-function Content({searchedRecipeByTitle, title}) {
-	const recipesList = searchedRecipeByTitle.map((recipe) => (
+function Content({searchedRecipesByTitle, title}) {	
+	const recipesList = searchedRecipesByTitle.map((recipe) => (
 		<RecipeContainer key={recipe._id}>
 			<ImageContainer
 				to={`/recipe/${recipe._id}`}
@@ -26,7 +26,7 @@ function Content({searchedRecipeByTitle, title}) {
 
 	return (
 		<FavouriteListContainer>
-			{searchedRecipeByTitle.length === 0 ? message : recipesList}
+			{searchedRecipesByTitle.length === 0 ? message : recipesList}
 		</FavouriteListContainer>
 	);
 }

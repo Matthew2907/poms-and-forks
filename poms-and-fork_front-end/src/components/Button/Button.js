@@ -22,6 +22,7 @@ import {
 	ErrorButton,
 	ErrorLink,
 	ShoppingIngredientButton,
+	EditUserSubmitButton
 } from './Button.css';
 
 function Button({variant, children, ...props}, ref) {
@@ -60,6 +61,8 @@ function Button({variant, children, ...props}, ref) {
 				return NextStepModeButton;
 			case 'editUser':
 				return EditUserButton;
+			case 'editSubmitUser':
+				return EditUserSubmitButton;
 			case 'settings':
 				return SettingsNavigationButton;
 			case 'error':

@@ -1,16 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {Button, Bar} from 'components';
-import {resetSearchedRecipeByTitle} from 'data/actions/recipe.actions';
 import backIcon from 'images/BackIcon.svg';
 
-function Topbar({title, resetSearchedRecipeByTitle}) {
+function Topbar({title}) {
 	let history = useHistory();
 
 	const handleGoBackToMenu = () => {
-		resetSearchedRecipeByTitle();
 		history.push('/');
 	};
 
@@ -38,8 +35,4 @@ function Topbar({title, resetSearchedRecipeByTitle}) {
 	);
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	resetSearchedRecipeByTitle: () => dispatch(resetSearchedRecipeByTitle()),
-});
-
-export default connect(null, mapDispatchToProps)(Topbar);
+export default Topbar;

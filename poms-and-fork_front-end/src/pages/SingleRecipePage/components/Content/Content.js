@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {connect} from 'react-redux';
 
 import {
 	ContentCantainer,
@@ -23,7 +22,6 @@ import {
 	RecipeAuthorAvatarContainer,
 } from './Content.css';
 import {Button} from 'components';
-import {setSliderImageIndex} from 'data/actions/app.actions';
 import {changeButtonState, starsLevelFunc} from 'utils/globalFunctions';
 import backIcon from 'images/BackIcon.svg';
 import blackStar from 'images/BlackStar.svg';
@@ -34,38 +32,36 @@ import timeIcon from 'images/Time icon.svg';
 import whiteStar from 'images/Polygon 5.svg';
 
 function Content({
+	storedToken,
 	recipe,
+	creator,
+	history,
+	ingredientsArrForShoppingList,
 	currentSliderImageIndex,
 	setSliderImageIndex,
 	setIngredientsArrForShoppingList,
 }) {
-	
-	const starsLevelArr = starsLevelFunc(recipe, whiteStar, blackStar, "recipeChefLevel");
-	const [newIngredientsArr, setNewIngredientsArr] = useState(recipe.recipeIngredients);
-
+	const starsLevelArr = starsLevelFunc(recipe, whiteStar, blackStar, 'recipeChefLevel');
+	// Part responsible for creating ingredient fields
 	const handleDeleteIngredientFromRecipeIngredients = (index) => {
-		const newIngredientsArrForDelete = [...newIngredientsArr];
+		const newIngredientsArrForDelete = [...ingredientsArrForShoppingList];
 		newIngredientsArrForDelete.splice(index, 1);
-		setNewIngredientsArr(newIngredientsArrForDelete);
 		setIngredientsArrForShoppingList(newIngredientsArrForDelete);
 	};
 
-	const ingredientsList = newIngredientsArr.map((ingredient, index) => (
+	const ingredientsList = ingredientsArrForShoppingList.map((ingredient, index) => (
 		<IngredientContainer key={ingredient.name}>
 			<p>{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}</p>
-			<Button
+			{storedToken && <Button
 				variant="ingredient"
 				onClick={() => handleDeleteIngredientFromRecipeIngredients(index)}
 			>
 				<img src={deleteIcon} alt="remove ingredient" />
-			</Button>
+			</Button>}
 		</IngredientContainer>
 	));
-
-	useEffect(() => {
-		setIngredientsArrForShoppingList(recipe.recipeIngredients);
-	}, [recipe.recipeIngredients, setIngredientsArrForShoppingList]);
-
+	// ##################################################
+	// Part responsible for creating description fields
 	const newDescriptionArr =
 		Object.entries(recipe).length !== 0 ? [...recipe.recipeDescriptionInSteps] : [];
 
@@ -75,14 +71,19 @@ function Content({
 			<p>{step}</p>
 		</DescriptionContainer>
 	));
-
+	// ##################################################
+	//	Part responsible for changing images in slider.
 	const backButtonRef = useRef(null);
 	const nextButtonRef = useRef(null);
 	let newIndex = currentSliderImageIndex;
 
 	useEffect(() => {
 		if (newIndex === recipe.recipeImageNames.length - 1) {
-			changeButtonState(backButtonRef, false);
+			if (recipe.recipeImageNames.length === 1) {
+				changeButtonState(backButtonRef, true);
+			} else {
+				changeButtonState(backButtonRef, false);
+			}
 			changeButtonState(nextButtonRef, true);
 		} else if (newIndex === 0) {
 			changeButtonState(backButtonRef, true);
@@ -101,12 +102,18 @@ function Content({
 		}
 		return setSliderImageIndex(newIndex);
 	};
-
+	// ##################################################
+	// Part responsible for keeping up with innerWidth.
 	const [updateWidth, setUpdateWidth] = useState(window.innerWidth);
-
 	window.addEventListener('resize', function () {
 		setUpdateWidth(window.innerWidth);
 	});
+	// ##################################################
+// Part responsible for keeping up with innerWidth.
+	const goToUserWithIdRecipes = () => {
+		history.push(`/userRecipes/${creator.id}`)
+	};
+// ##################################################
 
 	return (
 		<ContentCantainer>
@@ -154,14 +161,18 @@ function Content({
 				</RecipeInfoMainInfo>
 				<RecipeInfoAuthorInfo>
 					<RecipeInfoAuthorImageContainer>
-						<RecipeAuthorAvatarContainer
-							url={`http://localhost:5000/files/image/${recipe.recipesUser.userAvatarImage}`}
-						/>
+						{!creator.message && <RecipeAuthorAvatarContainer
+							url={`http://localhost:5000/files/image/${creator.image}`}
+							onClick={goToUserWithIdRecipes}
+						/>}
 					</RecipeInfoAuthorImageContainer>
 					<RecipeInfoAuthorTextContainer>
-						<h3>
-							Kptn {recipe.recipesUser.userName} {recipe.recipesUser.userLastName}
-						</h3>
+						{!creator.message && <h3 
+							style={{cursor: 'pointer'}}
+							onClick={goToUserWithIdRecipes}
+						>
+							Kptn {creator.name}
+						</h3>}
 						<p>{recipe.recipeDescriptionShort}</p>
 					</RecipeInfoAuthorTextContainer>
 				</RecipeInfoAuthorInfo>
@@ -196,10 +207,10 @@ function Content({
 					)}
 				</RecipeInfoNutritionInfo>
 				<RecipeInfoRecipeAndReviews>
-					<h2>Recipe</h2>
-					<h2>Reviews</h2>
+					{/* <h2>Recipe</h2>
+					<h2>Reviews</h2> */}
 					<RecipeAndReviewsActiveBar>
-						<div></div>
+						{/* <div></div> */}
 					</RecipeAndReviewsActiveBar>
 					<RecipeInfoIngredientsContainer>
 						<h3>Ingredients</h3>
@@ -215,12 +226,4 @@ function Content({
 	);
 }
 
-const mapStateToProps = (state) => ({
-	currentSliderImageIndex: state.applicationRecuder.currentSliderImageIndex,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setSliderImageIndex: (index) => dispatch(setSliderImageIndex(index)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;
