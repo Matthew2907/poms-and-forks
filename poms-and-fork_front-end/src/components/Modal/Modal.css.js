@@ -22,7 +22,7 @@ export const Content = styled.div`
 	position: absolute;
 	margin: auto;
 	padding: 5px;
-	box-shadow: ${({theme}) => `0 5px 10px 2px ${theme.colors.gray.dark}`};
+	box-shadow: 0 5px 10px 2px rgb(196, 196, 196);
 	text-align: center;
 	background-color: rgb(255, 255, 255);
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {LoadingIndicator} from 'components';
 import {Topbar, Content} from './components';
-import {hideNavigation} from 'data/actions/app.actions';
+import {hideNavigation, showNavigation} from 'data/actions/app.actions';
 import {fetchRecipesByUserId, fetchCreatorById} from 'data/actions/dataDB.actions';
 
 function FavouriteRecipesPage({
@@ -11,7 +11,9 @@ function FavouriteRecipesPage({
 	loadingState,
 	recipes,
 	creator,
+	isNavigationActive,
 	hideNavigation,
+	showNavigation,
 	fetchRecipesByUserId,
 	fetchCreatorById,
 }) {
@@ -19,13 +21,20 @@ function FavouriteRecipesPage({
 		hideNavigation();
 		fetchRecipesByUserId(match.params.id);
 		fetchCreatorById(match.params.id);
-	}, [hideNavigation]);
+	}, [match.params.id, hideNavigation, fetchRecipesByUserId, fetchCreatorById]);
 
-	const isLoaded = useMemo(() => !!loadingState && Object.keys(loadingState).length === 0,[loadingState])
+	const isLoaded = useMemo(() => !!loadingState && Object.keys(loadingState).length === 0, [
+		loadingState,
+	]);
 
 	return (
 		<React.Fragment>
-			<Topbar creator={creator} />
+			<Topbar
+				isNavigationActive={isNavigationActive}
+				creator={creator}
+				hideNavigation={hideNavigation}
+				showNavigation={showNavigation}
+			/>
 			{isLoaded ? <Content recipes={recipes} /> : <LoadingIndicator />}
 		</React.Fragment>
 	);
@@ -35,9 +44,11 @@ const mapStateToProps = (state) => ({
 	loadingState: state.dataDB.loadingState,
 	recipes: state.dataDB.recipes,
 	creator: state.dataDB.currentRecipeCreator,
+	isNavigationActive: state.applicationRecuder.isNavigationActive,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+	showNavigation: () => dispatch(showNavigation()),
 	hideNavigation: () => dispatch(hideNavigation()),
 	fetchRecipesByUserId: (userId) => dispatch(fetchRecipesByUserId(userId)),
 	fetchCreatorById: (userId) => dispatch(fetchCreatorById(userId)),

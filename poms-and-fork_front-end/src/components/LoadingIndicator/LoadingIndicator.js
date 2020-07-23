@@ -15,9 +15,9 @@ const Root = styled.div`
 	width: 80px;
 	height: 80px;
 	position: absolute;
-	top: 30%;
+	top: 50%;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%, -50%);
 `;
 
 const Ring1 = styled.div`

@@ -5,12 +5,8 @@ export default {
 		xl: 20,
 	},
 	colors: {
-		gray: {
-			light: 'rgb(236,236,236)',
-			normal: 'rgb(196, 196, 196)',
-		},
-		orange: {
-			normal: 'rgb(242,153,74)',
-		},
+		blueGreen: 'linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%)',
+		disabledDark: 'linear-gradient(to bottom, #0000 5%, #0000 95%)',
+		disabledLight: 'linear-gradient(to bottom, #000000b5 5%, #00000082 95%)'
 	},
 };

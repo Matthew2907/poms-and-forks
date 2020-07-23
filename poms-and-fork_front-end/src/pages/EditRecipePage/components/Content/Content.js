@@ -5,7 +5,7 @@ import {Container, FormContainer} from '../../../LoginSignupPage/components/Cont
 import Input from '../../../LoginSignupPage/components/Content/Input';
 
 function Content({setUpdatedRecipe, setIsReadyForSubmitButton}) {
-	const [formState, inputHandler, setFormData] = useForm(
+	const [formState, inputHandler] = useForm(
 		{
 			recipeTitle: {
 				value: '',
@@ -45,7 +45,7 @@ function Content({setUpdatedRecipe, setIsReadyForSubmitButton}) {
 			recipeFat: formState.inputs.recipeFat.value,
 			recipeCarbohydrate: formState.inputs.recipeCarbohydrate.value,
 		});
-	}, [formState.isValid, formState.inputs]);
+	}, [formState.isValid, formState.inputs, setIsReadyForSubmitButton, setUpdatedRecipe]);
 
 	return (
 		<Container>

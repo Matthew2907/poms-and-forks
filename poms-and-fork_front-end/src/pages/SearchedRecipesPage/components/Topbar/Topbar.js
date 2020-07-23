@@ -2,7 +2,7 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 
 import {Button, Bar} from 'components';
-import backIcon from 'images/BackIcon.svg';
+import backIcon from 'images/Back icon.svg';
 
 function Topbar({title}) {
 	let history = useHistory();

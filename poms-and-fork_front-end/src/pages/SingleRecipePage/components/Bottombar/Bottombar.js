@@ -35,7 +35,7 @@ function Bottombar({
 					);
 					setTimeout(() => {
 						toast.success('Ingredients has been added to your shooping list!');
-					},1000)
+					}, 1000);
 					return;
 				} else {
 					toast.error('Your shopping list is too big!');

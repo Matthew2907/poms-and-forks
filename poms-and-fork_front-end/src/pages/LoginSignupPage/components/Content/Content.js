@@ -175,10 +175,7 @@ function Content({fetchUserById}) {
 						errorMessage="field required"
 					/>
 				)}
-				<Button
-					type="submit"
-					disabled={isReadyForSubmitButton}
-				>
+				<Button type="submit" disabled={isReadyForSubmitButton}>
 					{isLoginMode ? 'Login' : 'Signup'}
 				</Button>
 			</FormContainer>

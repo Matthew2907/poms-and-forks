@@ -7,12 +7,12 @@ import {
 	FavouriteListContainer,
 } from 'pages/Homepage/components/Content/RecipeList.css';
 
-function Content({searchedRecipesByTitle, title}) {	
+function Content({searchedRecipesByTitle, title}) {
 	const recipesList = searchedRecipesByTitle.map((recipe) => (
 		<RecipeContainer key={recipe._id}>
 			<ImageContainer
 				to={`/recipe/${recipe._id}`}
-				url={`http://localhost:5000/files/image/${recipe.recipeImageNames[0]}`}
+				url={`${process.env.REACT_APP_API_URL}/files/image/${recipe.recipeImageNames[0]}`}
 			/>
 			<RecipeTitle>{recipe.recipeTitle}</RecipeTitle>
 		</RecipeContainer>

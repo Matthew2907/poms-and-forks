@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect, useCallback} from 'react';
 import {useHistory} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
@@ -13,7 +13,7 @@ import {
 } from './Content.css';
 import {starsLevelFunc} from 'utils/globalFunctions';
 import {useForm} from 'utils/hooks/form-hook';
-import whiteStar from 'images/Polygon 5.svg';
+import whiteStar from 'images/WhiteStar.svg';
 import blackStar from 'images/BlackStar.svg';
 
 function Content({user, storedToken, fetchUserUpdate}) {
@@ -22,7 +22,7 @@ function Content({user, storedToken, fetchUserUpdate}) {
 
 	const history = useHistory();
 
-	const [formState, inputHandler, setFormData] = useForm(
+	const [formState, inputHandler] = useForm(
 		{
 			name: {
 				value: '',
@@ -44,7 +44,7 @@ function Content({user, storedToken, fetchUserUpdate}) {
 		setIsEditModeOn((prevIsEditModeOn) => !prevIsEditModeOn);
 	};
 
-	const submitChangesInForm = (event) => {
+	const submitChangesInForm = useCallback((event) => {
 		event.preventDefault();
 		try {
 			fetchUserUpdate(
@@ -61,11 +61,11 @@ function Content({user, storedToken, fetchUserUpdate}) {
 		} catch (err) {
 			toast.error('Something went wrong! :(');
 		}
-	};
+	},[fetchUserUpdate, formState.inputs, history, storedToken, user._id])
 
 	useEffect(() => {
 		setIsReadyForSubmitButton(!formState.isValid);
-	},[formState.isValid])
+	}, [formState.isValid]);
 
 	const starsLevelArr = user && starsLevelFunc(user, whiteStar, blackStar, 'userChefLevel');
 
@@ -104,7 +104,13 @@ function Content({user, storedToken, fetchUserUpdate}) {
 		}
 		return (
 			<FormUserEdit onSubmit={submitChangesInForm}>
-				<Input id="name" onInput={inputHandler} placeholder="Name" type="text" errorMessage="field required" />
+				<Input
+					id="name"
+					onInput={inputHandler}
+					placeholder="Name"
+					type="text"
+					errorMessage="field required"
+				/>
 				<Input
 					element="select"
 					id="mainSkill"
@@ -121,22 +127,20 @@ function Content({user, storedToken, fetchUserUpdate}) {
 					type="password"
 					errorMessage="min. length 7 characters"
 				/>
-				<Button
-					variant="editSubmitUser"
-					type="submit"
-					disabled={isReadyForSubmitButton}
-				>
+				<Button variant="editSubmitUser" type="submit" disabled={isReadyForSubmitButton}>
 					Submit changes
 				</Button>
 			</FormUserEdit>
 		);
-	}, [isEditModeOn, formState, isReadyForSubmitButton]);
+	}, [isEditModeOn, isReadyForSubmitButton, inputHandler, starsLevelArr, submitChangesInForm, user]);
 
 	return (
 		<React.Fragment>
 			{Object.keys(user).length !== 0 ? (
 				<ContentContainer>
-					<UserImageContainer url={`http://localhost:5000/files/image/${user.image}`} />
+					<UserImageContainer
+						url={`${process.env.REACT_APP_API_URL}/files/image/${user.image}`}
+					/>
 					{content}
 					<Button variant="editUser" onClick={turnOnEditMode}>
 						{!isEditModeOn ? 'Edit profile' : 'Back to profile'}

@@ -36,7 +36,7 @@ const Input = (props) => {
 	const {value, isValid} = inputState;
 
 	useEffect(() => {
-		props.onInput(props.id, inputState.value, inputState.isValid);
+		onInput(id, value, isValid);
 	}, [id, value, isValid, onInput]);
 
 	const changeHandler = (event) => {
@@ -80,7 +80,9 @@ const Input = (props) => {
 				onBlur={touchHandler}
 				value={inputState.value}
 				style={{
-					backgroundColor: `${!inputState.isValid && inputState.isTouched ? '#ff000080' : ''}`,
+					backgroundColor: `${
+						!inputState.isValid && inputState.isTouched ? '#ff000080' : ''
+					}`,
 				}}
 				autoComplete="off"
 			/>

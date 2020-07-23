@@ -79,7 +79,7 @@ export const BigImageContainer = styled.div`
 	background: transparent;
 	${(props) =>
 		typeof props.url !== 'undefined'
-			? `background-image: url(http://localhost:5000/files/image/${props.url});`
+			? `background-image: url(${process.env.REACT_APP_API_URL}/files/image/${props.url});`
 			: ''}
 	background-size: cover;
 	background-position: center;
@@ -111,7 +111,7 @@ export const BigImageContainer = styled.div`
 		transform: translateX(-50%);
 	}
 
-	p+p {
+	p + p {
 		top: 70%;
 	}
 `;
@@ -269,6 +269,11 @@ export const MainSkillSelectionField = styled(RootSelect)`
 
 	@media ${device.iPadPro} and (orientation: landscape) {
 		font-size: 28px;
+	}
+
+	@media ${device.laptop} and (orientation: landscape) {
+		min-height: 40px;
+		font-size: 18px;
 	}
 `;
 
@@ -524,7 +529,7 @@ export const ConfirmInput = styled(RootInput)`
 	background: none;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;

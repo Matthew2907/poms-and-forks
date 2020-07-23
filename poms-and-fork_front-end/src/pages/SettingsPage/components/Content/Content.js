@@ -4,8 +4,8 @@ import {toast} from 'react-toastify';
 import {List, Container} from './Content.css';
 import {Button} from 'components';
 import {useAuth} from 'utils/hooks/auth.hook';
-import deleteIcon from 'images/DeleteUser Icon.svg';
-import logoutIcon from 'images/Log out Icon.svg';
+import deleteIcon from 'images/DeleteUser icon.svg';
+import logoutIcon from 'images/LogOut icon.svg';
 
 function Content({loggedUser, storedToken}) {
 	const {logout} = useAuth();
@@ -45,12 +45,16 @@ function Content({loggedUser, storedToken}) {
 			<List
 				style={{
 					border: '2px solid red',
-					borderRadius: '5px'
+					borderRadius: '5px',
 				}}
 			>
 				<h2>Danger zone</h2>
 				<li>
-					<Button variant={'settings'} onClick={handleDeleteUser} style={{backgroundColor: 'rgba(255, 0,0,0.6)'}}>
+					<Button
+						variant={'settings'}
+						onClick={handleDeleteUser}
+						style={{backgroundColor: 'rgba(255, 0,0,0.6)'}}
+					>
 						<img src={deleteIcon} alt="Delete user" />
 					</Button>
 					<p>Delete user</p>

@@ -3,7 +3,7 @@ import {toast} from 'react-toastify';
 
 import {Button, Bar} from 'components';
 import closeIcon from 'images/Close icon.svg';
-import menuIcon from 'images/Menu-icon.svg';
+import menuIcon from 'images/Menu icon.svg';
 import saveIcon from 'images/Save icon.svg';
 
 function Topbar({
@@ -16,7 +16,7 @@ function Topbar({
 	fetchUserUpdateShoppingList,
 }) {
 	const handleAddIngredientsToShoppinglist = () => {
-		fetchUserUpdateShoppingList(loggedUser.id, ingredientsArrForShoppingList, storedToken)
+		fetchUserUpdateShoppingList(loggedUser.id, ingredientsArrForShoppingList, storedToken);
 		toast.info('Shopping list has been updated!');
 	};
 

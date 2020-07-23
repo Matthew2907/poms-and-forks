@@ -1,6 +1,6 @@
 import {createGlobalStyle} from 'styled-components';
 
-import bgc from 'images/pattern-3371709_1920.jpg';
+import backgroundImage from 'images/pattern-3371709_1920.jpg';
 import {device} from 'utils';
 
 export default createGlobalStyle`
@@ -16,7 +16,7 @@ export default createGlobalStyle`
 	}
 
 	body {
-		background-image: url(${bgc});
+		background-image: url(${backgroundImage});
 	}
 
 	ul {

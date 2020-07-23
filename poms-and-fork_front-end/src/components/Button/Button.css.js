@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 import {device} from 'utils';
@@ -85,7 +85,7 @@ export const RootButton = styled.button`
 	overflow: hidden;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -113,7 +113,7 @@ export const RootButton = styled.button`
 	&:hover:disabled,
 	&:active:disabled,
 	&:disabled::before {
-		background: linear-gradient(to bottom, #0000 5%, #0000 95%);
+		background: ${({theme}) => theme.colors.disabledDark};
 		cursor: not-allowed;
 	}
 
@@ -349,7 +349,7 @@ export const ErrorButton = styled.button`
 	cursor: pointer;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -422,7 +422,7 @@ export const EditUserButton = styled.button`
 	color: black;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -435,7 +435,7 @@ export const EditUserButton = styled.button`
 	}
 
 	&:disabled {
-		background: linear-gradient(to bottom, #000000b5 5%, #00000082 95%);
+		background: ${({theme}) => theme.colors.disabledLight};
 	}
 
 	&:hover:disabled {
@@ -444,7 +444,7 @@ export const EditUserButton = styled.button`
 
 	&:active:disabled,
 	&:disabled::before {
-		background: linear-gradient(to bottom, #0000 5%, #0000 95%);
+		background: ${({theme}) => theme.colors.disabledDark};
 		cursor: not-allowed;
 	}
 
@@ -561,7 +561,7 @@ export const AddImageInput = styled.label`
 	overflow: hidden;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;

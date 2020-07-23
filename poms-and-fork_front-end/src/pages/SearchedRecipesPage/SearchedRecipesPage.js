@@ -18,7 +18,7 @@ function SearchedRecipesPage({
 	useEffect(() => {
 		hideNavigation();
 		fetchRecipesByTitle(title);
-	}, [hideNavigation, title]);
+	}, [hideNavigation, title, fetchRecipesByTitle]);
 
 	const isLoaded = useMemo(
 		() => !!recipeLoadingState && Object.keys(recipeLoadingState).length === 0,

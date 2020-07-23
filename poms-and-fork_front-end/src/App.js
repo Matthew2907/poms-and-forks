@@ -1,32 +1,30 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {ThemeProvider} from 'styled-components';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {
-	AddRecipePage,
-	FavouriteRecipesPage,
-	Homepage,
-	SettingsPage,
-	ShoppinglistPage,
-	SingleRecipePage,
-	UsersPanelPage,
-	SearchedRecipesPage,
-	LoginSignupPage,
-	UserWithIdRecipes,
-	ErrorPage,
-	EditRecipePage,
-} from 'pages';
+import {Homepage} from 'pages';
 import {Navigation, Wrapper, LoadingIndicator} from 'components';
-import {fetchUserById} from 'data/actions/dataDB.actions';
 import {useAuth} from 'utils/hooks/auth.hook';
 import GlobalStyles from './index.css';
 import {theme} from 'utils';
 
+const UsersPanelPage = React.lazy(() => import('pages/UsersPanelPage'));
+const AddRecipePage = React.lazy(() => import('pages/AddRecipePage'));
+const FavouriteRecipesPage = React.lazy(() => import('pages/FavouriteRecipesPage'));
+const SettingsPage = React.lazy(() => import('pages/SettingsPage'));
+const ShoppinglistPage = React.lazy(() => import('pages/ShoppinglistPage'));
+const SingleRecipePage = React.lazy(() => import('pages/SingleRecipePage'));
+const SearchedRecipesPage = React.lazy(() => import('pages/SearchedRecipesPage'));
+const LoginSignupPage = React.lazy(() => import('pages/LoginSignupPage'));
+const UserWithIdRecipes = React.lazy(() => import('pages/UserWithIdRecipes'));
+const ErrorPage = React.lazy(() => import('pages/ErrorPage'));
+const EditRecipePage = React.lazy(() => import('pages/EditRecipePage'));
+
 function App({storedToken}) {
-	const {} = useAuth();
+	useAuth();
 	toast.configure();
 
 	let routes;
@@ -68,28 +66,16 @@ function App({storedToken}) {
 			<GlobalStyles />
 			<Router>
 				<Navigation />
-				<Wrapper>{routes}</Wrapper>
+				<Wrapper>
+					<Suspense fallback={<LoadingIndicator />}>{routes}</Suspense>
+				</Wrapper>
 			</Router>
 		</ThemeProvider>
 	);
 }
 
-const ConnectedApp = connect(
-	(state) => ({
-		loadingState: state.dataDB.loadingState,
-		storedToken: state.applicationRecuder.storedToken,
-	}),
-	{
-		fetchUserById,
-	},
-)(App);
+const mapStateToProps = (state) => ({
+	storedToken: state.applicationRecuder.storedToken,
+});
 
-function RootApp() {
-	return (
-		<React.Suspense fallback={<LoadingIndicator />}>
-			<ConnectedApp />
-		</React.Suspense>
-	);
-}
-
-export default RootApp;
+export default connect(mapStateToProps)(App);

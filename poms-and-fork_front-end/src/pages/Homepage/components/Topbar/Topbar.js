@@ -2,8 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {Button, Bar, SearchInput} from 'components';
-import {showNavigation, hideNavigation} from 'data/actions/app.actions';
-import menuIcon from 'images/Menu-icon.svg';
+import menuIcon from 'images/Menu icon.svg';
 import closeIcon from 'images/Close icon.svg';
 import searchIcon from 'images/Search icon.svg';
 
@@ -20,10 +19,7 @@ function Topbar({isNavigationActive, showNavigation, hideNavigation}) {
 			);
 		} else {
 			searchRecipeByTitleButtonRef.current.removeAttribute('disabled');
-			searchRecipeByTitleButtonRef.current.setAttribute(
-				'style',
-				'background: none;',
-			);
+			searchRecipeByTitleButtonRef.current.setAttribute('style', 'background: none;');
 		}
 	}, [searchedRecipeTitle]);
 
@@ -54,9 +50,4 @@ const mapStateToProps = (state) => ({
 	isNavigationActive: state.applicationRecuder.isNavigationActive,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	showNavigation: () => dispatch(showNavigation()),
-	hideNavigation: () => dispatch(hideNavigation()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
+export default connect(mapStateToProps)(Topbar);

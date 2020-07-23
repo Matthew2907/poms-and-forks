@@ -358,7 +358,7 @@ const deleteRecipe = async (req, res, next) => {
 		return next(error);
 	}
 		
-	res.status(200).json({message: 'Deleted recipe.'});
+	res.status(200).json({message: 'Recipe has been deleted.'});
 };
 
 exports.getAllRecipes = getAllRecipes;

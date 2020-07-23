@@ -29,7 +29,6 @@ export const Button = styled.button`
 	font-size: 14px;
 	background-color: white;
 	background: ${(props) => (props.styleType === 'inverse' ? 'rgb(255, 255, 255)' : 'none')};
-
 	box-sizing: border-box;
 	border-radius: 5px;
 	font-family: Cabin, Arial, sans-serif;
@@ -42,7 +41,7 @@ export const Button = styled.button`
 	overflow: hidden;
 
 	&::before {
-		background: linear-gradient(to bottom, #33bdef 5%, #c0ffc0 100%);
+		background: ${({theme}) => theme.colors.blueGreen};
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -55,7 +54,7 @@ export const Button = styled.button`
 	}
 
 	&:disabled {
-		background: linear-gradient(to bottom, #000000b5 5%, #00000082 95%);
+		background: ${({theme}) => theme.colors.disabledLight};
 	}
 
 	&:hover:disabled {
@@ -64,7 +63,7 @@ export const Button = styled.button`
 
 	&:active:disabled,
 	&:disabled::before {
-		background: linear-gradient(to bottom, #0000 5%, #0000 95%);
+		background: ${({theme}) => theme.colors.disabledDark};
 		cursor: not-allowed;
 	}
 

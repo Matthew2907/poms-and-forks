@@ -63,14 +63,14 @@ function SingleRecipePage({
 			fetchRecipeById(match.params.id);
 			hideNavigation();
 		}
-	}, [currentRecipe, hideNavigation, match.params.id]);
+	}, [currentRecipe, hideNavigation, match.params.id, fetchRecipeById, fetchCreatorById]);
 	// ###################################################################
 	// Delete current user and recipe from store after exit
 	useEffect(() => {
 		return function cleanup() {
 			resetCurrentRecipeCreatorAndRecipe();
 		};
-	}, []);
+	}, [resetCurrentRecipeCreatorAndRecipe]);
 	// ###################################################################
 	return (
 		<React.Fragment>
@@ -112,13 +112,7 @@ function SingleRecipePage({
 			<Switch>
 				<Route path="/recipe/:id/stepmode">
 					<Modal resetDescriptionStepIndex={setDescriptionStepIndex}>
-						{isLoaded ? (
-							<StepModeModal
-								recipeDescription={currentRecipe.recipeDescriptionInSteps}
-							/>
-						) : (
-							<LoadingIndicator />
-						)}
+						{isLoaded ? <StepModeModal /> : <LoadingIndicator />}
 					</Modal>
 				</Route>
 			</Switch>

@@ -19,7 +19,7 @@ router.post('/searchFavouriteRecipes', recipesController.getRecipesFavourite);
 
 router.post(
 	'/add',
-	fileUpload.array('images', 4),
+	// fileUpload.array('images', 4),
 	[
 		check('recipeTitle').not().isEmpty(),
 		check('recipeIngredients').isLength({min: 1}),

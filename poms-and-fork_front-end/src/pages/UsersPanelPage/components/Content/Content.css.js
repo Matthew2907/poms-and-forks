@@ -71,8 +71,8 @@ export const UserImageContainer = styled.div`
 	}
 
 	&::after {
-		transform-origin: center;
 		content: '';
+		transform-origin: center;
 		display: block;
 		padding-bottom: 100%;
 	}
@@ -154,5 +154,4 @@ export const FormUserEdit = styled.form`
 	@media ${device.laptop} and (orientation: landscape) {
 		margin-right: 1%;
 	}
-
 `;

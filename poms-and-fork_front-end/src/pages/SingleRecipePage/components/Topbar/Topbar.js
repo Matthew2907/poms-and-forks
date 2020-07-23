@@ -4,10 +4,10 @@ import {toast} from 'react-toastify';
 
 import {Button, Bar} from 'components';
 import {limitRecipeTitle} from 'utils/globalFunctions';
-import backIcon from 'images/BackIcon.svg';
+import backIcon from 'images/Back icon.svg';
 import likeIcon from 'images/Like icon.svg';
 import dislikeIcon from 'images/Dislike icon.svg';
-import deleteIcon from 'images/DeleteUser Icon.svg';
+import deleteIcon from 'images/DeleteUser icon.svg';
 import editIcon from 'images/Edit icon.svg';
 
 function Topbar({storedToken, recipe, loggedUser, resetSliderImageIndex, fetchUserById}) {
@@ -82,10 +82,10 @@ function Topbar({storedToken, recipe, loggedUser, resetSliderImageIndex, fetchUs
 				: dislikeIcon;
 		}
 		return;
-	}, [loggedUser]);
+	}, [loggedUser, recipe._id]);
 
 	const handleEditRecipe = () => {
-		history.push(`/recipeEdit/${recipe._id}`)
+		history.push(`/recipeEdit/${recipe._id}`);
 	};
 
 	return (
@@ -102,8 +102,18 @@ function Topbar({storedToken, recipe, loggedUser, resetSliderImageIndex, fetchUs
 							<img src={deleteIcon} alt="Delete recipe" />
 						</Button>
 					)}
-					<Button variant="secondRightTop" onClick={loggedUser.id === recipe.creator ? handleEditRecipe : handleAddToFavourites}>
-						<img src={loggedUser.id === recipe.creator ? editIcon : isLikedIcon} alt="like recipe" />
+					<Button
+						variant="secondRightTop"
+						onClick={
+							loggedUser.id === recipe.creator
+								? handleEditRecipe
+								: handleAddToFavourites
+						}
+					>
+						<img
+							src={loggedUser.id === recipe.creator ? editIcon : isLikedIcon}
+							alt="like recipe"
+						/>
 					</Button>
 				</React.Fragment>
 			)}

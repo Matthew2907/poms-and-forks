@@ -16,7 +16,11 @@ function AddRecipePage({user, storedToken, hideNavigation}) {
 
 	return (
 		<React.Fragment>
-			<Topbar storedToken={storedToken} recipeInfo={recipeInfo} saveButtonRef={saveButtonRef} />
+			<Topbar
+				storedToken={storedToken}
+				recipeInfo={recipeInfo}
+				saveButtonRef={saveButtonRef}
+			/>
 			<AddRecipeForm
 				saveButtonRef={saveButtonRef}
 				user={user}

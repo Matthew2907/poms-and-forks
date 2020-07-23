@@ -1,10 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 import {Button, Bar} from 'components';
-import {showNavigation, hideNavigation} from 'data/actions/app.actions';
 import closeIcon from 'images/Close icon.svg';
-import menuIcon from 'images/Menu-icon.svg';
+import menuIcon from 'images/Menu icon.svg';
 
 function Topbar({isNavigationActive, hideNavigation, showNavigation}) {
 	return (
@@ -20,13 +18,4 @@ function Topbar({isNavigationActive, hideNavigation, showNavigation}) {
 	);
 }
 
-const mapStateToProps = (state) => ({
-	isNavigationActive: state.applicationRecuder.isNavigationActive,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	showNavigation: () => dispatch(showNavigation()),
-	hideNavigation: () => dispatch(hideNavigation()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
+export default Topbar;

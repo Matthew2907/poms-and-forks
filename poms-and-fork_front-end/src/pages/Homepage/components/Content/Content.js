@@ -1,12 +1,15 @@
 import React from 'react';
 
 import {
+	RecipeListContainer,
+	RecipeContainer,
+	ImageContainer,
+	RecipeTitle,
 	ContentCantainer,
 	MainRecipeContainer,
 	MainImageContainer,
 	MainRecipeTitle,
-} from './MainRecipe.css';
-import {RecipeListContainer, RecipeContainer, ImageContainer, RecipeTitle} from './RecipeList.css';
+} from './RecipeList.css';
 
 function Content({recipes}) {
 	const newRecipesArr = [...recipes];
@@ -18,18 +21,27 @@ function Content({recipes}) {
 		<RecipeContainer key={recipe._id}>
 			<ImageContainer
 				to={`/recipe/${recipe._id}`}
-				url={`http://localhost:5000/files/image/${recipe.recipeImageNames[0]}`}
+				url={
+					typeof recipe.recipeImageNames[0] !== 'undefined'
+						? `${process.env.REACT_APP_API_URL}/files/image/${recipe.recipeImageNames[0]}`
+						: ''
+				}
 			/>
 			<RecipeTitle>{recipe.recipeTitle}</RecipeTitle>
 		</RecipeContainer>
 	));
+
 	return (
 		<ContentCantainer>
 			{mainRecipe && (
 				<MainRecipeContainer key={mainRecipe._id}>
 					<MainImageContainer
 						to={`/recipe/${mainRecipe._id}`}
-						url={`http://localhost:5000/files/image/${mainRecipe.recipeImageNames[0]}`}
+						url={
+							typeof mainRecipe.recipeImageNames[0] !== 'undefined'
+								? `${process.env.REACT_APP_API_URL}/files/image/${mainRecipe.recipeImageNames[0]}`
+								: ''
+						}
 					/>
 					<MainRecipeTitle>{mainRecipe.recipeTitle}</MainRecipeTitle>
 				</MainRecipeContainer>

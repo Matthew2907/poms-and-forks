@@ -22,7 +22,7 @@ import {
 	ErrorButton,
 	ErrorLink,
 	ShoppingIngredientButton,
-	EditUserSubmitButton
+	EditUserSubmitButton,
 } from './Button.css';
 
 function Button({variant, children, ...props}, ref) {

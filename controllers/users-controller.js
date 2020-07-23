@@ -274,7 +274,7 @@ const deleteUser = async (req, res, next) => {
 		return next(error);
 	}
 
-	res.status(200).json({message: 'User deleted.'});
+	res.status(200).json({message: 'User has been deleted.'});
 };
 
 exports.getUserById = getUserById;

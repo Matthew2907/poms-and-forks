@@ -3,7 +3,6 @@ import React from 'react';
 import {Topbar, Content} from './components';
 
 function ErrorPage() {
-
 	return (
 		<React.Fragment>
 			<Topbar />

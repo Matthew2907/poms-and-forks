@@ -3,24 +3,33 @@ import {connect} from 'react-redux';
 
 import {Topbar, Content} from './components';
 import {fetchUserById} from 'data/actions/dataDB.actions';
-import {hideNavigation} from 'data/actions/app.actions';
+import {hideNavigation, showNavigation} from 'data/actions/app.actions';
 
-function LoginSignupPage({hideNavigation, fetchUserById}) {
+function LoginSignupPage({isNavigationActive, showNavigation, hideNavigation, fetchUserById}) {
 	useEffect(() => {
 		hideNavigation();
 	}, [hideNavigation]);
-	
+
 	return (
 		<React.Fragment>
-			<Topbar />
-			<Content fetchUserById={fetchUserById}/>
+			<Topbar
+				isNavigationActive={isNavigationActive}
+				hideNavigation={hideNavigation}
+				showNavigation={showNavigation}
+			/>
+			<Content fetchUserById={fetchUserById} />
 		</React.Fragment>
 	);
-};
+}
+
+const mapStateToProps = (state) => ({
+	isNavigationActive: state.applicationRecuder.isNavigationActive,
+});
 
 const mapDispatchToProps = (dispatch) => ({
+	showNavigation: () => dispatch(showNavigation()),
 	hideNavigation: () => dispatch(hideNavigation()),
 	fetchUserById: (id) => dispatch(fetchUserById(id)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginSignupPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginSignupPage);

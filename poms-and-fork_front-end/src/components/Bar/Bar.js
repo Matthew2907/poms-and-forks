@@ -14,7 +14,7 @@ function Bar({variant, children, ...props}) {
 				return Topbar;
 		}
 	}, [variant]);
-	
+
 	const content = useMemo(() => <Component {...props}>{children}</Component>, [props, children]);
 
 	return <React.Fragment>{content}</React.Fragment>;

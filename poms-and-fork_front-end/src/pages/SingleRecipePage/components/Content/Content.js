@@ -23,13 +23,13 @@ import {
 } from './Content.css';
 import {Button} from 'components';
 import {changeButtonState, starsLevelFunc} from 'utils/globalFunctions';
-import backIcon from 'images/BackIcon.svg';
-import blackStar from 'images/BlackStar.svg';
+import backIcon from 'images/Back icon.svg';
 import categoryIcon from 'images/Category icon.svg';
 import deleteIcon from 'images/Delete icon.svg';
 import servingsIcon from 'images/Servings icon.svg';
 import timeIcon from 'images/Time icon.svg';
-import whiteStar from 'images/Polygon 5.svg';
+import blackStar from 'images/BlackStar.svg';
+import whiteStar from 'images/WhiteStar.svg';
 
 function Content({
 	storedToken,
@@ -52,12 +52,14 @@ function Content({
 	const ingredientsList = ingredientsArrForShoppingList.map((ingredient, index) => (
 		<IngredientContainer key={ingredient.name}>
 			<p>{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}</p>
-			{storedToken && <Button
-				variant="ingredient"
-				onClick={() => handleDeleteIngredientFromRecipeIngredients(index)}
-			>
-				<img src={deleteIcon} alt="remove ingredient" />
-			</Button>}
+			{storedToken && (
+				<Button
+					variant="ingredient"
+					onClick={() => handleDeleteIngredientFromRecipeIngredients(index)}
+				>
+					<img src={deleteIcon} alt="remove ingredient" />
+				</Button>
+			)}
 		</IngredientContainer>
 	));
 	// ##################################################
@@ -109,17 +111,17 @@ function Content({
 		setUpdateWidth(window.innerWidth);
 	});
 	// ##################################################
-// Part responsible for keeping up with innerWidth.
+	// Part responsible for keeping up with innerWidth.
 	const goToUserWithIdRecipes = () => {
-		history.push(`/userRecipes/${creator.id}`)
+		history.push(`/userRecipes/${creator.id}`);
 	};
-// ##################################################
+	// ##################################################
 
 	return (
 		<ContentCantainer>
 			{Object.entries(recipe).length !== 0 && (
 				<Slider
-					url={`http://localhost:5000/files/image/${recipe.recipeImageNames[currentSliderImageIndex]}`}
+					url={`${process.env.REACT_APP_API_URL}/files/image/${recipe.recipeImageNames[currentSliderImageIndex]}`}
 				>
 					<Button
 						ref={backButtonRef}
@@ -128,7 +130,7 @@ function Content({
 							currentSliderImageIndex === 0 ? null : () => changeSliderImage('back')
 						}
 					>
-						<img src={backIcon} alt="previous image" />
+						<img src={backIcon} alt="previous" />
 					</Button>
 					<Button
 						ref={nextButtonRef}
@@ -139,7 +141,7 @@ function Content({
 								: () => changeSliderImage('next')
 						}
 					>
-						<img src={backIcon} alt="next image" />
+						<img src={backIcon} alt="next" />
 					</Button>
 				</Slider>
 			)}
@@ -161,18 +163,19 @@ function Content({
 				</RecipeInfoMainInfo>
 				<RecipeInfoAuthorInfo>
 					<RecipeInfoAuthorImageContainer>
-						{!creator.message && <RecipeAuthorAvatarContainer
-							url={`http://localhost:5000/files/image/${creator.image}`}
-							onClick={goToUserWithIdRecipes}
-						/>}
+						{!creator.message && (
+							<RecipeAuthorAvatarContainer
+								url={`${process.env.REACT_APP_API_URL}/files/image/${creator.image}`}
+								onClick={goToUserWithIdRecipes}
+							/>
+						)}
 					</RecipeInfoAuthorImageContainer>
 					<RecipeInfoAuthorTextContainer>
-						{!creator.message && <h3 
-							style={{cursor: 'pointer'}}
-							onClick={goToUserWithIdRecipes}
-						>
-							Kptn {creator.name}
-						</h3>}
+						{!creator.message && (
+							<h3 style={{cursor: 'pointer'}} onClick={goToUserWithIdRecipes}>
+								Kptn {creator.name}
+							</h3>
+						)}
 						<p>{recipe.recipeDescriptionShort}</p>
 					</RecipeInfoAuthorTextContainer>
 				</RecipeInfoAuthorInfo>
@@ -209,9 +212,7 @@ function Content({
 				<RecipeInfoRecipeAndReviews>
 					{/* <h2>Recipe</h2>
 					<h2>Reviews</h2> */}
-					<RecipeAndReviewsActiveBar>
-						{/* <div></div> */}
-					</RecipeAndReviewsActiveBar>
+					<RecipeAndReviewsActiveBar>{/* <div></div> */}</RecipeAndReviewsActiveBar>
 					<RecipeInfoIngredientsContainer>
 						<h3>Ingredients</h3>
 						{ingredientsList || ''}

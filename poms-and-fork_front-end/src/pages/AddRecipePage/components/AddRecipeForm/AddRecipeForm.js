@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {useForm} from 'react-hook-form';
-import axios from 'axios';
 import {toast} from 'react-toastify';
 
 import {Button} from 'components';
@@ -30,15 +29,14 @@ import {
 	DescriptionStepsAddContainer,
 	LongDescriptionTextArea,
 	SingleDescriptionStepInfoContainer,
-	ConfirmInput,
 	Option,
 } from './AddRecipeForm.css';
 import {generatorID} from 'utils/globalFunctions';
-import addRecipeIcon from 'images/Vector 20.svg';
+import addRecipeIcon from 'images/Add icon.svg';
 import blackStar from 'images/BlackStar.svg';
 import cameraIcon from 'images/Camera icon.svg';
 import deleteIcon from 'images/Delete icon.svg';
-import whiteStar from 'images/Polygon 5.svg';
+import whiteStar from 'images/WhiteStar.svg';
 
 function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 	const initialRecipe = {
@@ -77,36 +75,36 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 	const [starsLevelArray, setStarsLevelArray] = useState(initialStarsArr);
 	const [selectedFile, setSelectedFile] = useState(null);
 
+	const fetchUploadImage = useCallback(async (formData) => {
+		try {
+			const response = await fetch(`${process.env.REACT_APP_API_URL}/files/upload`, {
+				method: 'POST',
+				body: formData,
+			});
+
+			const newImageNamesArr = [...newRecipe.recipeImageNames];
+			const responseData = await response.json();
+			newImageNamesArr.push(responseData.file.filename);
+			
+			setNewRecipe((newRecipe) => ({
+				...newRecipe,
+				recipeImageNames: newImageNamesArr,
+			}));
+			toast.success('File has been added successfully!');
+		} catch (err) {
+			toast.error('Invalid files type or invalid size!');
+		}
+	},[]);
+
 	useEffect(() => {
 		if (selectedFile !== null) {
-			const fd = new FormData();
-			fd.append('file', selectedFile);
-			axios
-				.post('http://localhost:5000/files/upload', fd, {
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-				})
-				.then((res) => {
-					const newImageNamesArr = [...newRecipe.recipeImageNames];
-					newImageNamesArr.push(res.data.file.filename);
-					setNewRecipe((newRecipe) => ({
-						...newRecipe,
-						recipeImageNames: newImageNamesArr,
-					}));
-					toast.success('File has been added successfully!', {
-						position: toast.POSITION.TOP_RIGHT,
-					});
-				})
-				.catch(() => {
-					toast.error('Invalid type (jpeg/png) or file too large (<256kB)!', {
-						position: toast.POSITION.TOP_RIGHT,
-					});
-				});
+			const formData = new FormData();
+			formData.append('file', selectedFile);
+			fetchUploadImage(formData);
 		} else {
 			return;
 		}
-	}, [selectedFile]);
+	}, [selectedFile, fetchUploadImage]);
 
 	const handleSendImage = (event) => {
 		setSelectedFile(event.target.files[0]);
@@ -212,7 +210,7 @@ function AddRecipeForm({user, setRecipeInfo, saveButtonRef}) {
 
 	useEffect(() => {
 		setRecipeInfo(newRecipe);
-	}, [newRecipe.recipeTitle]);
+	}, [newRecipe, setRecipeInfo]);
 
 	const onSubmit = (values) => {
 		saveButtonRef.current.removeAttribute('disabled');

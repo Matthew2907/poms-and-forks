@@ -39,4 +39,9 @@ export const TextInputStyled = styled.input`
 		font-size: 28px;
 		line-height: 42px;
 	}
+
+	@media ${device.laptop} and (orientation: landscape) {
+		min-height: 40px;
+		font-size: 18px;
+	}
 `;

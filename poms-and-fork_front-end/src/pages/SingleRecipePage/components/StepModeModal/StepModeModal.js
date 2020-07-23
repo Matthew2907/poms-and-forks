@@ -5,7 +5,7 @@ import {Button} from 'components';
 import {StepModeModalContainer} from './StepModeModal.css';
 import {setDescriptionStepIndex} from 'data/actions/app.actions';
 import {changeButtonState} from 'utils/globalFunctions';
-import backIcon from 'images/BackIcon.svg';
+import backIcon from 'images/Back icon.svg';
 
 function StepModeModal({recipeDescription, currentDescriptionStepIndex, setDescriptionStepIndex}) {
 	const backButtonRef = useRef(null);
@@ -14,8 +14,8 @@ function StepModeModal({recipeDescription, currentDescriptionStepIndex, setDescr
 
 	useEffect(() => {
 		if (newIndex === recipeDescription.length - 1) {
-			if(recipeDescription.length === 1){
-				changeButtonState(backButtonRef, true);	
+			if (recipeDescription.length === 1) {
+				changeButtonState(backButtonRef, true);
 			} else {
 				changeButtonState(backButtonRef, false);
 			}
@@ -77,6 +77,7 @@ function StepModeModal({recipeDescription, currentDescriptionStepIndex, setDescr
 }
 
 const mapStateToProps = (state) => ({
+	recipeDescription: state.dataDB.currentRecipe.recipeDescriptionInSteps,
 	currentDescriptionStepIndex: state.applicationRecuder.currentDescriptionStepIndex,
 });
 

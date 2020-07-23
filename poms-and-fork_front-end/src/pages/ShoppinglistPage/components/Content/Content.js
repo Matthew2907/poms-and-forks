@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 import {Button} from 'components';
 import {ShopinglistIngredientsContainer, ShopingIngredientContainer} from './Content.css';
@@ -29,8 +28,4 @@ function Content({ingredientsArrForShoppingList, setIngredientsArrForShoppingLis
 	);
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	// setShoppinglistAddIngredients: (data) => dispatch(setShoppinglistAddIngredients(data)),
-});
-
-export default connect(null, mapDispatchToProps)(Content);
+export default Content;

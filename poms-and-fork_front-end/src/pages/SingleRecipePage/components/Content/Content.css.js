@@ -614,7 +614,7 @@ export const RecipeAuthorAvatarContainer = styled.div`
 	background-image: url(${(props) => props.url});
 	background-size: cover;
 	background-position: center;
-	cursor: pointer; 
+	cursor: pointer;
 	transition: 0.5s;
 
 	&::after {

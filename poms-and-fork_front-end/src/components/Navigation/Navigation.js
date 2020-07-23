@@ -4,23 +4,26 @@ import PropTypes from 'prop-types';
 
 import {Button} from 'components';
 import {Container, List} from './Navigation.css';
-import addRecipeIcon from 'images/Vector 20.svg';
+import addRecipeIcon from 'images/Add icon.svg';
 import favouriteRecipeIcon from 'images/Like icon.svg';
-import recipeListIcon from 'images/Vector 8.svg';
+import recipeListIcon from 'images/All recipes icon.svg';
 import settingsIcon from 'images/Settings icon.svg';
 import shoppingListIcon from 'images/Shopping icon.svg';
-import signupIcon from 'images/SignupIcon.svg';
-import yourRecipesIcon from 'images/YourRecipes Icon.svg';
+import signupIcon from 'images/Signup icon.svg';
+import yourRecipesIcon from 'images/YourRecipes icon.svg';
 
 function Navigation({userFromNewStore, isNavigationActive}) {
-	
 	const sideBarButtonsAuthMemo = useMemo(() => {
-		if(userFromNewStore && Object.entries(userFromNewStore).length > 0){
+		if (userFromNewStore && Object.entries(userFromNewStore).length > 0) {
 			return [
 				{icon: signupIcon, content: 'Edit profile', to: '/user/edit-profile'},
 				{icon: recipeListIcon, content: 'Recipes list', to: '/'},
 				{icon: addRecipeIcon, content: 'Add recipe', to: '/add-recipe'},
-				{icon: yourRecipesIcon, content: 'Your recipes', to: `/userRecipes/${userFromNewStore.id}`},
+				{
+					icon: yourRecipesIcon,
+					content: 'Your recipes',
+					to: `/userRecipes/${userFromNewStore.id}`,
+				},
 				{icon: favouriteRecipeIcon, content: 'Favourites', to: '/favourites'},
 				{icon: shoppingListIcon, content: 'Shopping list', to: '/shoppinglist'},
 				{icon: settingsIcon, content: 'Settings', to: '/settings'},
@@ -30,7 +33,7 @@ function Navigation({userFromNewStore, isNavigationActive}) {
 			{icon: signupIcon, content: 'Log in / Sign up', to: '/auth'},
 			{icon: recipeListIcon, content: 'Recipes list', to: '/'},
 		];
-	},[userFromNewStore])
+	}, [userFromNewStore]);
 
 	return (
 		<Container
